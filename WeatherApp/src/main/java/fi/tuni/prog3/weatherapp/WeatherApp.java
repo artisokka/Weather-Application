@@ -1,5 +1,8 @@
 package fi.tuni.prog3.weatherapp;
 
+import fi.tuni.prog3.weatherapp.controllers.WeatherController;
+import fi.tuni.prog3.weatherapp.models.WeatherDTO;
+import fi.tuni.prog3.weatherapp.utils.Settings;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -21,7 +24,7 @@ public class WeatherApp extends Application {
 
     @Override
     public void start(Stage stage) {
-        
+        Settings.Init();
         //Creating a new BorderPane.
         BorderPane root = new BorderPane();
         root.setPadding(new Insets(10, 10, 10, 10));
@@ -41,6 +44,14 @@ public class WeatherApp extends Application {
         stage.show();
     }
 
+    private WeatherDTO testWeatherAPI() {
+        WeatherController weatherController = new WeatherController();
+        WeatherDTO weatherDTO = weatherController.getCurrentWeather(61.4978, 23.7610);
+        System.out.println("City: " + weatherDTO.getName());
+        System.out.println("Temperature: " + weatherDTO.getMain().getTemp());
+        return weatherDTO;
+    }
+
     public static void main(String[] args) {
         launch();
     }
@@ -50,20 +61,24 @@ public class WeatherApp extends Application {
         VBox centerHBox = new VBox(10);
         
         //Adding two VBox to the HBox.
-        centerHBox.getChildren().addAll(getTopHBox(), getBottomHBox());
+        centerHBox.getChildren().addAll(getTopVBox(), getBottomHBox());
         
         return centerHBox;
     }
     
-    private HBox getTopHBox() {
+    private VBox getTopVBox() {
         //Creating a VBox for the left side.
-        HBox leftHBox = new HBox();
-        leftHBox.setPrefHeight(330);
-        leftHBox.setStyle("-fx-background-color: #8fc6fd;");
+        VBox leftVBox = new VBox();
+        leftVBox.setPrefHeight(330);
+        leftVBox.setStyle("-fx-background-color: #8fc6fd;");
         
-        leftHBox.getChildren().add(new Label("Top Panel"));
+        leftVBox.getChildren().add(new Label("Top Panel"));
+        WeatherDTO weatherDTO = testWeatherAPI();
+        leftVBox.getChildren().add(new Label("This weather info comes from API (WeatherApp.java:77)" ));
+        leftVBox.getChildren().add(new Label("City: " + weatherDTO.getName()));
+        leftVBox.getChildren().add(new Label("Temperature: " + weatherDTO.getMain().getTemp()));
         
-        return leftHBox;
+        return leftVBox;
     }
     
     private HBox getBottomHBox() {
