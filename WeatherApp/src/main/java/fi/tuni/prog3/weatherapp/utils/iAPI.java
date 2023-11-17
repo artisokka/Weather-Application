@@ -4,8 +4,6 @@
  */
 package fi.tuni.prog3.weatherapp.utils;
 
-import fi.tuni.prog3.weatherapp.models.WeatherDTO;
-
 /**
  * Interface for extracting data from the OpenWeatherMap API.
  */
@@ -24,13 +22,13 @@ public interface iAPI {
      * @param lon The longitude of the location.
      * @return String.
      */
-    public WeatherDTO getCurrentWeather(double lat, double lon);
+    public String getCurrentWeather(double lat, double lon);
 
     /**
      * Returns a forecast for the given coordinates.
      * @param lat The latitude of the location.
      * @param lon The longitude of the location.
-     * @return String.
+     * @return String.body()
      */
     public String getForecast(double lat, double lon);
 }

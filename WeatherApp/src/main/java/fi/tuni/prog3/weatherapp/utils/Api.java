@@ -2,9 +2,6 @@ package fi.tuni.prog3.weatherapp.utils;
 
 import java.net.http.HttpResponse;
 
-import com.google.gson.Gson;
-
-import fi.tuni.prog3.weatherapp.models.WeatherDTO;
 import fi.tuni.prog3.weatherapp.utils.requests.OpenWeatherRequest;
 import fi.tuni.prog3.weatherapp.utils.requests.RequestParameters;
 
@@ -19,7 +16,7 @@ public class Api implements iAPI {
     }
 
     @Override
-    public WeatherDTO getCurrentWeather(double lat, double lon) {
+    public String getCurrentWeather(double lat, double lon) {
         String endpoint = "weather";
         RequestParameters requestParameters = new RequestParameters();
         requestParameters.Add("lat", String.valueOf(lat));
@@ -28,10 +25,7 @@ public class Api implements iAPI {
         RestClient restClient = new RestClient(request);
         HttpResponse<String> response = restClient.getResponse();
 
-        Gson gson = new Gson();
-        WeatherDTO weatherDTO = gson.fromJson(response.body(), WeatherDTO.class);
-
-        return weatherDTO;
+        return response.body();
     }
 
     @Override
