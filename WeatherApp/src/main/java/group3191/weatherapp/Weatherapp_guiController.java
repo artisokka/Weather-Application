@@ -64,7 +64,8 @@ public class Weatherapp_guiController implements Initializable {
     
     @FXML
     void onAction(ActionEvent event) {
-        this.testWeatherAPI();
+        WeatherDTO weather = this.testWeatherAPI();
+        
 
     }
     
