@@ -1,8 +1,12 @@
-module fi.tuni.progthree.weatherapp {
+module group3191.weatherapp {
     requires javafx.controls;
+    requires javafx.fxml;
+    requires java.base;
     requires com.google.gson;
-    requires java.net.http;
     requires io.github.cdimascio.dotenv.java;
-    opens fi.tuni.prog3.weatherapp.models;
-    exports fi.tuni.prog3.weatherapp;
+    requires java.net.http;
+
+    opens group3191.weatherapp to javafx.fxml;
+    opens group3191.models;
+    exports group3191.weatherapp;
 }
