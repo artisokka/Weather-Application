@@ -4,7 +4,9 @@ import fi.tuni.prog3.weatherapp.utils.formatters.DefaultHeaderFormatter;
 import fi.tuni.prog3.weatherapp.utils.Settings;
 import fi.tuni.prog3.weatherapp.utils.formatters.OpenWeatherFormatter;
 
-
+/**
+ * This class represents a request to OpenWeather API
+ */
 public class OpenWeatherRequest extends Request {
     public OpenWeatherRequest(RequestParameters URIParameters, String endpoint) {
         super(URIParameters, new RequestParameters(), endpoint);

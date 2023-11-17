@@ -5,6 +5,9 @@ import java.util.TreeMap;
 import fi.tuni.prog3.weatherapp.utils.formatters.HeaderFormatter;
 import fi.tuni.prog3.weatherapp.utils.formatters.URIFormatter;
 
+/**
+ * This class is used to create a request.
+ */
 public abstract class Request {
 
     protected URIFormatter uriFormat;

@@ -2,6 +2,9 @@ package fi.tuni.prog3.weatherapp.utils.requests;
 
 import java.util.TreeMap;
 
+/**
+ * This class is used to store parameters for a request.
+ */
 public class RequestParameters {
     
     TreeMap<String, String> parameters;

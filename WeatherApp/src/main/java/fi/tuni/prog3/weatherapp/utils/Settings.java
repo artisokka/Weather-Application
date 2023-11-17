@@ -2,13 +2,12 @@ package fi.tuni.prog3.weatherapp.utils;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
+/**
+ * Reads environment variables from .env file
+ */
 public class Settings 
 {
     private static Dotenv dotenv;
-
-    public Settings() {
-        // reads environment variables from .env file
-    }
 
     public static void Init() {
         dotenv = Dotenv.configure().load();

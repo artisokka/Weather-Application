@@ -1,9 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Other/File.java to edit this template
- */
-
 package fi.tuni.prog3.weatherapp.utils;
+
 import fi.tuni.prog3.weatherapp.utils.requests.Request;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -12,8 +8,7 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 
 /**
- *
- * @author dmmile
+ * Sends API requests to OpenWeather API
  */
 public class RestClient {
     Request request;

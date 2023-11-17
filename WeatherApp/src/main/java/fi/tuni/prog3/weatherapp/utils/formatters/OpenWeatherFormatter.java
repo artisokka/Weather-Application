@@ -5,8 +5,7 @@
 package fi.tuni.prog3.weatherapp.utils.formatters;
 
 /**
- *
- * @author dmmile
+ * This class is used to format a URI for the OpenWeatherMap API.
  */
 public class OpenWeatherFormatter extends Formatter {
     

@@ -1,15 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Other/File.java to edit this template
- */
-
 package fi.tuni.prog3.weatherapp.utils.formatters;
 
 import java.util.TreeMap;
 
 /**
- *
- * @author dmmile
+ * This class is used to format a URI for the OpenWeatherMap API.
  */
 abstract class Formatter implements URIFormatter {
     protected String URI;
@@ -26,9 +20,6 @@ abstract class Formatter implements URIFormatter {
     
     @Override
     public abstract void AddParameter(String key, String value);
-
-    //@Override
-    //public abstract void AddKey(String key);
 
     @Override
     public abstract String GetURI();
