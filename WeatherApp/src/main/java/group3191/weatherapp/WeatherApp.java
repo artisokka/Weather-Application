@@ -30,6 +30,7 @@ public class WeatherApp extends Application {
         Settings.Init();
         scene = new Scene(loadFXML("weatherapp_gui"), 500, 700);
         stage.setScene(scene);
+        stage.setTitle("Weather Application");
         stage.show();
     }
 
