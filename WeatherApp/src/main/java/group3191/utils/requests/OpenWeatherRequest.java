@@ -28,4 +28,6 @@ public class OpenWeatherRequest extends Request {
     public void CreateHeaderFormatter(RequestParameters headerParameters) {
         this.hFormat = new DefaultHeaderFormatter();
     }
+
+    
 }

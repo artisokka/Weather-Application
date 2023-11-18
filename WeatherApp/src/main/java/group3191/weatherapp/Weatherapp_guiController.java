@@ -4,8 +4,10 @@
  */
 package group3191.weatherapp;
 
+import com.google.gson.Gson;
 import group3191.controllers.WeatherController;
 import group3191.models.WeatherDTO;
+import group3191.utils.Api;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -112,6 +114,8 @@ public class Weatherapp_guiController implements Initializable {
         System.out.println("Temperature: " + weatherDTO.getMain().getTemp());
         return weatherDTO;
     }
+    
+    
 
     /**
      * Initializes the controller class.
