@@ -14,7 +14,7 @@ public class OpenWeatherRequest extends Request {
 
     @Override
     public void CreateURIFormatter(RequestParameters params) {
-        OpenWeatherFormatter uriFormat = new OpenWeatherFormatter(Settings.GetValue("OPENWEATHER_URI", "https://api.openweathermap.org/data/2.5/"),
+        OpenWeatherFormatter uriFormat = new OpenWeatherFormatter(Settings.OPENWEATHER_URI,
                                          endpoint, Settings.GetValue("API_KEY"));
 
         for (var key : params.GetParameters().keySet()) {
