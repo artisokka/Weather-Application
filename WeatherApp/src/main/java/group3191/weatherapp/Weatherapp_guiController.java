@@ -25,12 +25,17 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import group3191.models.GeoName;
+import javafx.scene.layout.VBox;
+
 /**
  * FXML Controller class
  *
  * @author EeroP
  */
 public class Weatherapp_guiController implements Initializable {
+    
+    private WeatherDTO currentWeather;
 
     @FXML
     private AnchorPane MainPane;
@@ -91,6 +96,9 @@ public class Weatherapp_guiController implements Initializable {
 
             // Get the controller for the search window
             Search_guiController controller = loader.getController();
+            MainController mainCont = new MainController();
+            mainCont.setWeatherController(this);
+            controller.setMainController(mainCont);
 
             // Create a new stage for the search window
             Stage searchStage = new Stage();
@@ -115,7 +123,42 @@ public class Weatherapp_guiController implements Initializable {
         return weatherDTO;
     }
     
+    void setWeather(GeoName location)
+    {
+        WeatherController weatherController = new WeatherController();
+        WeatherDTO weatherDTO = weatherController.getCurrentWeather(location.getLng(), location.getLat());
+        this.currentWeather = weatherDTO;
+    }
     
+    void showWeather()
+    {
+        System.out.println("City: " + this.currentWeather.getName().toString());
+        System.out.println("Temperature: " + this.currentWeather.getMain().getTemp());
+        this.locationLabel.setText(this.currentWeather.getName());
+        
+        int visibility = this.currentWeather.getVisibility();
+        group3191.models.Main main = this.currentWeather.getMain();
+        double temperature = main.getTemp();
+        group3191.models.Wind wind = this.currentWeather.getWind();
+        
+        Label visibilityLabel = new Label("Visibility: " + visibility + " m");
+        Label temperatureLabel = new Label("Temperature: " + temperature + " °C");
+        Label windSpeedLabel = new Label("Wind Speed: " + wind.getSpeed() + " m/s");
+        Label windDegreeLabel = new Label("Wind Degree: " + wind.getDeg() + "°");
+        Label windGustLabel = new Label("Wind Gust: " + wind.getGust() + " m/s");
+        
+        this.weatherTop.getChildren().clear();
+        VBox vbox = new VBox(10);
+        
+        
+        vbox.getChildren().addAll(visibilityLabel, temperatureLabel,
+                                         windSpeedLabel, windDegreeLabel,
+                                         windGustLabel);
+        
+        this.weatherTop.getChildren().add(vbox);
+
+        
+    }
 
     /**
      * Initializes the controller class.
@@ -123,6 +166,7 @@ public class Weatherapp_guiController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        this.currentWeather = this.testWeatherAPI();
     }
 
 }
