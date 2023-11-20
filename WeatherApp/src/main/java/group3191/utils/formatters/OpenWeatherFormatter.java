@@ -24,7 +24,7 @@ public class OpenWeatherFormatter extends Formatter {
         sb.append(endpoint);
         sb.append("?appid=");
         sb.append(key);
-        sb.append("&units=metric");
+        //sb.append("&units=metric");
         for(var key : keyValues.keySet()) {
             sb.append(String.format("&%s=%s", key, keyValues.get(key)));
         }

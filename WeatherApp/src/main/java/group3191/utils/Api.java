@@ -14,7 +14,7 @@ public class Api implements iAPI {
     public String lookUpLocation(String loc) {
         // TODO Auto-generated method stub
         //throw new UnsupportedOperationException("Unimplemented method 'lookUpLocation'");
-        String endpoint = "direct";
+        String endpoint = "find";
         RequestParameters requestParameters = new RequestParameters();
         requestParameters.Add("q", loc);
         requestParameters.Add("limit", "10");
@@ -29,6 +29,7 @@ public class Api implements iAPI {
     public String getCurrentWeather(double lat, double lon) {
         String endpoint = "weather";
         RequestParameters requestParameters = new RequestParameters();
+        requestParameters.Add("units", "metric");
         requestParameters.Add("lat", String.valueOf(lat));
         requestParameters.Add("lon", String.valueOf(lon));
         OpenWeatherRequest request = new OpenWeatherRequest(requestParameters, endpoint);
