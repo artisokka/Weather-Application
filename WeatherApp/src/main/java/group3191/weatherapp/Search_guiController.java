@@ -5,7 +5,9 @@
 package group3191.weatherapp;
 
 import com.google.gson.Gson;
-import group3191.models.GeoNamesResponse;
+
+import group3191.models.geo.GeoName;
+import group3191.models.geo.GeoNamesResponse;
 import group3191.utils.Api;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +16,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 import group3191.utils.ApiHandlerGeoNames;
-import group3191.models.GeoName;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
