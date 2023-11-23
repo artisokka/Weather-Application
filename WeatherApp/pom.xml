@@ -13,7 +13,7 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>13</version>
+            <version>17.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -44,7 +44,7 @@
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.4</version>
+                <version>0.0.8</version>
                 <configuration>
                     <mainClass>group3191.weatherapp.WeatherApp</mainClass>
                 </configuration>

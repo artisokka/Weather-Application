@@ -55,36 +55,37 @@ public class Search_guiController implements Initializable {
     void searchTextFieldOnAction(ActionEvent event) {
         String textContent = this.locationSearchTextField.getText();
         if (!textContent.isEmpty() && !textContent.isBlank()) {
-            System.out.println("testing");
-            GeoNamesResponse result = ApiHandlerGeoNames.getLocationSuggestions(textContent);
-            if (result != null) {
-                ObservableList<GeoName> observableGeoNames = FXCollections.observableArrayList(result.getGeoNames());
-                this.resultsListView.setItems(observableGeoNames);
-
-//                for (int i = 0; i < result.getSize(); i++) {
-//                    System.out.println("result_"+i+" " + result.getIndex(i));
-//                }
+            GeoNamesResponse result = ApiHandlerGeoNames.getLocationSuggestions(
+                    textContent);
+            if (result != null && result.getSize() > 0) {
+                GeoName firstSuggestion = result.getIndex(0);
+                String locationInfo = formatLocationInfo(firstSuggestion);
+                System.out.println(locationInfo);
             }
-
-            //this.testLocationApi(textContent);
         }
+    }
 
+    private String formatLocationInfo(GeoName geoName) {
+        return "Latitude: " + geoName.getLat() + ", Longitude: " + geoName.
+                getLng();
     }
 
     @FXML
     void resultsClicked(MouseEvent event) {
         if (this.mainController != null) {
-            Weatherapp_guiController weatherController = mainController.getWeatherController();
+            Weatherapp_guiController weatherController = mainController.
+                    getWeatherController();
             if (weatherController != null) {
-                GeoName selected = this.resultsListView.getSelectionModel().getSelectedItem();
+                GeoName selected = this.resultsListView.getSelectionModel().
+                        getSelectedItem();
                 if (selected != null) {
+                    String locationInfo = formatLocationInfo(selected);
+                    System.out.println(locationInfo);
                     weatherController.setWeather(selected);
                     weatherController.showWeather();
-                    //setWeather(selected);
                 }
             }
         }
-
     }
 
     private void testLocationApi(String location) {
