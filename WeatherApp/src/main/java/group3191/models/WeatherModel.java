@@ -8,6 +8,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import group3191.models.weather.WeatherDTO;
 import group3191.utils.Api;
 
 public class WeatherModel {
