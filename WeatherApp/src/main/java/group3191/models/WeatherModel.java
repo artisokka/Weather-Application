@@ -18,6 +18,14 @@ public class WeatherModel {
         api = new Api();
     }
 
+    public WeatherDTO lookUpLocation(String loc) {
+        Gson gson = new Gson();
+        String responseBody = api.lookUpLocation(loc);
+        System.out.println(responseBody);
+        WeatherDTO weatherDTO = gson.fromJson(responseBody, WeatherDTO.class);
+        return weatherDTO;
+    }
+
     public WeatherDTO getCurrentWeather(double longitude, double latitude) {
         Gson gson = new Gson();
         String responseBody = api.getCurrentWeather(longitude, latitude);

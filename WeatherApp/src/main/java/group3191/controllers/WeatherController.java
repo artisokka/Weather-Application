@@ -11,6 +11,9 @@ public class WeatherController {
         weatherModel = new WeatherModel();
     }
 
+    public WeatherDTO lookUpLocation(String loc) {
+        return weatherModel.lookUpLocation(loc);
+    }
 
     public WeatherDTO getCurrentWeather(double longitude, double latitude) {
         return weatherModel.getCurrentWeather(longitude, latitude);
