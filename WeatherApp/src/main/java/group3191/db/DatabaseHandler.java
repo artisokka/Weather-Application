@@ -114,7 +114,7 @@ public class DatabaseHandler {
         saveToDb();
     }
 
-     private static File getFileFromResource(String fileName) {
+     private static File getFileFromResource(String fileName) throws IllegalArgumentException {
 
         URL resource = DatabaseHandler.class.getResource(fileName);
         if (resource == null) {
