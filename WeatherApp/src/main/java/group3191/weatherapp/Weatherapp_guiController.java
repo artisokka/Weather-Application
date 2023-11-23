@@ -9,6 +9,7 @@ import group3191.controllers.WeatherController;
 import group3191.models.WeatherDTO;
 import group3191.utils.Api;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -122,6 +123,13 @@ public class Weatherapp_guiController implements Initializable {
         System.out.println("Temperature: " + weatherDTO.getMain().getTemp());
         return weatherDTO;
     }
+
+    private void testGetForecast() {
+        WeatherController weatherController = new WeatherController();
+        List<WeatherDTO> weatherDTOlist = weatherController.getForecast(61.4978, 23.7610);
+        System.out.println("Forecast test");
+        System.out.println("Temperature: " + weatherDTOlist.get(0).getMain().getTemp());
+    }
     
     void setWeather(GeoName location)
     {
@@ -167,6 +175,7 @@ public class Weatherapp_guiController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         this.currentWeather = this.testWeatherAPI();
+        testGetForecast();
     }
 
 }

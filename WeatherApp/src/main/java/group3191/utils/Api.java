@@ -35,17 +35,22 @@ public class Api implements iAPI {
         OpenWeatherRequest request = new OpenWeatherRequest(requestParameters, endpoint);
         RestClient restClient = new RestClient(request);
         HttpResponse<String> response = restClient.getResponse();
-        System.out.println("requestparameters: "+ requestParameters.GetParameters());
-        System.out.println("endpoint: "+ endpoint);
-        System.out.println("request: "+ request.GetURI());
 
         return response.body();
     }
 
     @Override
     public String getForecast(double lat, double lon) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getForecast'");
+        String endpoint = "forecast";
+        RequestParameters requestParameters = new RequestParameters();
+        requestParameters.Add("units", "metric");
+        requestParameters.Add("lat", String.valueOf(lat));
+        requestParameters.Add("lon", String.valueOf(lon));
+        OpenWeatherRequest request = new OpenWeatherRequest(requestParameters, endpoint);
+        RestClient restClient = new RestClient(request);
+        HttpResponse<String> response = restClient.getResponse();
+        
+        return response.body();
     }
     
 }
