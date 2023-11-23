@@ -2,13 +2,16 @@ package group3191.db;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.Writer;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -61,9 +64,31 @@ public class DatabaseHandler {
         } 
     }
 
+    /**
+     * Saves favorites and last search results to the database file
+     * 
+     * @return true if the write was successful, otherwise false
+     */
      private static boolean saveToDb() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'writeToFile'");
+        Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
+        try (Writer writer = new FileWriter(dbFile)) {
+            JsonObject jsonObject = new JsonObject();
+            JsonArray favoritesArr = new JsonArray();
+            favorites.forEach(fav -> {
+                JsonObject favObj = gsonBuilder.toJsonTree(fav).getAsJsonObject();
+                favoritesArr.add(favObj);
+            });
+            jsonObject.add("favorites", favoritesArr);
+            if (lastSearch != null) {
+                JsonObject lastSearchObj = gsonBuilder.toJsonTree(lastSearch).getAsJsonObject();
+                jsonObject.add("lastSearch", lastSearchObj);
+            }
+            gsonBuilder.toJson(jsonObject, writer);
+            return true;
+        } catch (IOException e) {
+            System.out.println("FATAL ERROR: writing database failed!");
+            return false;
+        }
     }
 
     public static Search getLastSearch() {
