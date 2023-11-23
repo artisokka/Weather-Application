@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 import group3191.controllers.WeatherController;
+import group3191.db.DatabaseHandler;
 import group3191.models.WeatherDTO;
 import group3191.utils.Settings;
 
@@ -22,6 +23,7 @@ public class WeatherApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Settings.Init();
+        DatabaseHandler.Init();
         scene = new Scene(loadFXML("weatherapp_gui"), 500, 700);
         stage.setScene(scene);
         stage.setTitle("Weather Application");
