@@ -1,10 +1,13 @@
 package group3191.utils;
 
-import java.net.http.HttpResponse;
-
-
+import com.google.gson.Gson;
+import group3191.models.geo.GeoName;
+import group3191.models.geo.GeoNamesResponse;
 import group3191.utils.requests.OpenWeatherRequest;
 import group3191.utils.requests.RequestParameters;
+
+import java.io.IOException;
+import java.net.http.HttpResponse;
 
 public class Api implements iAPI {
 
