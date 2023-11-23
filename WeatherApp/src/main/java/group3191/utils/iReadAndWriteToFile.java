@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package group3191.weatherapp;
+package group3191.utils;
 
 /**
  * Interface with methods to read from a file and write to a file.
