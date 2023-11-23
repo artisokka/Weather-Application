@@ -5,13 +5,19 @@ import group3191.models.geo.GeoName;
 import group3191.models.geo.GeoNamesResponse;
 import group3191.utils.requests.OpenWeatherRequest;
 import group3191.utils.requests.RequestParameters;
+import java.io.BufferedReader;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 
 public class Api implements iAPI {
 
-    public Api() {}
+    public Api() {
+    }
 
     @Override
     public String lookUpLocation(String loc) {
@@ -19,7 +25,8 @@ public class Api implements iAPI {
         RequestParameters requestParameters = new RequestParameters();
         requestParameters.Add("q", loc);
         requestParameters.Add("limit", "10");
-        OpenWeatherRequest request = new OpenWeatherRequest(requestParameters, endpoint);
+        OpenWeatherRequest request = new OpenWeatherRequest(requestParameters,
+                endpoint);
         RestClient restClient = new RestClient(request);
         HttpResponse<String> response = restClient.getResponse();
 
@@ -34,7 +41,8 @@ public class Api implements iAPI {
         requestParameters.Add("units", "metric");
         requestParameters.Add("lat", String.valueOf(lat));
         requestParameters.Add("lon", String.valueOf(lon));
-        OpenWeatherRequest request = new OpenWeatherRequest(requestParameters, endpoint);
+        OpenWeatherRequest request = new OpenWeatherRequest(requestParameters,
+                endpoint);
         RestClient restClient = new RestClient(request);
         HttpResponse<String> response = restClient.getResponse();
 
@@ -48,7 +56,8 @@ public class Api implements iAPI {
         requestParameters.Add("units", "metric");
         requestParameters.Add("lat", String.valueOf(lat));
         requestParameters.Add("lon", String.valueOf(lon));
-        OpenWeatherRequest request = new OpenWeatherRequest(requestParameters, endpoint);
+        OpenWeatherRequest request = new OpenWeatherRequest(requestParameters,
+                endpoint);
         RestClient restClient = new RestClient(request);
         HttpResponse<String> response = restClient.getResponse();
 
