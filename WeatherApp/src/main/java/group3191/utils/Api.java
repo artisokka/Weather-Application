@@ -9,20 +9,25 @@ import group3191.utils.requests.RequestParameters;
 public class Api implements iAPI {
 
     public Api() {}
-    
+
     @Override
     public String lookUpLocation(String loc) {
-        // TODO Auto-generated method stub
-        //throw new UnsupportedOperationException("Unimplemented method 'lookUpLocation'");
         String endpoint = "find";
         RequestParameters requestParameters = new RequestParameters();
         requestParameters.Add("q", loc);
         requestParameters.Add("limit", "10");
-        OpenWeatherRequest request = new OpenWeatherRequest(requestParameters, endpoint);
+        requestParameters.Add("appid", Settings.GetValue("API_KEY"));
+        OpenWeatherRequest request = new OpenWeatherRequest(requestParameters,
+                endpoint);
         RestClient restClient = new RestClient(request);
-        HttpResponse<String> response = restClient.getResponse();
-        return response.body();
-        
+
+        try {
+            HttpResponse<String> response = restClient.getResponse();
+            return response.body();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error occurred during API request.";
+        }
     }
 
     @Override
@@ -49,8 +54,8 @@ public class Api implements iAPI {
         OpenWeatherRequest request = new OpenWeatherRequest(requestParameters, endpoint);
         RestClient restClient = new RestClient(request);
         HttpResponse<String> response = restClient.getResponse();
-        
+
         return response.body();
     }
-    
+
 }
