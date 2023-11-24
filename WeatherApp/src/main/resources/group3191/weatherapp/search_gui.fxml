@@ -2,14 +2,38 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="group3191.weatherapp.Search_guiController">
+<AnchorPane id="AnchorPane" prefHeight="360.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="group3191.weatherapp.Search_guiController">
    <children>
-      <TextField fx:id="locationSearchTextField" layoutX="14.0" layoutY="39.0" onAction="#searchTextFieldOnAction" prefHeight="25.0" prefWidth="237.0" promptText="Type location or part of it and press enter" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
-      <Label fx:id="locationLabel" layoutX="14.0" layoutY="14.0" text="Location" AnchorPane.leftAnchor="20.0" />
-      <ListView fx:id="resultsListView" layoutX="14.0" layoutY="150.0" onMouseClicked="#resultsClicked" prefHeight="200.0" prefWidth="237.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
-      <Label fx:id="resultsLabel" layoutX="20.0" layoutY="156.0" text="Search results" />
+      <TabPane layoutX="80.0" layoutY="15.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab fx:id="searchTab" text="Search">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="resultsListView" onMouseClicked="#resultsClicked" prefHeight="200.0" prefWidth="237.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+                        <TextField fx:id="locationSearchTextField" layoutX="32.0" layoutY="56.0" onAction="#searchTextFieldOnAction" prefHeight="25.0" prefWidth="237.0" promptText="Type location or part of it and press enter" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+                        <Label fx:id="locationLabel" layoutX="25.0" layoutY="39.0" text="Location" AnchorPane.leftAnchor="20.0" />
+                        <Label fx:id="resultsLabel" layoutX="20.0" layoutY="90.0" text="Search results" AnchorPane.leftAnchor="20.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="favoritesTab" text="Favorites">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="favoritesListView" layoutX="14.0" layoutY="80.0" onMouseClicked="#favoritesClicked" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+                        <Label fx:id="favoritesLabel" layoutX="20.0" layoutY="88.0" text="Favorites" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </AnchorPane>

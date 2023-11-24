@@ -46,6 +46,9 @@ public class Weatherapp_guiController implements Initializable {
 
     @FXML
     private Label locationLabel;
+    
+     @FXML
+    private Label favoritesLabel;
 
     @FXML
     private MenuBar menuBar;
@@ -100,6 +103,7 @@ public class Weatherapp_guiController implements Initializable {
             MainController mainCont = new MainController();
             mainCont.setWeatherController(this);
             controller.setMainController(mainCont);
+            
 
             // Create a new stage for the search window
             Stage searchStage = new Stage();

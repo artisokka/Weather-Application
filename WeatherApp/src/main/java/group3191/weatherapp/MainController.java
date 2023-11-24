@@ -18,5 +18,5 @@ public class MainController {
     public Weatherapp_guiController getWeatherController() {
         return weatherController;
     }
-    
+
 }

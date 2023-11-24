@@ -22,7 +22,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.Tab;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -48,6 +51,18 @@ public class Search_guiController implements Initializable {
 
     @FXML
     private ListView<GeoName> resultsListView;
+    
+    @FXML
+    private Tab searchTab;
+
+    @FXML
+    private Label favoritesLabel;
+
+    @FXML
+    private ListView<GeoName> favoritesListView;
+
+    @FXML
+    private Tab favoritesTab;
 
     @FXML
     void searchTextFieldOnAction(ActionEvent event) {
@@ -66,6 +81,11 @@ public class Search_guiController implements Initializable {
 
             //this.testLocationApi(textContent);
         }
+
+    }
+    
+    @FXML
+    void favoritesClicked(MouseEvent event) {
 
     }
 
@@ -98,7 +118,8 @@ public class Search_guiController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        resultsListView.setCellFactory(FavoriteCell.getFavoriteCellFactory());
+        //this.favoritesListView.setCellFactory(FavoriteCell.getFavoriteCellFactory());
 
     }
 
