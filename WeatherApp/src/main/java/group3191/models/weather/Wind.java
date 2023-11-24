@@ -1,4 +1,4 @@
-package group3191.models;
+package group3191.models.weather;
 
 public class Wind {
     private double speed;

@@ -2,8 +2,8 @@ package group3191.controllers;
 
 import java.util.List;
 
-import group3191.models.WeatherDTO;
 import group3191.models.WeatherModel;
+import group3191.models.weather.WeatherDTO;
 
 public class WeatherController {
     private WeatherModel weatherModel;

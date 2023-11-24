@@ -6,7 +6,6 @@ package group3191.weatherapp;
 
 import com.google.gson.Gson;
 import group3191.controllers.WeatherController;
-import group3191.models.WeatherDTO;
 import group3191.utils.Api;
 import java.net.URL;
 import java.util.List;
@@ -25,8 +24,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import group3191.models.GeoName;
+import group3191.models.geo.GeoName;
+import group3191.models.weather.WeatherDTO;
 import javafx.scene.layout.VBox;
 
 /**
@@ -150,9 +149,9 @@ public class Weatherapp_guiController implements Initializable {
         this.locationLabel.setText(this.currentWeather.getName());
         
         int visibility = this.currentWeather.getVisibility();
-        group3191.models.Main main = this.currentWeather.getMain();
+        group3191.models.weather.Main main = this.currentWeather.getMain();
         double temperature = main.getTemp();
-        group3191.models.Wind wind = this.currentWeather.getWind();
+        group3191.models.weather.Wind wind = this.currentWeather.getWind();
         
         Label visibilityLabel = new Label("Visibility: " + visibility + " m");
         Label temperatureLabel = new Label("Temperature: " + temperature + " °C");

@@ -5,6 +5,10 @@
 package group3191.utils;
 
 import com.google.gson.Gson;
+
+import group3191.models.geo.GeoName;
+import group3191.models.geo.GeoNamesResponse;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,9 +17,6 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-
-import group3191.models.GeoNamesResponse;
-import group3191.models.GeoName;
 
 
 /**
