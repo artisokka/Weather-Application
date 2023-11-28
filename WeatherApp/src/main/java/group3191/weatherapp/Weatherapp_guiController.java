@@ -138,7 +138,7 @@ public class Weatherapp_guiController implements Initializable {
         System.out.println("Testing lookUpLocation(): ");
 
         if (weatherDTO.getCoord() != null) {
-            System.out.format("Latti: %f, Lonni: %f", weatherDTO.getCoord().
+            System.out.format("Lat: %f, Lon: %f", weatherDTO.getCoord().
                     getLat(), weatherDTO.getCoord().getLon());
         } else {
             System.out.println("Coordinates are null");

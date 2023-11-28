@@ -4,9 +4,7 @@ import java.net.http.HttpResponse;
 
 import group3191.utils.requests.OpenWeatherRequest;
 import group3191.utils.requests.RequestParameters;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 public class Api implements iAPI {
 
