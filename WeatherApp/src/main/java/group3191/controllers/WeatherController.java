@@ -6,7 +6,9 @@ import group3191.models.WeatherModel;
 import group3191.models.weather.WeatherDTO;
 
 public class WeatherController {
+
     private WeatherModel weatherModel;
+
     public WeatherController() {
         weatherModel = new WeatherModel();
     }

@@ -2,13 +2,16 @@ package group3191.utils;
 
 import java.net.http.HttpResponse;
 
-
 import group3191.utils.requests.OpenWeatherRequest;
 import group3191.utils.requests.RequestParameters;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
 
 public class Api implements iAPI {
 
-    public Api() {}
+    public Api() {
+    }
 
     @Override
     public String lookUpLocation(String loc) {
@@ -16,12 +19,12 @@ public class Api implements iAPI {
         RequestParameters requestParameters = new RequestParameters();
         requestParameters.Add("q", loc);
         requestParameters.Add("limit", "10");
-        OpenWeatherRequest request = new OpenWeatherRequest(requestParameters, endpoint);
+        OpenWeatherRequest request = new OpenWeatherRequest(requestParameters,
+                endpoint);
         RestClient restClient = new RestClient(request);
         HttpResponse<String> response = restClient.getResponse();
 
         return response.body();
-
     }
 
     @Override
@@ -31,7 +34,8 @@ public class Api implements iAPI {
         requestParameters.Add("units", "metric");
         requestParameters.Add("lat", String.valueOf(lat));
         requestParameters.Add("lon", String.valueOf(lon));
-        OpenWeatherRequest request = new OpenWeatherRequest(requestParameters, endpoint);
+        OpenWeatherRequest request = new OpenWeatherRequest(requestParameters,
+                endpoint);
         RestClient restClient = new RestClient(request);
         HttpResponse<String> response = restClient.getResponse();
 
@@ -45,7 +49,8 @@ public class Api implements iAPI {
         requestParameters.Add("units", "metric");
         requestParameters.Add("lat", String.valueOf(lat));
         requestParameters.Add("lon", String.valueOf(lon));
-        OpenWeatherRequest request = new OpenWeatherRequest(requestParameters, endpoint);
+        OpenWeatherRequest request = new OpenWeatherRequest(requestParameters,
+                endpoint);
         RestClient restClient = new RestClient(request);
         HttpResponse<String> response = restClient.getResponse();
 

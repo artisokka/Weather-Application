@@ -34,7 +34,7 @@ import javafx.scene.layout.VBox;
  * @author EeroP
  */
 public class Weatherapp_guiController implements Initializable {
-    
+
     private WeatherDTO currentWeather;
 
     @FXML
@@ -89,9 +89,9 @@ public class Weatherapp_guiController implements Initializable {
 
     @FXML
     void searchAndFauvoritesOnAction(ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("search_gui.fxml"));
-        try
-        {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                "search_gui.fxml"));
+        try {
             Parent root = loader.load();
 
             // Get the controller for the search window
@@ -107,17 +107,17 @@ public class Weatherapp_guiController implements Initializable {
 
             // Show the search window
             searchStage.show();
-        } catch(Exception error)
-        {
-            System.out.println("error in searchAndFauvorites eventhandler: "+error);
+        } catch (Exception error) {
+            System.out.println("error in searchAndFauvorites eventhandler: " +
+                    error);
         }
-            
 
     }
 
     private WeatherDTO testWeatherAPI() {
         WeatherController weatherController = new WeatherController();
-        WeatherDTO weatherDTO = weatherController.getCurrentWeather(61.4978, 23.7610);
+        WeatherDTO weatherDTO = weatherController.getCurrentWeather(61.4978,
+                23.7610);
         System.out.println("City: " + weatherDTO.getName());
         System.out.println("Temperature: " + weatherDTO.getMain().getTemp());
         return weatherDTO;
@@ -125,47 +125,62 @@ public class Weatherapp_guiController implements Initializable {
 
     private void testGetForecast() {
         WeatherController weatherController = new WeatherController();
-        List<WeatherDTO> weatherDTOlist = weatherController.getForecast(61.4978, 23.7610);
+        List<WeatherDTO> weatherDTOlist = weatherController.getForecast(61.4978,
+                23.7610);
         System.out.println("Forecast test");
-        System.out.println("Temperature: " + weatherDTOlist.get(0).getMain().getTemp());
+        System.out.println("Temperature: " + weatherDTOlist.get(0).getMain().
+                getTemp());
     }
-    
-    void setWeather(GeoName location)
-    {
+
+    private void testLookUpLocation() {
+        WeatherController weatherController = new WeatherController();
+        WeatherDTO weatherDTO = weatherController.lookUpLocation("Lieksa");
+        System.out.println("Testing lookUpLocation(): ");
+
+        if (weatherDTO.getCoord() != null) {
+            System.out.format("Latti: %f, Lonni: %f", weatherDTO.getCoord().
+                    getLat(), weatherDTO.getCoord().getLon());
+        } else {
+            System.out.println("Coordinates are null");
+        }
+    }
+
+    void setWeather(GeoName location) {
         WeatherController weatherController = new WeatherController();
         //WeatherDTO weatherDTO = weatherController.getCurrentWeather(location.getLng(), location.getLat());
-        WeatherDTO weatherDTO = weatherController.getCurrentWeather(location.getLat(), location.getLng());
+        WeatherDTO weatherDTO = weatherController.getCurrentWeather(location.
+                getLat(), location.getLng());
         this.currentWeather = weatherDTO;
     }
-    
-    void showWeather()
-    {
+
+    void showWeather() {
         System.out.println("City: " + this.currentWeather.getName().toString());
-        System.out.println("Temperature: " + this.currentWeather.getMain().getTemp());
+        System.out.println("Temperature: " + this.currentWeather.getMain().
+                getTemp());
         this.locationLabel.setText(this.currentWeather.getName());
-        
+
         int visibility = this.currentWeather.getVisibility();
         group3191.models.weather.Main main = this.currentWeather.getMain();
         double temperature = main.getTemp();
         group3191.models.weather.Wind wind = this.currentWeather.getWind();
-        
+
         Label visibilityLabel = new Label("Visibility: " + visibility + " m");
-        Label temperatureLabel = new Label("Temperature: " + temperature + " °C");
-        Label windSpeedLabel = new Label("Wind Speed: " + wind.getSpeed() + " m/s");
+        Label temperatureLabel =
+                new Label("Temperature: " + temperature + " °C");
+        Label windSpeedLabel = new Label("Wind Speed: " + wind.getSpeed() +
+                " m/s");
         Label windDegreeLabel = new Label("Wind Degree: " + wind.getDeg() + "°");
         Label windGustLabel = new Label("Wind Gust: " + wind.getGust() + " m/s");
-        
+
         this.weatherTop.getChildren().clear();
         VBox vbox = new VBox(10);
-        
-        
+
         vbox.getChildren().addAll(visibilityLabel, temperatureLabel,
-                                         windSpeedLabel, windDegreeLabel,
-                                         windGustLabel);
-        
+                windSpeedLabel, windDegreeLabel,
+                windGustLabel);
+
         this.weatherTop.getChildren().add(vbox);
 
-        
     }
 
     /**
@@ -175,7 +190,8 @@ public class Weatherapp_guiController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         this.currentWeather = this.testWeatherAPI();
-        testGetForecast();
+        //testGetForecast();
+        testLookUpLocation();
     }
 
 }

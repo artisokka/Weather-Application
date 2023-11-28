@@ -12,6 +12,7 @@ import group3191.models.weather.WeatherDTO;
 import group3191.utils.Api;
 
 public class WeatherModel {
+
     private Api api;
 
     public WeatherModel() {
@@ -23,7 +24,8 @@ public class WeatherModel {
         String responseBody = api.lookUpLocation(loc);
         System.out.println(responseBody);
         WeatherDTO weatherDTO = gson.fromJson(responseBody, WeatherDTO.class);
-        return weatherDTO;
+        List<WeatherDTO> weatherDTOList = getWeatherList(responseBody);
+        return weatherDTOList.get(0);
     }
 
     public WeatherDTO getCurrentWeather(double longitude, double latitude) {
@@ -43,12 +45,14 @@ public class WeatherModel {
     private List<WeatherDTO> getWeatherList(String responseBody) {
         List<WeatherDTO> weatherList = new ArrayList<>();
         Gson gson = new Gson();
-        JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
+        JsonObject jsonObject = JsonParser.parseString(responseBody).
+                getAsJsonObject();
         JsonArray jsonArray = jsonObject.getAsJsonArray("list");
 
         for (int i = 0; i < jsonArray.size(); i++) {
             JsonObject weatherObject = jsonArray.get(i).getAsJsonObject();
-            WeatherDTO weatherDTO = gson.fromJson(weatherObject, WeatherDTO.class);
+            WeatherDTO weatherDTO = gson.fromJson(weatherObject,
+                    WeatherDTO.class);
             weatherList.add(weatherDTO);
         }
 
