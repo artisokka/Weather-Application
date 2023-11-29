@@ -36,6 +36,7 @@ import javafx.scene.layout.VBox;
 public class Weatherapp_guiController implements Initializable {
     
     private WeatherDTO currentWeather;
+    private GeoName currentLocation;
 
     @FXML
     private AnchorPane MainPane;
@@ -139,14 +140,21 @@ public class Weatherapp_guiController implements Initializable {
         WeatherController weatherController = new WeatherController();
         //WeatherDTO weatherDTO = weatherController.getCurrentWeather(location.getLng(), location.getLat());
         WeatherDTO weatherDTO = weatherController.getCurrentWeather(location.getLat(), location.getLng());
+        this.currentLocation = location;
         this.currentWeather = weatherDTO;
     }
     
     void showWeather()
     {
-        System.out.println("City: " + this.currentWeather.getName().toString());
+        System.out.println("City: " + this.currentWeather.getName());
         System.out.println("Temperature: " + this.currentWeather.getMain().getTemp());
-        this.locationLabel.setText(this.currentWeather.getName());
+        
+        String locationText = 
+                String.format("%s (%s)", 
+                        this.currentLocation.getCityName(), 
+                        this.currentWeather.getName());
+        
+        this.locationLabel.setText(locationText);
         
         int visibility = this.currentWeather.getVisibility();
         group3191.models.weather.Main main = this.currentWeather.getMain();

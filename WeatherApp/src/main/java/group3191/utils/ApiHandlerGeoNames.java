@@ -24,8 +24,10 @@ import java.util.List;
  * @author EeroP
  */
 public class ApiHandlerGeoNames {
+    private static String RESULTS_MAX_ROWS ="10"; // tämän voisi siirtää asetuksiin, joissa käyttäjä valitsee montako tulosta näytetään
     
     public static GeoNamesResponse getLocationSuggestions(String partialInput) {
+      
 
     String username = Settings.GetValue("GEONAMES_USERNAME");
 
@@ -33,7 +35,7 @@ public class ApiHandlerGeoNames {
         String urlString = "http://api.geonames.org/searchJSON?name_startsWith=" +
         //String urlString = "http://api.geonames.org/searchJSON?q=" +
                 partialInput +
-                "&maxRows=10&username=" +
+                "&maxRows="+RESULTS_MAX_ROWS+"&username=" +
                 username;
 
         URL url = new URL(urlString);

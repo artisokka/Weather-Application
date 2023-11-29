@@ -37,5 +37,31 @@ public class GeoName {
         return this.getCityName() + ", " + countryName + ", lat=" + lat + ", long=" + lng;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null)
+        {
+            return false;
+        }
+        if(obj.getClass() != this.getClass())
+        {
+            return false;
+        }
+        
+        final GeoName other = (GeoName)obj;
+        if(other.getCityName() == null || other.getCountryName() == null)
+        {
+            return false;
+        }
+        if(!other.getCityName().equals(this.getCityName()) ||
+                (!other.getCountryName().equals(this.getCountryName())) ||
+                other.getLat() != this.getLat() || 
+                        other.getLng() != this.getLng())
+        {
+            return false;
+        }
+        return true;
+    }
+
    
 }
