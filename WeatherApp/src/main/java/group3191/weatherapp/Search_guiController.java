@@ -39,6 +39,8 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
 
+import group3191.db.DatabaseHandler;
+
 /**
  * FXML Controller class
  *
@@ -49,6 +51,8 @@ public class Search_guiController implements Initializable {
     private ArrayList<GeoName> favorites;
 
     private MainController mainController;
+    
+    private DatabaseHandler databaseHandler;
 
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
@@ -177,7 +181,7 @@ public class Search_guiController implements Initializable {
             for (int i = 1; i < gridPane.getRowCount(); i++) {
                 Button button = (Button) gridPane.getChildren().get(i * gridPane.getColumnCount());
                 double buttonWidth = button.getWidth(); // Get preferred width of the button
-                int wtf = 1;
+                
 
                 if (buttonWidth > maxWidth) {
                     maxWidth = buttonWidth;
@@ -212,13 +216,14 @@ public class Search_guiController implements Initializable {
 
                 this.favoritesGridPane.addRow(row + 1, location, removeButton);
             }
-            this.adjustButtonWidths(this.favoritesGridPane);
+            //this.adjustButtonWidths(this.favoritesGridPane);
         }
 
     }
 
     void removeFavorite(GeoName location) {
         this.favorites.remove(location);
+        DatabaseHandler.removeFavorite(location);
         this.updateFavorites();
         this.updateSearchResults();
     }
@@ -242,6 +247,7 @@ public class Search_guiController implements Initializable {
             //favoriteButton.setText("isFavorite");
             favoriteButton.setGraphic(new ImageView("/icons/fav_icon_full.png"));
             this.favorites.add(location);
+            DatabaseHandler.addFavorite(location);
 //            var items = this.favoritesListView.getItems();
 //            items.add(location);
         }
@@ -257,6 +263,7 @@ public class Search_guiController implements Initializable {
                 if (location != null) {
                     weatherController.setWeather(location);
                     weatherController.showWeather();
+                    DatabaseHandler.setLastSearch(location);
                     //setWeather(selected);
                 }
             }
@@ -296,7 +303,12 @@ public class Search_guiController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.favorites = new ArrayList();
+        this.favorites = new ArrayList<>(DatabaseHandler.getFavorites());
+        this.updateFavorites();
+        
+        
+        
+        
 //        resultsListView.setCellFactory(getFavoriteCellFactory(this::addToFavoritesHandler, this::removeFromFavoritesHandler));
 //        favoritesListView.setCellFactory(getFavoriteCellFactory(this::addToFavoritesHandler, this::removeFromFavoritesHandler));
 

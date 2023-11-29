@@ -16,14 +16,16 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import group3191.models.geo.GeoName;
+
 import group3191.models.db.Search;
 
 public class DatabaseHandler {
 
     private static final String fileName = "db.json";
     private static File dbFile;
-    private static List<Search> favorites = new ArrayList<Search>();
-    private static Search lastSearch;
+    private static List<GeoName> favorites = new ArrayList<GeoName>();
+    private static GeoName lastSearch;
     private static Gson gson = new Gson();
     
     /**
@@ -50,14 +52,16 @@ public class DatabaseHandler {
             // get favorites
             favoritesArr.forEach(fav -> {
                 JsonObject favObj = fav.getAsJsonObject();
-                Search search = gson.fromJson(favObj, Search.class);
-                favorites.add(search);
+                GeoName geoName = gson.fromJson(favObj, GeoName.class);
+                //Search search = gson.fromJson(favObj, Search.class);
+                favorites.add(geoName);
             });
             // get last search
             JsonObject lastSearchObj = jsonObject.getAsJsonObject("lastSearch");
             // Check if lastSearchObj is not null and not JsonNull
             if (lastSearchObj != null && !lastSearchObj.isJsonNull()) {
-                lastSearch = gson.fromJson(lastSearchObj, Search.class);
+                lastSearch = gson.fromJson(lastSearchObj, GeoName.class);
+                //lastSearch = gson.fromJson(lastSearchObj, Search.class);
             } else {
                 lastSearch = null;
             }
@@ -91,25 +95,25 @@ public class DatabaseHandler {
         }
     }
 
-    public static Search getLastSearch() {
+    public static GeoName getLastSearch() {
         return lastSearch;
     }
 
-    public static void setLastSearch(Search lastSearch) {
+    public static void setLastSearch(GeoName lastSearch) {
         DatabaseHandler.lastSearch = lastSearch;
         saveToDb();
     }
 
-    public static List<Search> getFavorites() {
+    public static List<GeoName> getFavorites() {
         return favorites;
     }
 
-    public static void addFavorite(Search search) {
+    public static void addFavorite(GeoName search) {
         favorites.add(search);
         saveToDb();
     }
 
-    public static void removeFavorite(Search search) {
+    public static void removeFavorite(GeoName search) {
         favorites.remove(search);
         saveToDb();
     }
@@ -121,5 +125,6 @@ public class DatabaseHandler {
             throw new IllegalArgumentException("File not found: " + fileName);
         }
         return new File(resource.getFile());
+        
     }
 }

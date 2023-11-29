@@ -6,6 +6,7 @@ package group3191.weatherapp;
 
 import com.google.gson.Gson;
 import group3191.controllers.WeatherController;
+import group3191.db.DatabaseHandler;
 import group3191.utils.Api;
 import java.net.URL;
 import java.util.List;
@@ -26,6 +27,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import group3191.models.geo.GeoName;
 import group3191.models.weather.WeatherDTO;
+import javafx.application.Platform;
 import javafx.scene.layout.VBox;
 
 /**
@@ -185,9 +187,23 @@ public class Weatherapp_guiController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.showLast();
         // TODO
-        this.currentWeather = this.testWeatherAPI();
-        testGetForecast();
+        //this.currentWeather = this.testWeatherAPI();
+        //testGetForecast();
+    }
+    
+    private void showLast()
+    {
+        Platform.runLater(() -> {
+        GeoName last = DatabaseHandler.getLastSearch();
+        System.out.println("Last: "+last);
+        if(last != null)
+        {
+            this.setWeather(last);
+        }
+        
+        });
     }
 
 }
