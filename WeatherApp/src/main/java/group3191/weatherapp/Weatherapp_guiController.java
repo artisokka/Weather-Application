@@ -82,6 +82,8 @@ public class Weatherapp_guiController implements Initializable {
     @FXML
     private AnchorPane weatherTop;
 
+    private GeoName defaultWeather = new GeoName("Tampere", "Finland", 61.4991, 23.7871);
+
     @FXML
     void onAction(ActionEvent event) {
 
@@ -89,8 +91,7 @@ public class Weatherapp_guiController implements Initializable {
 
     @FXML
     void refreshOnAction(ActionEvent event) {
-        WeatherDTO weather = this.testWeatherAPI();
-
+        
     }
 
     @FXML
@@ -121,26 +122,10 @@ public class Weatherapp_guiController implements Initializable {
             
 
     }
-
-    private WeatherDTO testWeatherAPI() {
-        WeatherController weatherController = new WeatherController();
-        WeatherDTO weatherDTO = weatherController.getCurrentWeather(61.4978, 23.7610);
-        System.out.println("City: " + weatherDTO.getName());
-        System.out.println("Temperature: " + weatherDTO.getMain().getTemp());
-        return weatherDTO;
-    }
-
-    private void testGetForecast() {
-        WeatherController weatherController = new WeatherController();
-        List<WeatherDTO> weatherDTOlist = weatherController.getForecast(61.4978, 23.7610);
-        System.out.println("Forecast test");
-        System.out.println("Temperature: " + weatherDTOlist.get(0).getMain().getTemp());
-    }
     
     void setWeather(GeoName location)
     {
         WeatherController weatherController = new WeatherController();
-        //WeatherDTO weatherDTO = weatherController.getCurrentWeather(location.getLng(), location.getLat());
         WeatherDTO weatherDTO = weatherController.getCurrentWeather(location.getLat(), location.getLng());
         System.out.println("weatherDTO: "+weatherDTO);
         this.currentLocation = location;
@@ -197,13 +182,11 @@ public class Weatherapp_guiController implements Initializable {
     private void showLast()
     {
         Platform.runLater(() -> {
-        GeoName last = DatabaseHandler.getLastSearch();
-        System.out.println("Last: "+last);
-        if(last != null)
-        {
-            this.setWeather(last);
-        }
-        
+            GeoName last = DatabaseHandler.getLastSearch();
+            this.currentLocation = last != null ? last : defaultWeather;
+            System.out.println("currentLocation: " + currentLocation);
+            this.setWeather(this.currentLocation);
+            this.showWeather();
         });
     }
 
