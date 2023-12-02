@@ -142,6 +142,7 @@ public class Weatherapp_guiController implements Initializable {
         WeatherController weatherController = new WeatherController();
         //WeatherDTO weatherDTO = weatherController.getCurrentWeather(location.getLng(), location.getLat());
         WeatherDTO weatherDTO = weatherController.getCurrentWeather(location.getLat(), location.getLng());
+        System.out.println("weatherDTO: "+weatherDTO);
         this.currentLocation = location;
         this.currentWeather = weatherDTO;
     }
