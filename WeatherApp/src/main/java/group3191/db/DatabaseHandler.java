@@ -32,7 +32,7 @@ public class DatabaseHandler {
     * COnly initialized once at the start of the application
     */ 
     public static void Init() {
-        dbFile = getFileFromResource(fileName);
+        dbFile = new File(fileName);
         try {
             readFromDb();
         } catch (IOException e) {

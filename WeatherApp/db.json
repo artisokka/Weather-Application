@@ -1,0 +1,14 @@
+{
+  "favorites": [
+    {
+      "name": "Tampere",
+      "countryName": "Finland",
+      "lat": 61.49911,
+      "lng": 23.78712
+    }
+  ],
+  "lastSearch": {
+    "lat": 0.0,
+    "lng": 0.0
+  }
+}
