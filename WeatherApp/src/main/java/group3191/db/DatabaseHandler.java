@@ -58,10 +58,10 @@ public class DatabaseHandler {
             });
             // get last search
             JsonObject lastSearchObj = jsonObject.getAsJsonObject("lastSearch");
+            System.out.println();
             // Check if lastSearchObj is not null and not JsonNull
-            if (lastSearchObj != null && !lastSearchObj.isJsonNull()) {
+            if (lastSearchObj != null && lastSearchObj.get("name") != null && !lastSearchObj.isJsonNull()) {
                 lastSearch = gson.fromJson(lastSearchObj, GeoName.class);
-                //lastSearch = gson.fromJson(lastSearchObj, Search.class);
             } else {
                 lastSearch = null;
             }

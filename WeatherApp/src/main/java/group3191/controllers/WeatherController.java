@@ -12,12 +12,12 @@ public class WeatherController {
     }
 
 
-    public WeatherDTO getCurrentWeather(double longitude, double latitude) {
-        return weatherModel.getCurrentWeather(longitude, latitude);
+    public WeatherDTO getCurrentWeather(double latitude, double longitude) {
+        return weatherModel.getCurrentWeather(latitude, longitude);
     }
 
-    public List<WeatherDTO> getForecast(double longitude, double latitude) {
-        return weatherModel.getForecast(longitude, latitude);
+    public List<WeatherDTO> getForecast(double latitude, double longitude) {
+        return weatherModel.getForecast(latitude, longitude);
     }
 
 }

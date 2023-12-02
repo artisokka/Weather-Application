@@ -4,11 +4,8 @@
       "name": "Tampere",
       "countryName": "Finland",
       "lat": 61.49911,
-      "lng": 23.78712
+      "lng": 23.7871
     }
   ],
-  "lastSearch": {
-    "lat": 0.0,
-    "lng": 0.0
-  }
+  "lastSearch": {}
 }

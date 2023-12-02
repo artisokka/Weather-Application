@@ -16,6 +16,13 @@ public class GeoName {
     private double lat;
     private double lng;
 
+    public GeoName(String name, String countryName, double lat, double lng) {
+        this.name = name;
+        this.countryName = countryName;
+        this.lat = lat;
+        this.lng = lng;
+    }
+
     public String getCityName() {
         return name;
     }

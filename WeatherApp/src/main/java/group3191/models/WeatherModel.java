@@ -18,16 +18,16 @@ public class WeatherModel {
         api = new Api();
     }
 
-    public WeatherDTO getCurrentWeather(double longitude, double latitude) {
+    public WeatherDTO getCurrentWeather(double latitude, double longitude) {
         Gson gson = new Gson();
-        String responseBody = api.getCurrentWeather(longitude, latitude);
+        String responseBody = api.getCurrentWeather(latitude, longitude);
         System.out.println(responseBody);
         WeatherDTO weatherDTO = gson.fromJson(responseBody, WeatherDTO.class);
         return weatherDTO;
     }
 
-    public List<WeatherDTO> getForecast(double longitude, double latitude) {
-        String responseBody = api.getForecast(longitude, latitude);
+    public List<WeatherDTO> getForecast(double latitude, double longitude) {
+        String responseBody = api.getForecast(latitude, longitude);
         List<WeatherDTO> weatherDTOList = getWeatherList(responseBody);
         return weatherDTOList;
     }
