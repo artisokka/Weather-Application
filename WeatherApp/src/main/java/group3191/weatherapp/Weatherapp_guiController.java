@@ -28,7 +28,11 @@ import javafx.stage.Stage;
 import group3191.models.geo.GeoName;
 import group3191.models.weather.WeatherDTO;
 import javafx.application.Platform;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+
+import group3191.weatherapp.gui_utilities.VisualizationUtilities;
+import static group3191.weatherapp.gui_utilities.VisualizationUtilities.generateCurrentWeatherDisplay;
 
 /**
  * FXML Controller class
@@ -81,6 +85,9 @@ public class Weatherapp_guiController implements Initializable {
 
     @FXML
     private AnchorPane weatherTop;
+    
+    @FXML
+    private GridPane weatherTopGrid;
 
     private GeoName defaultWeather = new GeoName("Tampere", "Finland", 61.4991, 23.7871);
 
@@ -155,7 +162,7 @@ public class Weatherapp_guiController implements Initializable {
         Label windDegreeLabel = new Label("Wind Degree: " + wind.getDeg() + "°");
         Label windGustLabel = new Label("Wind Gust: " + wind.getGust() + " m/s");
         
-        this.weatherTop.getChildren().clear();
+        //this.weatherTop.getChildren().clear();
         VBox vbox = new VBox(10);
         
         
@@ -163,7 +170,11 @@ public class Weatherapp_guiController implements Initializable {
                                          windSpeedLabel, windDegreeLabel,
                                          windGustLabel);
         
-        this.weatherTop.getChildren().add(vbox);
+        //this.weatherTop.getChildren().add(vbox);
+        
+        generateCurrentWeatherDisplay(this.currentWeather, this.weatherTopGrid);
+        
+        
 
         
     }
