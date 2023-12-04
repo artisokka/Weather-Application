@@ -17,6 +17,7 @@ public class WeatherDTO {
     private int id;
     private String name;
     private int cod;
+    private AirQuality airQuality;
 
     public Coord getCoord() {
         return this.coord;
@@ -120,6 +121,14 @@ public class WeatherDTO {
 
     public void setCod(int cod) {
         this.cod = cod;
+    }
+
+    public AirQuality getAirQuality() {
+        return airQuality;
+    }
+
+    public void setAirQuality(AirQuality airQuality) {
+        this.airQuality = airQuality;
     }
 
     @Override

@@ -53,4 +53,17 @@ public class Api implements iAPI {
         return response.body();
     }
     
+    @Override
+    public String getAirPollution(double lat, double lon) {
+        String endpoint = "air_pollution";
+        RequestParameters requestParameters = new RequestParameters();
+        requestParameters.Add("units", "metric");
+        requestParameters.Add("lat", String.valueOf(lat));
+        requestParameters.Add("lon", String.valueOf(lon));
+        OpenWeatherRequest request = new OpenWeatherRequest(requestParameters, endpoint);
+        RestClient restClient = new RestClient(request);
+        HttpResponse<String> response = restClient.getResponse();
+        
+        return response.body();
+    }
 }
