@@ -17,6 +17,21 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.SVGPath;
 
+import com.kitfox.svg.*;
+import com.kitfox.svg.app.beans.SVGIcon;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URL;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
+import javafx.scene.image.ImageView;
+import javax.imageio.ImageIO;
+
 public class VisualizationUtilities {
 
     public static void generateCurrentWeatherDisplay(WeatherDTO weather, GridPane grid) {
@@ -35,25 +50,27 @@ public class VisualizationUtilities {
 
     }
 
-    private static void addIconToGrid(String pathToIcon, GridPane grid) {
+    private static void addIconToGrid(String fileName, GridPane grid) {
         // Create an Image from the given path
-        if (!pathToIcon.equals("notfound.png")) {
-            SVGPath svgPath = new SVGPath();
-        svgPath.setContent(pathToIcon);
-        grid.add(svgPath, 0, 0);
-        } else {
-            //Image icon = new Image("/weather_icons/wi_34n_mostly-cloudy-low-snow");
-            Image icon = new Image("/weather_icons/wi_34n_mostly-cloudy-low-snow.svg");
-            
+        try {
+                InputStream svgStream = VisualizationUtilities.class.getResourceAsStream("/weather_icons/" + fileName);
+                
+                java.awt.image.BufferedImage bufferedImage = ImageIO.read(svgStream);
+                File tempFile = File.createTempFile("temp", ".png");
+                ImageIO.write(bufferedImage, "png", tempFile);
 
-            // Create an ImageView to display the icon
-            ImageView imageView = new ImageView(icon);
+                Image image = new Image(new FileInputStream(tempFile));
 
-            // Add the ImageView to the GridPane
-            grid.add(imageView, /* column index */ 0, /* row index */ 0);
+                ImageView imageView = new ImageView(image);
 
-        }
-        System.out.println("pathToIcon: " + pathToIcon);
+                grid.add(imageView, 0, 0); // Add to column 0, row 0
+
+            } catch (Exception e) {
+                System.out.println("error in: " +e);
+
+            }
+        
+        System.out.println("pathToIcon: " + fileName);
 
         // Modify the column and row indices as needed
         // You might need to set some properties of the ImageView or handle exceptions based on your requirements
