@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -46,12 +47,18 @@
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                 </columnConstraints>
                                 <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" />
                                 </rowConstraints>
                               </GridPane>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="weatherMiddle" layoutY="246.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="245.0" />
-                        <AnchorPane fx:id="weatherBottom" layoutX="95.0" layoutY="440.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                        <AnchorPane fx:id="weatherMiddle" layoutY="246.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="245.0">
+                           <children>
+                              <ScrollPane fx:id="weatherDayScrolllPane" layoutX="65.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children></AnchorPane>
+                        <AnchorPane fx:id="weatherBottom" layoutX="95.0" layoutY="440.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <ScrollPane fx:id="weatherHourScrollPane" layoutX="79.0" layoutY="14.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children></AnchorPane>
                         <Button fx:id="searchButton" layoutX="360.0" layoutY="14.0" mnemonicParsing="false" onAction="#searchAndFauvoritesOnAction" text="Search &amp; Fauvorites" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="15.0" />
                         <Label fx:id="locationLabel" layoutX="212.0" layoutY="19.0" text="Location" />
                         <Button fx:id="refreshButton" layoutX="25.0" layoutY="15.0" mnemonicParsing="false" onAction="#refreshOnAction" text="Refresh weather" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />

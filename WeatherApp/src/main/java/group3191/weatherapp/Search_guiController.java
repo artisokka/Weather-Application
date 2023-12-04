@@ -275,21 +275,6 @@ public class Search_guiController implements Initializable {
 
     }
 
-//    @FXML
-//    void resultsClicked(MouseEvent event) {
-//        if (this.mainController != null) {
-//            Weatherapp_guiController weatherController = mainController.getWeatherController();
-//            if (weatherController != null) {
-//                GeoName selected = this.resultsListView.getSelectionModel().getSelectedItem();
-//                if (selected != null) {
-//                    weatherController.setWeather(selected);
-//                    weatherController.showWeather();
-//                    //setWeather(selected);
-//                }
-//            }
-//        }
-//
-//    }
     private void testLocationApi(String location) {
 
         Api api = new Api();
@@ -297,63 +282,12 @@ public class Search_guiController implements Initializable {
         String responseBody = api.lookUpLocation(location);
         System.out.println(responseBody);
 
-        //WeatherDTO weatherDTO = gson.fromJson(responseBody, WeatherDTO.class);
-        //return weatherDTO;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.favorites = new ArrayList<>(DatabaseHandler.getFavorites());
         this.updateFavorites();
-        
-        
-        
-        
-//        resultsListView.setCellFactory(getFavoriteCellFactory(this::addToFavoritesHandler, this::removeFromFavoritesHandler));
-//        favoritesListView.setCellFactory(getFavoriteCellFactory(this::addToFavoritesHandler, this::removeFromFavoritesHandler));
 
     }
-
-//    private Callback<ListView<GeoName>, ListCell<GeoName>> getSearchResultsCellFactory() {
-//        return listView -> new ListCell<GeoName>() {
-//            @Override
-//            protected void updateItem(GeoName item, boolean empty) {
-//                super.updateItem(item, empty);
-//
-//                if (empty || item == null) {
-//                    setText(null);
-//                    setGraphic(null);
-//                } else {
-//                    String textToShow = String.format("%s, %s, lat=%s, long=%s",
-//                            item.getCityName(), item.getCountryName(),
-//                            item.getLat(), item.getLng());
-//                    setText(textToShow);
-//                    // setText(item.getName()); // Display the GeoName name in the search results
-//                    // You can add more customization for the search results cell if needed
-//                }
-//            }
-//        };
-//    }
-//
-//    public void addToFavoritesHandler(GeoName location) {
-//        if (favoritesListView != null && location != null) {
-//            favoritesListView.getItems().add(location);
-//        }
-//    }
-//
-//    public void removeFromFavoritesHandler(GeoName location) {
-//        if (favoritesListView != null && location != null) {
-//            favoritesListView.getItems().remove(location);
-//        }
-//    }
-//
-//    private Callback<ListView<GeoName>, ListCell<GeoName>> getFavoriteCellFactory(Consumer<GeoName> addToFavoritesHandler, Consumer<GeoName> removeFromFavoritesHandler) {
-//        return listView -> new FavoriteCell(addToFavoritesHandler, removeFromFavoritesHandler);
-//    }
-//
-//    public void addToFavorites(GeoName location) {
-//        if (favoritesListView != null && location != null) {
-//            favoritesListView.getItems().add(location);
-//        }
-//    }
 }
