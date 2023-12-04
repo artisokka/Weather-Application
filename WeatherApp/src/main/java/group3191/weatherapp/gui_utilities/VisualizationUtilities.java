@@ -25,6 +25,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
+import javafx.scene.control.Label;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
@@ -33,6 +34,7 @@ import javafx.scene.layout.HBox;
 import javax.imageio.ImageIO;
 
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 
 public class VisualizationUtilities {
@@ -51,11 +53,13 @@ public class VisualizationUtilities {
             //addIconToGrid(iconToShow.getPath(), grid);
             
             String temperature = ""+ weather.getMain().getTemp() + " °C";
-            HBox row1 = generateMainviewFirstRow(grid, first, temperature);
+            HBox row1 = generateMainviewFirstRow(first, temperature);
             grid.add(row1, 0, 0);
             String feelsText = "" + weather.getMain().getFeels_like();
             Text feelsTextToAdd = getFeelsText(feelsText);
-            grid.add(feelsTextToAdd, 1, 0);
+            grid.add(feelsTextToAdd, 0, 1);
+            HBox row2 = generateMainviewBottomRow(weather);
+            grid.add(row2, 0, 2);
             
 
         }
@@ -70,7 +74,7 @@ public class VisualizationUtilities {
         return text;
     }
     
-    private static HBox generateMainviewFirstRow(GridPane grid, Weather weather, String temperature)
+    private static HBox generateMainviewFirstRow(Weather weather, String temperature)
     {
         HBox row1 = new HBox();
         WeatherIconHandler handler = new WeatherIconHandler("src\\main\\resources\\weather_icons");
@@ -79,10 +83,40 @@ public class VisualizationUtilities {
         WeatherIcon iconToShow = handler.getIconById(iconCode);
         addIconToHBox(row1, iconToShow.getPath());
         Text text = new Text(temperature);
-        text.setStyle("-fx-font-size: 40px; -fx-min-height: 64px; -fx-min-width: 64px;");
+        //text.setStyle("-fx-font-size: 40px; -fx-min-height: 64px; -fx-min-width: 64px;");
         row1.getChildren().add(text);
         return row1;
         
+    }
+    
+    private static HBox generateMainviewBottomRow(WeatherDTO weather)
+    {
+        HBox row = new HBox();
+        String airText = "Air Quality: not implemented";
+        //weather.
+        Text airQuality = new Text(airText);
+        Text rainAmmount = new Text("rain ammount, not imlpemented");
+        row.getChildren().add(airQuality);
+        row.getChildren().add(rainAmmount);
+        addWindInfo(row, weather.getWind().getDeg(), weather.getWind().getSpeed());
+        return row;
+        
+    }
+    
+    private static void addWindInfo(HBox hbox, int windDirection, double windSpeed) {
+        // Create an arrow using a Polygon
+        Polygon arrow = new Polygon();
+        arrow.getPoints().addAll(0.0, 0.0, 10.0, 20.0, -10.0, 20.0);
+        arrow.setRotate(windDirection); // Set the rotation based on wind direction
+
+        // Create a label for displaying wind speed
+        String winds = ""+ windSpeed + "m/s";
+        Text windText = new Text(winds);
+        windText.setStyle("-fx-font-size: 24px;");
+        
+
+        // Add arrow and speedLabel to the HBox
+        hbox.getChildren().addAll(arrow, windText);
     }
     
     private static void addIconToHBox(HBox hbox, String fileName)
