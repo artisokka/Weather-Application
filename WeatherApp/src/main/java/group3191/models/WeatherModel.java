@@ -8,6 +8,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import group3191.models.weather.AirQuality;
 import group3191.models.weather.WeatherDTO;
 import group3191.utils.Api;
 
@@ -21,8 +22,8 @@ public class WeatherModel {
     public WeatherDTO getCurrentWeather(double latitude, double longitude) {
         Gson gson = new Gson();
         String responseBody = api.getCurrentWeather(latitude, longitude);
-        System.out.println(responseBody);
         WeatherDTO weatherDTO = gson.fromJson(responseBody, WeatherDTO.class);
+        setAirPollution(weatherDTO);
         return weatherDTO;
     }
 
@@ -45,5 +46,16 @@ public class WeatherModel {
         }
 
         return weatherList;
+    }
+
+    private void setAirPollution(WeatherDTO weatherDTO) {
+        String pollutionResponse = api.getAirPollution(weatherDTO.getCoord().getLat(), weatherDTO.getCoord().getLon());
+        JsonObject pollutionObject = JsonParser.parseString(pollutionResponse).getAsJsonObject();
+        JsonArray pollutionList = pollutionObject.getAsJsonArray("list");
+        JsonObject firstPollutionEntry = pollutionList.get(0).getAsJsonObject();
+        JsonObject mainObject = firstPollutionEntry.getAsJsonObject("main");
+        int aqiValue = mainObject.get("aqi").getAsInt();
+    
+        weatherDTO.setAirQuality(AirQuality.fromValue(aqiValue));
     }
 }
