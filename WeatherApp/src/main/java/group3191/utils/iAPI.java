@@ -31,4 +31,12 @@ public interface iAPI {
      * @return String.body()
      */
     public String getForecast(double lat, double lon);
+
+    /**
+     * Returns air pollution details for weather object.
+     * @param lat The latitude of the location.
+     * @param lon The longitude of the location.
+     * @return String.body()
+     */
+    public String getAirPollution(double lat, double lon);
 }
