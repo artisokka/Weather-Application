@@ -17,8 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.SVGPath;
 
-import com.kitfox.svg.*;
-import com.kitfox.svg.app.beans.SVGIcon;
+
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -30,12 +29,17 @@ import java.net.URL;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javax.imageio.ImageIO;
+
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 public class VisualizationUtilities {
 
     public static void generateCurrentWeatherDisplay(WeatherDTO weather, GridPane grid) {
-        //WeatherIconHandler handler = new WeatherIconHandler("C:\\Users\\EeroP\\Documents\\Opiskelu_tuni\\COMP_CS_140_Ohjelmointi_3\\ryhmatyo\\group3191\\WeatherApp\\src\\main\\resources\\weather_icons");
+        //String pathToIcons = VisualizationUtilities.class.getResource("/weather_icons/").toString();
+        grid.getChildren().clear();
         WeatherIconHandler handler = new WeatherIconHandler("src\\main\\resources\\weather_icons");
         List<Weather> weatherList = weather.getWeather();
         if (weatherList.size() > 0) {
@@ -44,26 +48,72 @@ public class VisualizationUtilities {
             String iconCode = WeatherIconMapping.getLocalWeatherIconCode(idCode, first.getMain(), first.getDescription(), first.getIcon());
             //System.out.println("iconCode: "+iconCode);
             WeatherIcon iconToShow = handler.getIconById(iconCode);
-            addIconToGrid(iconToShow.getPath(), grid);
+            //addIconToGrid(iconToShow.getPath(), grid);
+            
+            String temperature = ""+ weather.getMain().getTemp() + " °C";
+            HBox row1 = generateMainviewFirstRow(grid, first, temperature);
+            grid.add(row1, 0, 0);
+            String feelsText = "" + weather.getMain().getFeels_like();
+            Text feelsTextToAdd = getFeelsText(feelsText);
+            grid.add(feelsTextToAdd, 1, 0);
+            
 
         }
 
+    }
+    
+    private static Text getFeelsText(String feels)
+    {
+        String feelsText = "Feels like: "+ feels +" °C";
+        Text text = new Text(feelsText);
+        //text.setStyle("-fx-font-size: 40px; -fx-min-height: 64px; -fx-min-width: 64px;");
+        return text;
+    }
+    
+    private static HBox generateMainviewFirstRow(GridPane grid, Weather weather, String temperature)
+    {
+        HBox row1 = new HBox();
+        WeatherIconHandler handler = new WeatherIconHandler("src\\main\\resources\\weather_icons");
+        String idCode = weather.getId() + "";
+        String iconCode = WeatherIconMapping.getLocalWeatherIconCode(idCode, weather.getMain(), weather.getDescription(), weather.getIcon());
+        WeatherIcon iconToShow = handler.getIconById(iconCode);
+        addIconToHBox(row1, iconToShow.getPath());
+        Text text = new Text(temperature);
+        text.setStyle("-fx-font-size: 40px; -fx-min-height: 64px; -fx-min-width: 64px;");
+        row1.getChildren().add(text);
+        return row1;
+        
+    }
+    
+    private static void addIconToHBox(HBox hbox, String fileName)
+    {
+        try {
+                ImageView toShow = new ImageView(fileName);
+                if(toShow != null)
+                {
+                    toShow.setFitHeight(64);
+                    toShow.setFitWidth(64);
+                    hbox.getChildren().add(toShow);
+                }
+                
+
+            } catch (Exception e) {
+                System.out.println("error in: " +e);
+
+            }
     }
 
     private static void addIconToGrid(String fileName, GridPane grid) {
         // Create an Image from the given path
         try {
-                InputStream svgStream = VisualizationUtilities.class.getResourceAsStream("/weather_icons/" + fileName);
+                ImageView toShow = new ImageView(fileName);
+                if(toShow != null)
+                {
+                    toShow.setFitHeight(64);
+                    toShow.setFitWidth(64);
+                    grid.add(toShow, 0, 0);
+                }
                 
-                java.awt.image.BufferedImage bufferedImage = ImageIO.read(svgStream);
-                File tempFile = File.createTempFile("temp", ".png");
-                ImageIO.write(bufferedImage, "png", tempFile);
-
-                Image image = new Image(new FileInputStream(tempFile));
-
-                ImageView imageView = new ImageView(image);
-
-                grid.add(imageView, 0, 0); // Add to column 0, row 0
 
             } catch (Exception e) {
                 System.out.println("error in: " +e);

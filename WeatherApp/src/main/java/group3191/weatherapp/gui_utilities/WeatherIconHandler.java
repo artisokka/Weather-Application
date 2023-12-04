@@ -38,7 +38,8 @@ public class WeatherIconHandler {
                         String id = parts[1];
                         String description = parts[2].split("\\.")[0];
                         //String iconFileName = "/weather_icons/" + fileName;
-                        String iconFileName = fileName;
+                        //String iconFileName = fileName;
+                        String iconFileName = "weather_icons\\" + fileName;
                         WeatherIcon weatherIcon = new WeatherIcon(id, description, iconFileName);
                         weatherIcons.add(weatherIcon);
                     }
