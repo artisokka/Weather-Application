@@ -26,6 +26,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import group3191.models.geo.GeoName;
+import group3191.models.weather.DailyWeatherDTO;
 import group3191.models.weather.WeatherDTO;
 import javafx.application.Platform;
 import javafx.scene.layout.GridPane;
@@ -146,6 +147,9 @@ public class Weatherapp_guiController implements Initializable {
         this.currentWeather = weatherDTO;
         //System.out.println("forecast is: "+ weatherController.getForecast(location.getLat(), location.getLng())); 
         List<WeatherDTO> forecastOfSomething = weatherController.getForecast(location.getLat(), location.getLng());
+        // TEST_DAILY
+        List<DailyWeatherDTO> dailyForecastOfSomething = weatherController.getDailyForecast(location.getLat(), location.getLng());
+        System.out.println(dailyForecastOfSomething.get(0).getFeelsLike().getNight());
         this.currentForecast = forecastOfSomething;
 
     }

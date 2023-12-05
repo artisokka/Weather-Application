@@ -33,6 +33,14 @@ public interface iAPI {
     public String getForecast(double lat, double lon);
 
     /**
+     * Returns a forecast for the given coordinates for 16 days.
+     * @param lat The latitude of the location.
+     * @param lon The longitude of the location.
+     * @return String.body()
+     */
+    public String getDailyForecast(double lat, double lon);
+
+    /**
      * Returns air pollution details for weather object.
      * @param lat The latitude of the location.
      * @param lon The longitude of the location.
