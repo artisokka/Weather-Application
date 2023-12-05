@@ -24,6 +24,8 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
+import java.time.LocalDateTime;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 
@@ -36,6 +38,7 @@ import javax.imageio.ImageIO;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Rotate;
 
 public class VisualizationUtilities {
@@ -79,20 +82,37 @@ public class VisualizationUtilities {
 
     public static void generateDayForecastDisplay(List<WeatherDTO> forecast, ScrollPane scrollPane) {
         HBox content = new HBox();
+        content.setSpacing(10);
+        content.setAlignment(Pos.CENTER);
+        LocalDateTime now = LocalDateTime.now();  
         for (WeatherDTO weather : forecast) {
-            VBox day = generateDayWeather(weather);
+            now = now.plusDays(1);
+            String date = String.format("%s.%s", now.getDayOfMonth(), now.getMonthValue());
+            VBox day = generateDayWeather(weather, date);
             if (day != null) {
                 content.getChildren().add(day);
             }
         }
         scrollPane.setContent(content);
     }
-    public static void generateHourForecastDisplay(List<WeatherDTO> forecast, ScrollPane scrollPane) {
+    public static void generateHourForecastDisplay(List<WeatherDTO> forecast, ScrollPane scrollPane, boolean useOneHour) {
         HBox content = new HBox();
+        content.setAlignment(Pos.CENTER);
+        content.setSpacing(5);
+        LocalDateTime now = LocalDateTime.now();
+        now = now.plusHours(1);
         for (WeatherDTO weather : forecast) {
-            VBox hour = generateHourWeather(weather);
+            String hourTime = String.format("%s", now.getHour());
+            VBox hour = generateHourWeather(weather, hourTime);
             if (hour != null) {
                 content.getChildren().add(hour);
+            }
+            if(useOneHour)
+            {
+                now = now.plusHours(1);
+            } else
+            {
+                now = now.plusHours(3);
             }
         }
         scrollPane.setContent(content);
@@ -100,12 +120,14 @@ public class VisualizationUtilities {
     
     
     
-    private static VBox generateHourWeather(WeatherDTO weather) {
+    private static VBox generateHourWeather(WeatherDTO weather, String hourTime) {
         VBox hour = new VBox();
-        hour.setSpacing(20);
+        hour.setSpacing(10);
+        hour.setAlignment(Pos.CENTER);
 
-        Text title = new Text("XX");
+        Text title = new Text(hourTime);
         hour.getChildren().add(title);
+        //title.setTextAlignment(TextAlignment.CENTER);
 
         WeatherIconHandler handler = new WeatherIconHandler("src\\main\\resources\\weather_icons");
         //String idCode = weather.getId() + "";
@@ -122,13 +144,15 @@ public class VisualizationUtilities {
             iconToDisplay.setFitWidth(25);
             hour.getChildren().add(iconToDisplay);
         }
-        Text temp = new Text("" + weather.getMain().getTemp());
+        String tempText = String.format("%.0f", weather.getMain().getTemp());
+        Text temp = new Text(tempText);
         hour.getChildren().add(temp);
         
         ImageView arrow = getSmallArrow(weather.getWind().getDeg());
         hour.getChildren().add(arrow);
 
-        Text wind = new Text("" + weather.getWind().getSpeed());
+        String windText = String.format("%.0f", weather.getWind().getSpeed());
+        Text wind = new Text(windText);
         hour.getChildren().add(wind);
         
         Text rain = new Text("RR");
@@ -140,11 +164,13 @@ public class VisualizationUtilities {
         return hour;
     }
 
-    private static VBox generateDayWeather(WeatherDTO weather) {
+    private static VBox generateDayWeather(WeatherDTO weather, String date) {
         VBox day = new VBox();
+        day.setAlignment(Pos.CENTER);
         day.setSpacing(20);
 
-        Text title = new Text("day X");
+        Text title = new Text(date);
+        //title.setTextAlignment(TextAlignment.CENTER);
         day.getChildren().add(title);
 
         WeatherIconHandler handler = new WeatherIconHandler("src\\main\\resources\\weather_icons");
@@ -160,10 +186,13 @@ public class VisualizationUtilities {
         if (iconToDisplay != null) {
             day.getChildren().add(iconToDisplay);
         }
-        Text min = new Text("min: " + weather.getMain().getTemp_min());
+        String minText = String.format("min: %.0f", weather.getMain().getTemp_min());
+        Text min = new Text(minText);
         day.getChildren().add(min);
+        
+        String maxText = String.format("max: %.0f", weather.getMain().getTemp_max());
 
-        Text max = new Text("max: " + weather.getMain().getTemp_max());
+        Text max = new Text(maxText);
         day.getChildren().add(max);
 
         return day;
@@ -230,7 +259,8 @@ public class VisualizationUtilities {
     private static ImageView getSmallArrow(int windDirection)
     {
         ImageView arrow = new ImageView("/icons/arrow.png");
-        arrow.getTransforms().add(new Rotate(windDirection, 13, 16));
+        //arrow.getTransforms().add(new Rotate(windDirection, 13, 16));
+        arrow.getTransforms().add(new Rotate(windDirection, 6,6));
         arrow.setFitHeight(12);
         arrow.setFitWidth(12);
         return arrow;

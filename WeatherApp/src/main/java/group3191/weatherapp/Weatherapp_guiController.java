@@ -182,7 +182,8 @@ public class Weatherapp_guiController implements Initializable {
         //this.weatherTop.getChildren().add(vbox);
         generateCurrentWeatherDisplay(this.currentWeather, this.weatherTopGrid);
         generateDayForecastDisplay(this.currentForecast, this.weatherDayScrolllPane);
-        generateHourForecastDisplay(this.currentForecast, this.weatherHourScrollPane);
+        boolean useOneHour = false;
+        generateHourForecastDisplay(this.currentForecast, this.weatherHourScrollPane, useOneHour);
 
     }
 
