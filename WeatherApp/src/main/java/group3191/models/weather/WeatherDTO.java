@@ -18,6 +18,8 @@ public class WeatherDTO {
     private String name;
     private int cod;
     private AirQuality airQuality;
+    private double rainAmount;
+    private double snowAmount;
 
     public Coord getCoord() {
         return this.coord;
@@ -131,13 +133,26 @@ public class WeatherDTO {
         this.airQuality = airQuality;
     }
 
+    public double getRainAmount() {
+        return rainAmount;
+    }
+
+    public void setRainAmount(double rainAmount) {
+        this.rainAmount = rainAmount;
+    }
+
+    public double getSnowAmount() {
+        return snowAmount;
+    }
+
+    public void setSnowAmount(double snowAmount) {
+        this.snowAmount = snowAmount;
+    }
+
     @Override
     public String toString() {
         return "WeatherDTO{" + "coord=" + coord + ", weather=" + weather + ", base=" + base + ", main=" + main + ", visibility=" + visibility + ", wind=" + wind + ", clouds=" + clouds + ", dt=" + dt + ", sys=" + sys + ", timezone=" + timezone + ", id=" + id + ", name=" + name + ", cod=" + cod + '}';
     }
-    
-    
-
 }
 
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -22,8 +23,11 @@ public class WeatherModel {
     public WeatherDTO getCurrentWeather(double latitude, double longitude) {
         Gson gson = new Gson();
         String responseBody = api.getCurrentWeather(latitude, longitude);
-        WeatherDTO weatherDTO = gson.fromJson(responseBody, WeatherDTO.class);
+        JsonObject weatherObject = JsonParser.parseString(responseBody).getAsJsonObject();
+        WeatherDTO weatherDTO = gson.fromJson(weatherObject, WeatherDTO.class);
         setAirPollution(weatherDTO);
+        setPrecipitationAmount(weatherDTO, weatherObject, "snow");
+        setPrecipitationAmount(weatherDTO, weatherObject, "rain");
         return weatherDTO;
     }
 
@@ -42,6 +46,8 @@ public class WeatherModel {
         for (int i = 0; i < jsonArray.size(); i++) {
             JsonObject weatherObject = jsonArray.get(i).getAsJsonObject();
             WeatherDTO weatherDTO = gson.fromJson(weatherObject, WeatherDTO.class);
+            setPrecipitationAmount(weatherDTO, weatherObject, "snow");
+            setPrecipitationAmount(weatherDTO, weatherObject, "rain");
             weatherList.add(weatherDTO);
         }
 
@@ -55,7 +61,23 @@ public class WeatherModel {
         JsonObject firstPollutionEntry = pollutionList.get(0).getAsJsonObject();
         JsonObject mainObject = firstPollutionEntry.getAsJsonObject("main");
         int aqiValue = mainObject.get("aqi").getAsInt();
-    
+
         weatherDTO.setAirQuality(AirQuality.fromValue(aqiValue));
+    }
+
+    private void setPrecipitationAmount(WeatherDTO weatherDTO, JsonObject weatherObject, String precipitationType) {
+        JsonObject precipitationObject = weatherObject.getAsJsonObject(precipitationType);
+        if (precipitationObject != null) {
+            JsonElement hourAmount = precipitationObject.get("1h");
+            JsonElement threeHourAmount = precipitationObject.get("3h");
+            
+            double amount = (hourAmount != null) ? hourAmount.getAsDouble() : (threeHourAmount != null) ? threeHourAmount.getAsDouble() : 0.0;
+    
+            if ("snow".equals(precipitationType)) {
+                weatherDTO.setSnowAmount(amount);
+            } else if ("rain".equals(precipitationType)) {
+                weatherDTO.setRainAmount(amount);
+            }
+        }
     }
 }
