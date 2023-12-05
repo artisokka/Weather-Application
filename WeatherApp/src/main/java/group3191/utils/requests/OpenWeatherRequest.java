@@ -8,13 +8,13 @@ import group3191.utils.formatters.OpenWeatherFormatter;
  * This class represents a request to OpenWeather API
  */
 public class OpenWeatherRequest extends Request {
-    public OpenWeatherRequest(RequestParameters URIParameters, String endpoint) {
-        super(URIParameters, new RequestParameters(), endpoint);
+    public OpenWeatherRequest(String uri, RequestParameters URIParameters, String endpoint) {
+        super(uri, URIParameters, new RequestParameters(), endpoint);
     }
 
     @Override
     public void CreateURIFormatter(RequestParameters params) {
-        OpenWeatherFormatter uriFormat = new OpenWeatherFormatter(Settings.OPENWEATHER_URI,
+        OpenWeatherFormatter uriFormat = new OpenWeatherFormatter(uri,
                                          endpoint, Settings.GetValue("API_KEY"));
 
         for (var key : params.GetParameters().keySet()) {

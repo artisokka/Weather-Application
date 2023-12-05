@@ -3,6 +3,7 @@ package group3191.controllers;
 import java.util.List;
 
 import group3191.models.WeatherModel;
+import group3191.models.weather.DailyWeatherDTO;
 import group3191.models.weather.WeatherDTO;
 
 public class WeatherController {
@@ -21,6 +22,10 @@ public class WeatherController {
 
     public List<WeatherDTO> getForecast(double latitude, double longitude) {
         return weatherModel.getForecast(latitude, longitude);
+    }
+
+    public List<DailyWeatherDTO> getDailyForecast(double latitude, double longitude) {
+        return weatherModel.getDailyForecast(latitude, longitude);
     }
 
 }

@@ -13,14 +13,16 @@ public abstract class Request {
     protected URIFormatter uriFormat;
     protected HeaderFormatter hFormat;
     protected String endpoint;
+    protected String uri;
 
-    public Request(RequestParameters URIParameters, RequestParameters HeaderParameters, String endpoint) {
+    public Request(String uri, RequestParameters URIParameters, RequestParameters HeaderParameters, String endpoint) {
         this.endpoint = endpoint;
+        this.uri = uri;
         CreateURIFormatter(URIParameters);
         CreateHeaderFormatter(HeaderParameters);
     }
 
-    public abstract void CreateURIFormatter(RequestParameters URIParameters);
+    public abstract void CreateURIFormatter(RequestParameters URIParameter);
     public abstract void CreateHeaderFormatter(RequestParameters headerParameters);
 
     public String GetURI() {

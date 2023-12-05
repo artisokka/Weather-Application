@@ -14,6 +14,7 @@ public class RequestTest {
         RequestParameters uriParameters = new RequestParameters();
         String endpoint = "testEndpoint";
         OpenWeatherRequest openWeatherRequest = new OpenWeatherRequest(
+                Settings.OPENWEATHER_URI,
                 uriParameters, endpoint);
         openWeatherRequest.CreateURIFormatter(uriParameters);
 
@@ -32,6 +33,7 @@ public class RequestTest {
     public void createHeaderFormatter() {
         RequestParameters headerParameters = new RequestParameters();
         OpenWeatherRequest openWeatherRequest = new OpenWeatherRequest(
+                Settings.OPENWEATHER_URI,
                 new RequestParameters(), "testEndpoint");
         openWeatherRequest.CreateHeaderFormatter(headerParameters);
 
