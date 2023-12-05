@@ -86,6 +86,34 @@
                   </AnchorPane>
             </content>
           </Tab>
+          <Tab fx:id="historyTab" text="History">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="historyLabel" layoutX="14.0" layoutY="23.0" text="Search history" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0" />
+                        <ScrollPane fx:id="historyScrollPane" layoutX="26.0" layoutY="79.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0">
+                           <content>
+                              <GridPane fx:id="historyGridPane" gridLinesVisible="true">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label fx:id="historyLocationLabel" text="Location">
+                                       <padding>
+                                          <Insets left="15.0" right="15.0" />
+                                       </padding>
+                                    </Label>
+                                 </children>
+                              </GridPane>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
         </tabs>
       </TabPane>
    </children>

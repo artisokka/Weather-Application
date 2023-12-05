@@ -30,7 +30,7 @@ public class Api implements iAPI {
         requestParameters.Add("units", "metric");
         requestParameters.Add("lat", String.valueOf(lat));
         requestParameters.Add("lon", String.valueOf(lon));
-        OpenWeatherRequest request = new OpenWeatherRequest(requestParameters, endpoint);
+        OpenWeatherRequest request = new OpenWeatherRequest(Settings.OPENWEATHER_URI, requestParameters, endpoint);
         RestClient restClient = new RestClient(request);
         HttpResponse<String> response = restClient.getResponse();
 
@@ -44,7 +44,9 @@ public class Api implements iAPI {
         requestParameters.Add("units", "metric");
         requestParameters.Add("lat", String.valueOf(lat));
         requestParameters.Add("lon", String.valueOf(lon));
-        OpenWeatherRequest request = new OpenWeatherRequest(requestParameters, endpoint);
+        // Use pro endpoint for forecast to get 1 hour interval data
+        String baseUrl = "true".equalsIgnoreCase(Settings.GetValue("true")) ? Settings.PRO_OPENWEATHER_URI : Settings.OPENWEATHER_URI;
+        OpenWeatherRequest request = new OpenWeatherRequest(baseUrl, requestParameters, endpoint);
         RestClient restClient = new RestClient(request);
         HttpResponse<String> response = restClient.getResponse();
 
@@ -58,7 +60,21 @@ public class Api implements iAPI {
         requestParameters.Add("units", "metric");
         requestParameters.Add("lat", String.valueOf(lat));
         requestParameters.Add("lon", String.valueOf(lon));
-        OpenWeatherRequest request = new OpenWeatherRequest(requestParameters, endpoint);
+        OpenWeatherRequest request = new OpenWeatherRequest(Settings.OPENWEATHER_URI, requestParameters, endpoint);
+        RestClient restClient = new RestClient(request);
+        HttpResponse<String> response = restClient.getResponse();
+        
+        return response.body();
+    }
+
+    @Override
+    public String getDailyForecast(double lat, double lon) {
+        String endpoint = "forecast/daily";
+        RequestParameters requestParameters = new RequestParameters();
+        requestParameters.Add("units", "metric");
+        requestParameters.Add("lat", String.valueOf(lat));
+        requestParameters.Add("lon", String.valueOf(lon));
+        OpenWeatherRequest request = new OpenWeatherRequest(Settings.OPENWEATHER_URI, requestParameters, endpoint);
         RestClient restClient = new RestClient(request);
         HttpResponse<String> response = restClient.getResponse();
 

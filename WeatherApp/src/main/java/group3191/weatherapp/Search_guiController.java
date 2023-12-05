@@ -19,6 +19,7 @@ import group3191.utils.ApiHandlerGeoNames;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import javafx.application.Platform;
@@ -50,6 +51,8 @@ public class Search_guiController implements Initializable {
 
     private ArrayList<GeoName> favorites;
 
+    private ArrayList<GeoName> locationHistory;
+
     private MainController mainController;
     
     private DatabaseHandler databaseHandler;
@@ -75,10 +78,16 @@ public class Search_guiController implements Initializable {
     @FXML
     private Label favoritesLabel;
 
+    @FXML
+    private Label historyLabel;
+
 //    @FXML
 //    private ListView<GeoName> favoritesListView;
     @FXML
     private Tab favoritesTab;
+
+    @FXML
+    private Tab historyTab;
 
     @FXML
     private ScrollPane resultsScrollPane;
@@ -96,6 +105,9 @@ public class Search_guiController implements Initializable {
     private Label favoriteLocationLabel;
 
     @FXML
+    private Label historyLocationLabel;
+
+    @FXML
     private Label favoriteRemoveLabel;
 
     @FXML
@@ -103,6 +115,12 @@ public class Search_guiController implements Initializable {
 
     @FXML
     private GridPane favoritesGridPane;
+
+    @FXML
+    private ScrollPane historyScrollPane;
+
+    @FXML
+    private GridPane historyGridPane;
 
     @FXML
     void searchTextFieldOnAction(ActionEvent event) {
@@ -221,6 +239,26 @@ public class Search_guiController implements Initializable {
 
     }
 
+    void updateHistory() {
+        this.resetGrid(this.historyGridPane, "");
+        List<GeoName> locationHistory = DatabaseHandler.getLocationHistory();
+        if (locationHistory != null) {
+            for (int row = 0; row < locationHistory.size(); row++) {
+                GeoName currentLocation = locationHistory.get(row);
+                Button location = new Button();
+                location.setText(currentLocation.toString());
+
+                location.setOnAction(
+                        //event -> this.addFavorite(currentLocation, favoriteButton));
+                        event -> this.setWeatherLocation(currentLocation));
+
+                this.historyGridPane.addRow(row + 1, location);
+            }
+
+        }
+
+    }
+
     void removeFavorite(GeoName location) {
         this.favorites.remove(location);
         DatabaseHandler.removeFavorite(location);
@@ -264,7 +302,8 @@ public class Search_guiController implements Initializable {
                     weatherController.setWeather(location);
                     weatherController.showWeather();
                     DatabaseHandler.setLastSearch(location);
-                    //setWeather(selected);
+                    DatabaseHandler.addLocationHistory(location);
+                    this.updateHistory();
                 }
             }
         }
@@ -287,7 +326,8 @@ public class Search_guiController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.favorites = new ArrayList<>(DatabaseHandler.getFavorites());
+        this.locationHistory = new ArrayList<>(DatabaseHandler.getLocationHistory());
         this.updateFavorites();
-
+        this.updateHistory();
     }
 }
