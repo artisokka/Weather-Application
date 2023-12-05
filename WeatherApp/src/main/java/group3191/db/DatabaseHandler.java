@@ -25,6 +25,7 @@ public class DatabaseHandler {
     private static final String fileName = "db.json";
     private static File dbFile;
     private static List<GeoName> favorites = new ArrayList<GeoName>();
+    private static List<GeoName> locationHistory = new ArrayList<GeoName>();
     private static GeoName lastSearch;
     private static Gson gson = new Gson();
     
@@ -50,20 +51,32 @@ public class DatabaseHandler {
             JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
             JsonArray favoritesArr = jsonObject.getAsJsonArray("favorites");
             // get favorites
-            favoritesArr.forEach(fav -> {
-                JsonObject favObj = fav.getAsJsonObject();
-                GeoName geoName = gson.fromJson(favObj, GeoName.class);
-                //Search search = gson.fromJson(favObj, Search.class);
-                favorites.add(geoName);
-            });
+            if (favoritesArr != null) {
+                favoritesArr.forEach(fav -> {
+                    JsonObject favObj = fav.getAsJsonObject();
+                    GeoName geoName = gson.fromJson(favObj, GeoName.class);
+                    //Search search = gson.fromJson(favObj, Search.class);
+                    favorites.add(geoName);
+                });
+            }
+            
             // get last search
             JsonObject lastSearchObj = jsonObject.getAsJsonObject("lastSearch");
-            System.out.println();
             // Check if lastSearchObj is not null and not JsonNull
             if (lastSearchObj != null && lastSearchObj.get("name") != null && !lastSearchObj.isJsonNull()) {
                 lastSearch = gson.fromJson(lastSearchObj, GeoName.class);
             } else {
                 lastSearch = null;
+            }
+
+            // get locationHistory
+            JsonArray locationHistoryArr = jsonObject.getAsJsonArray("locationHistory");
+            if (locationHistoryArr != null) {
+                locationHistoryArr.forEach(loc -> {
+                    JsonObject locObj = loc.getAsJsonObject();
+                    GeoName geoName = gson.fromJson(locObj, GeoName.class);
+                    locationHistory.add(geoName);
+                });
             }
         } 
     }
@@ -77,12 +90,23 @@ public class DatabaseHandler {
         Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
         try (Writer writer = new FileWriter(dbFile)) {
             JsonObject jsonObject = new JsonObject();
+            // Add favorites
             JsonArray favoritesArr = new JsonArray();
             favorites.forEach(fav -> {
                 JsonObject favObj = gsonBuilder.toJsonTree(fav).getAsJsonObject();
                 favoritesArr.add(favObj);
             });
             jsonObject.add("favorites", favoritesArr);
+
+            // Add location history
+            JsonArray locationHistoryArr = new JsonArray();
+            locationHistory.forEach(loc -> {
+                JsonObject locObj = gsonBuilder.toJsonTree(loc).getAsJsonObject();
+                locationHistoryArr.add(locObj);
+            });
+            jsonObject.add("locationHistory", locationHistoryArr);
+
+            // Add last search
             if (lastSearch != null) {
                 JsonObject lastSearchObj = gsonBuilder.toJsonTree(lastSearch).getAsJsonObject();
                 jsonObject.add("lastSearch", lastSearchObj);
@@ -110,6 +134,15 @@ public class DatabaseHandler {
 
     public static void addFavorite(GeoName search) {
         favorites.add(search);
+        saveToDb();
+    }
+
+    public static List<GeoName> getLocationHistory() {
+        return locationHistory;
+    }
+
+    public static void addLocationHistory(GeoName search) {
+        locationHistory.add(search);
         saveToDb();
     }
 

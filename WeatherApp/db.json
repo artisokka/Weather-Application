@@ -7,5 +7,36 @@
       "lng": 23.7871
     }
   ],
-  "lastSearch": {}
+  "locationHistory": [
+    {
+      "name": "Turku",
+      "countryName": "Finland",
+      "lat": 60.45148,
+      "lng": 22.26869
+    },
+    {
+      "name": "Kaarina",
+      "countryName": "Finland",
+      "lat": 60.40724,
+      "lng": 22.36904
+    },
+    {
+      "name": "Turku",
+      "countryName": "Finland",
+      "lat": 60.45148,
+      "lng": 22.26869
+    },
+    {
+      "name": "Tampere",
+      "countryName": "Finland",
+      "lat": 61.49911,
+      "lng": 23.7871
+    }
+  ],
+  "lastSearch": {
+    "name": "Tampere",
+    "countryName": "Finland",
+    "lat": 61.49911,
+    "lng": 23.7871
+  }
 }
