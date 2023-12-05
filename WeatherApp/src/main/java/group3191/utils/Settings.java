@@ -10,6 +10,7 @@ public class Settings
     private static Dotenv dotenv;
     public static final String OPENWEATHER_URI= "https://api.openweathermap.org/data/2.5/";
     public static final String URI_OW_LOCATION = "http://api.openweathermap.org/geo/1.0";
+    public static final String PRO_OPENWEATHER_URI = "https://pro.openweathermap.org/data/2.5/";
 
     public static void Init() {
         dotenv = Dotenv.configure().load();
