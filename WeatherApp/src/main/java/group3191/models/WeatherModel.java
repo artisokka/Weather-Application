@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import group3191.models.weather.AirQuality;
+import group3191.models.weather.DailyWeatherDTO;
 import group3191.models.weather.WeatherDTO;
 import group3191.utils.Api;
 
@@ -37,6 +38,12 @@ public class WeatherModel {
         return weatherDTOList;
     }
 
+    public List<DailyWeatherDTO> getDailyForecast(double latitude, double longitude) {
+        String responseBody = api.getDailyForecast(latitude, longitude);
+        List<DailyWeatherDTO> weatherDTOList = getDailyWeatherList(responseBody);
+        return weatherDTOList;
+    }
+
     private List<WeatherDTO> getWeatherList(String responseBody) {
         List<WeatherDTO> weatherList = new ArrayList<>();
         Gson gson = new Gson();
@@ -48,6 +55,21 @@ public class WeatherModel {
             WeatherDTO weatherDTO = gson.fromJson(weatherObject, WeatherDTO.class);
             setPrecipitationAmount(weatherDTO, weatherObject, "snow");
             setPrecipitationAmount(weatherDTO, weatherObject, "rain");
+            weatherList.add(weatherDTO);
+        }
+
+        return weatherList;
+    }
+
+    private List<DailyWeatherDTO> getDailyWeatherList(String responseBody) {
+        List<DailyWeatherDTO> weatherList = new ArrayList<>();
+        Gson gson = new Gson();
+        JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
+        JsonArray jsonArray = jsonObject.getAsJsonArray("list");
+
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JsonObject weatherObject = jsonArray.get(i).getAsJsonObject();
+            DailyWeatherDTO weatherDTO = gson.fromJson(weatherObject, DailyWeatherDTO.class);
             weatherList.add(weatherDTO);
         }
 
