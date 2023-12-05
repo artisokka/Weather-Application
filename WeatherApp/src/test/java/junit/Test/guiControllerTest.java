@@ -1,6 +1,7 @@
 package junit.Test;
 
 import group3191.controllers.WeatherController;
+import group3191.models.WeatherModel;
 import group3191.weatherapp.Weatherapp_guiController.*;
 import group3191.models.geo.GeoName;
 import group3191.weatherapp.Weatherapp_guiController;
@@ -11,10 +12,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- *
- * @author janik
- */
 public class guiControllerTest {
 
     private WeatherController controller;
@@ -22,6 +19,13 @@ public class guiControllerTest {
     @BeforeAll
     public void setUp() {
         controller = new WeatherController();
+        assertNotNull(controller);
+    }
+
+    @Test
+    public void testWeatherController() {
+        WeatherModel weatherModel = new WeatherModel();
+        assertNotNull(weatherModel);
     }
 
     @Test

@@ -17,12 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class APITest {
 
     @Test
-    public void testWeatherController() {
-        WeatherModel weatherModel = new WeatherModel();
-        assertNotNull(weatherModel);
-    }
-
-    @Test
     public void testGetCurrentWeather() {
         WeatherController weatherController = new WeatherController();
         WeatherDTO weatherDTO = weatherController.getCurrentWeather(61.49911,
