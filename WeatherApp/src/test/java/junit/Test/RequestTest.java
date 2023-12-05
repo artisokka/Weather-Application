@@ -15,7 +15,6 @@ public class RequestTest {
         String endpoint = "testEndpoint";
         OpenWeatherRequest openWeatherRequest = new OpenWeatherRequest(
                 uriParameters, endpoint);
-
         openWeatherRequest.CreateURIFormatter(uriParameters);
 
         assertNotNull(openWeatherRequest);
@@ -26,6 +25,7 @@ public class RequestTest {
                 endpoint, Settings.GetValue("API_KEY"));
 
         assertEquals(Settings.OPENWEATHER_URI, formatter.GetBaseURI());
+
     }
 
     @Test
@@ -33,9 +33,9 @@ public class RequestTest {
         RequestParameters headerParameters = new RequestParameters();
         OpenWeatherRequest openWeatherRequest = new OpenWeatherRequest(
                 new RequestParameters(), "testEndpoint");
-
         openWeatherRequest.CreateHeaderFormatter(headerParameters);
 
+        assertNotNull(headerParameters);
         assertNotNull(openWeatherRequest.GetHeaders());
     }
 }
