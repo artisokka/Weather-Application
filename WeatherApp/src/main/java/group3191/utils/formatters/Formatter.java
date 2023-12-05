@@ -10,17 +10,20 @@ abstract class Formatter implements URIFormatter {
     protected String key;
     protected String endpoint;
     protected TreeMap<String, String> keyValues;
-    
+
     public Formatter(String URI, String endpoint, String key) {
         this.URI = URI;
         this.key = key;
         this.endpoint = endpoint;
         keyValues = new TreeMap<>();
     }
-    
+
     @Override
     public abstract void AddParameter(String key, String value);
 
     @Override
     public abstract String GetURI();
+
+    @Override
+    public abstract String GetBaseURI();
 }

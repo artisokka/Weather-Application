@@ -7,4 +7,6 @@ public interface URIFormatter {
     public void AddParameter(String key, String value);
     //public void AddKey(String key);
     public String GetURI();
+
+    public String GetBaseURI();
 }
