@@ -26,7 +26,7 @@ public class WeatherIconHandler {
         
         File folder = new File(pathForIcons);
         File[] listOfFiles = folder.listFiles();
-        System.out.println("Absolute path: " + folder.getAbsolutePath());
+        //System.out.println("Absolute path: " + folder.getAbsolutePath());
 
         if (listOfFiles != null) {
             for (File file : listOfFiles) {
@@ -46,7 +46,7 @@ public class WeatherIconHandler {
                 }
             }
         }
-        String paussi ="";
+        
     }
 
     public WeatherIcon getIconById(String id) {

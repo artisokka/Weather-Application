@@ -48,7 +48,8 @@ public class Weatherapp_guiController implements Initializable {
     private WeatherDTO currentWeather;
     private GeoName currentLocation;
 
-    private List<WeatherDTO> currentForecast;
+    private List<WeatherDTO> hourlyForecast;
+    private List<DailyWeatherDTO> dailyForecast;
 
     @FXML
     private AnchorPane MainPane;
@@ -92,14 +93,17 @@ public class Weatherapp_guiController implements Initializable {
     @FXML
     private AnchorPane weatherTop;
 
-    @FXML
-    private GridPane weatherTopGrid;
+//    @FXML
+//    private GridPane weatherTopGrid;
 
     @FXML
     private ScrollPane weatherDayScrolllPane;
 
     @FXML
     private ScrollPane weatherHourScrollPane;
+    
+    @FXML
+    private ScrollPane weatherTopScrollPane;
 
     private GeoName defaultWeather = new GeoName("Tampere", "Finland", 61.4991, 23.7871);
 
@@ -146,11 +150,13 @@ public class Weatherapp_guiController implements Initializable {
         this.currentLocation = location;
         this.currentWeather = weatherDTO;
         //System.out.println("forecast is: "+ weatherController.getForecast(location.getLat(), location.getLng())); 
-        List<WeatherDTO> forecastOfSomething = weatherController.getForecast(location.getLat(), location.getLng());
+        List<WeatherDTO> forecastHourly = weatherController.getForecast(location.getLat(), location.getLng());
         // TEST_DAILY
-        List<DailyWeatherDTO> dailyForecastOfSomething = weatherController.getDailyForecast(location.getLat(), location.getLng());
-        System.out.println(dailyForecastOfSomething.get(0).getFeelsLike().getNight());
-        this.currentForecast = forecastOfSomething;
+        List<DailyWeatherDTO> forecastDaily = weatherController.getDailyForecast(location.getLat(), location.getLng());
+        //System.out.println(dailyForecastOfSomething.get(0).getFeelsLike().getNight());
+        //this.currentForecast = forecastOfSomething;
+        this.hourlyForecast = forecastHourly;
+        this.dailyForecast = forecastDaily;
 
     }
 
@@ -184,10 +190,11 @@ public class Weatherapp_guiController implements Initializable {
 //                                         windSpeedLabel, windDegreeLabel,
 //                                         windGustLabel);
         //this.weatherTop.getChildren().add(vbox);
-        generateCurrentWeatherDisplay(this.currentWeather, this.weatherTopGrid);
-        generateDayForecastDisplay(this.currentForecast, this.weatherDayScrolllPane);
+        //generateCurrentWeatherDisplay(this.currentWeather, this.weatherTopGrid);
+        generateCurrentWeatherDisplay(this.currentWeather, this.weatherTopScrollPane);
+        generateDayForecastDisplay(this.dailyForecast, this.weatherDayScrolllPane);
         boolean useOneHour = false;
-        generateHourForecastDisplay(this.currentForecast, this.weatherHourScrollPane, useOneHour);
+        generateHourForecastDisplay(this.hourlyForecast, this.weatherHourScrollPane, useOneHour);
 
     }
 
