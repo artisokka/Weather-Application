@@ -19,6 +19,14 @@ public class WeatherModel {
         api = new Api();
     }
 
+    public WeatherDTO lookUpLocation(String loc) {
+        Gson gson = new Gson();
+        String responseBody = api.lookUpLocation(loc);
+        System.out.println(responseBody);
+        WeatherDTO weatherDTO = gson.fromJson(responseBody, WeatherDTO.class);
+        return weatherDTO;
+    }
+
     public WeatherDTO getCurrentWeather(double latitude, double longitude) {
         Gson gson = new Gson();
         String responseBody = api.getCurrentWeather(latitude, longitude);
@@ -55,7 +63,7 @@ public class WeatherModel {
         JsonObject firstPollutionEntry = pollutionList.get(0).getAsJsonObject();
         JsonObject mainObject = firstPollutionEntry.getAsJsonObject("main");
         int aqiValue = mainObject.get("aqi").getAsInt();
-    
+
         weatherDTO.setAirQuality(AirQuality.fromValue(aqiValue));
     }
 }
