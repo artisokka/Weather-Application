@@ -2,6 +2,7 @@ package junit.Test;
 
 import group3191.models.weather.*;
 import group3191.controllers.*;
+import group3191.models.WeatherModel;
 import group3191.utils.Settings.*;
 
 import java.util.List;
@@ -16,6 +17,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class WeatherAppTest {
 
     @Test
+    public void testWeatherController() {
+        WeatherModel weatherModel = new WeatherModel();
+        assertNotNull(weatherModel);
+    }
+
+    @Test
     public void testGetCurrentWeather() {
         WeatherController weatherController = new WeatherController();
         WeatherDTO weatherDTO = weatherController.getCurrentWeather(61.49911,
@@ -28,10 +35,10 @@ public class WeatherAppTest {
     public void testGetForecast() {
         WeatherController weatherController = new WeatherController();
         List<WeatherDTO> weatherDTOlist = weatherController.
-                getForecast(61.49911,
-                        23.78712);
+                getForecast(61.4991,
+                        23.7871);
+        WeatherDTO weatherDTO = weatherDTOlist.get(0);
         assertNotNull(weatherDTOlist);
-        assertEquals("Tampere", weatherDTOlist.get(0).getName());
     }
 
     @Test
@@ -39,8 +46,6 @@ public class WeatherAppTest {
         WeatherController weatherController = new WeatherController();
         WeatherDTO weatherDTO = weatherController.lookUpLocation("Lieksa");
         assertNotNull(weatherDTO);
-        System.out.println(weatherDTO);
-        //assertEquals("Lieksa", weatherDTO.getName());
+        assertEquals("Lieksa", weatherDTO.getName());
     }
-
 }

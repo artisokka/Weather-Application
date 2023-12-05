@@ -23,8 +23,8 @@ public class WeatherModel {
         Gson gson = new Gson();
         String responseBody = api.lookUpLocation(loc);
         System.out.println(responseBody);
-        WeatherDTO weatherDTO = gson.fromJson(responseBody, WeatherDTO.class);
-        return weatherDTO;
+        List<WeatherDTO> weatherDTOList = getWeatherList(responseBody);
+        return weatherDTOList.get(0);
     }
 
     public WeatherDTO getCurrentWeather(double latitude, double longitude) {
