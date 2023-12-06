@@ -2,7 +2,7 @@ package group3191.utils;
 
 import java.net.http.HttpResponse;
 
-
+import group3191.db.DatabaseHandler;
 import group3191.utils.requests.OpenWeatherRequest;
 import group3191.utils.requests.RequestParameters;
 
@@ -27,7 +27,7 @@ public class Api implements iAPI {
     public String getCurrentWeather(double lat, double lon) {
         String endpoint = "weather";
         RequestParameters requestParameters = new RequestParameters();
-        requestParameters.Add("units", "metric");
+        requestParameters.Add("units", DatabaseHandler.getUnitValue());
         requestParameters.Add("lat", String.valueOf(lat));
         requestParameters.Add("lon", String.valueOf(lon));
         OpenWeatherRequest request = new OpenWeatherRequest(Settings.OPENWEATHER_URI, requestParameters, endpoint);
@@ -41,7 +41,7 @@ public class Api implements iAPI {
     public String getForecast(double lat, double lon) {
         String endpoint = "forecast";
         RequestParameters requestParameters = new RequestParameters();
-        requestParameters.Add("units", "metric");
+        requestParameters.Add("units", DatabaseHandler.getUnitValue());
         requestParameters.Add("lat", String.valueOf(lat));
         requestParameters.Add("lon", String.valueOf(lon));
         // Use pro endpoint for forecast to get 1 hour interval data
@@ -57,7 +57,7 @@ public class Api implements iAPI {
     public String getAirPollution(double lat, double lon) {
         String endpoint = "air_pollution";
         RequestParameters requestParameters = new RequestParameters();
-        requestParameters.Add("units", "metric");
+        requestParameters.Add("units", DatabaseHandler.getUnitValue());
         requestParameters.Add("lat", String.valueOf(lat));
         requestParameters.Add("lon", String.valueOf(lon));
         OpenWeatherRequest request = new OpenWeatherRequest(Settings.OPENWEATHER_URI, requestParameters, endpoint);
@@ -71,7 +71,7 @@ public class Api implements iAPI {
     public String getDailyForecast(double lat, double lon) {
         String endpoint = "forecast/daily";
         RequestParameters requestParameters = new RequestParameters();
-        requestParameters.Add("units", "metric");
+        requestParameters.Add("units", DatabaseHandler.getUnitValue());
         requestParameters.Add("lat", String.valueOf(lat));
         requestParameters.Add("lon", String.valueOf(lon));
         OpenWeatherRequest request = new OpenWeatherRequest(Settings.OPENWEATHER_URI, requestParameters, endpoint);

@@ -17,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -178,6 +179,9 @@ public class Weatherapp_guiController implements Initializable {
     @FXML
     void unitChanged(ActionEvent event) {
         this.currentUnitSystem = this.unitSystemComboBox.getSelectionModel().getSelectedItem();
+        DatabaseHandler.setUnitValue(this.currentUnitSystem);
+        // Fetch new weather data because unit system has changed
+        this.setWeather(this.currentLocation);
         this.showWeather();
 
     }
@@ -206,12 +210,18 @@ public class Weatherapp_guiController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.showLast();
-        ArrayList<String> allUnits = new ArrayList();
+        
+        initUnitSystem();
+    }
+
+    private void initUnitSystem() {
+        List<String> allUnits = new ArrayList<>();
         allUnits.add("Metric");
         allUnits.add("Imperial");
         ObservableList<String> units = FXCollections.observableArrayList(allUnits);
         this.unitSystemComboBox.setItems(units);
-        this.currentUnitSystem = "Metric";
+        this.currentUnitSystem = DatabaseHandler.getUnitValue();
+        this.unitSystemComboBox.getSelectionModel().select(this.currentUnitSystem);
     }
 
     private void showLast() {

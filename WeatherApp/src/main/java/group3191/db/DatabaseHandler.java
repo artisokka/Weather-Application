@@ -6,19 +6,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import group3191.models.geo.GeoName;
 
-import group3191.models.db.Search;
 
 public class DatabaseHandler {
 
@@ -27,6 +26,8 @@ public class DatabaseHandler {
     private static List<GeoName> favorites = new ArrayList<GeoName>();
     private static List<GeoName> locationHistory = new ArrayList<GeoName>();
     private static GeoName lastSearch;
+    private static String unitValue;
+
     private static Gson gson = new Gson();
     
     /**
@@ -78,6 +79,15 @@ public class DatabaseHandler {
                     locationHistory.add(geoName);
                 });
             }
+
+            // get unit value
+            JsonElement unitValueElem = jsonObject.get("unitValue");
+            if (unitValueElem == null) {
+                unitValue = "Metric";
+            } else {
+                unitValue = unitValueElem.getAsString();
+            }
+
         } 
     }
 
@@ -111,6 +121,10 @@ public class DatabaseHandler {
                 JsonObject lastSearchObj = gsonBuilder.toJsonTree(lastSearch).getAsJsonObject();
                 jsonObject.add("lastSearch", lastSearchObj);
             }
+
+            // Add unit value
+            jsonObject.addProperty("unitValue", unitValue);
+            
             gsonBuilder.toJson(jsonObject, writer);
             return true;
         } catch (IOException e) {
@@ -146,18 +160,17 @@ public class DatabaseHandler {
         saveToDb();
     }
 
-    public static void removeFavorite(GeoName search) {
-        favorites.remove(search);
+    public static String getUnitValue() {
+        return unitValue;
+    }
+
+    public static void setUnitValue(String unitValue) {
+        DatabaseHandler.unitValue = unitValue;
         saveToDb();
     }
 
-     private static File getFileFromResource(String fileName) throws IllegalArgumentException {
-
-        URL resource = DatabaseHandler.class.getResource(fileName);
-        if (resource == null) {
-            throw new IllegalArgumentException("File not found: " + fileName);
-        }
-        return new File(resource.getFile());
-        
+    public static void removeFavorite(GeoName search) {
+        favorites.remove(search);
+        saveToDb();
     }
 }
