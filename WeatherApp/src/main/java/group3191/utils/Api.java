@@ -6,8 +6,14 @@ import group3191.db.DatabaseHandler;
 import group3191.utils.requests.OpenWeatherRequest;
 import group3191.utils.requests.RequestParameters;
 
+/**
+ * This class is used to make requests to the OpenWeather API.
+ */
 public class Api implements iAPI {
 
+    /**
+     * Constructor for the Api class.
+     */
     public Api() {}
 
     @Override

@@ -1,5 +1,8 @@
 package group3191.models.weather;
 
+/**
+ * This class is used to represent the weather.
+ */
 public class Weather {
     private int id;
     private String main;

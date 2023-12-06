@@ -2,6 +2,9 @@ package group3191.models.weather;
 
 import java.util.List;
 
+/**
+ * This class is used to represent the weather with all the information.
+ */
 public class WeatherDTO {
 
     private Coord coord;

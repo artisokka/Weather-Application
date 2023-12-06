@@ -1,5 +1,8 @@
 package group3191.models.weather;
 
+/**
+ * This class is used to represent the main weather information.
+ */
 public class Main {
     private double temp;
     private double feels_like;

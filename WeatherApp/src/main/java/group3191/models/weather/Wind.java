@@ -1,5 +1,8 @@
 package group3191.models.weather;
 
+/**
+ * This class is used to represent the wind.
+ */
 public class Wind {
     private double speed;
     private int deg;

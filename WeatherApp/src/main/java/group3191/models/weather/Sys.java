@@ -1,5 +1,8 @@
 package group3191.models.weather;
 
+/**
+ * This class is used to represent the basic details of the weather.
+ */
 public class Sys {
     private int type;
     private int id;

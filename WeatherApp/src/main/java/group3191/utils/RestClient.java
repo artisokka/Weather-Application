@@ -13,10 +13,18 @@ import java.net.http.HttpResponse.BodyHandlers;
 public class RestClient {
     Request request;
     
+    /**
+     * Constructor for the RestClient class.
+     * @param request The request to be sent.
+     */
     public RestClient(Request request) {
         this.request = request;
     }
     
+    /**
+     * This method sends the request and returns the response.
+     * @return The response of the request.
+     */
     public HttpResponse<String> getResponse() {
         HttpResponse<String> response = null;
         try {

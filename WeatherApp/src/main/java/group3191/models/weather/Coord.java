@@ -1,5 +1,8 @@
 package group3191.models.weather;
 
+/**
+ * This class is used to represent the coordinates.
+ */
 public class Coord {
     private double lon;
     private double lat;

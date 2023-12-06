@@ -11,6 +11,12 @@ abstract class Formatter implements URIFormatter {
     protected String endpoint;
     protected TreeMap<String, String> keyValues;
 
+    /**
+     * Constructor for the Formatter class.
+     * @param URI The URI of the request.
+     * @param endpoint The endpoint of the request.
+     * @param key The API key of the request.
+     */
     public Formatter(String URI, String endpoint, String key) {
         this.URI = URI;
         this.key = key;

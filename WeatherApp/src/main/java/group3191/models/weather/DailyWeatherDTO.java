@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+/**
+ * This class is used to represent the daily weather.
+ */
 public class DailyWeatherDTO {
 
     private long dt;
@@ -140,6 +143,9 @@ public class DailyWeatherDTO {
         this.rain = rain;
     }
 
+    /**
+     * This class is used to represent the daily weather temperature.
+     */
     public static class Temperature {
         private double day;
         private double min;
@@ -197,6 +203,9 @@ public class DailyWeatherDTO {
         }
     }
 
+    /**
+     * This class is used to represent the daily weather feels like temperature.
+     */
     public static class FeelsLike {
         private double day;
         private double night;

@@ -6,6 +6,10 @@ import java.util.TreeMap;
  * This class is used to format headers for request
  */
 public class DefaultHeaderFormatter implements HeaderFormatter {
+    
+    /**
+     * Constructor for the DefaultHeaderFormatter class.
+     */
     public DefaultHeaderFormatter() {
     
     }
