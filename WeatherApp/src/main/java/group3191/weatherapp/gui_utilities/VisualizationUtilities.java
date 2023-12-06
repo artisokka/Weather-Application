@@ -80,13 +80,15 @@ public class VisualizationUtilities {
             String iconCode = getIconCodeByWeather(weather);
             WeatherIcon iconToShow = handler.getIconById(iconCode);
 
-            String temperature = "" + weather.getMain().getTemp() + degEnd;
+            String temperature = 
+                    String.format("%.1f" + degEnd, weather.getMain().getTemp());
             HBox row1 = generateMainviewFirstRow(weather, temperature);
             
             content.getChildren().add(row1);
 
             
-            String feelsText = "" + weather.getMain().getFeels_like() + degEnd;
+            String feelsText = String.format("%.1f" + degEnd, 
+                    weather.getMain().getFeels_like());
             Text feelsTextToAdd = getFeelsText(feelsText);
             
             content.getChildren().add(feelsTextToAdd);
@@ -219,7 +221,7 @@ public class VisualizationUtilities {
         Text min = new Text(minText);
         day.getChildren().add(min);
         
-        String maxText = String.format("max: %.0f", weather.getTemp().getMin());
+        String maxText = String.format("max: %.0f", weather.getTemp().getMax());
 
         Text max = new Text(maxText);
         day.getChildren().add(max);
@@ -308,7 +310,6 @@ public class VisualizationUtilities {
 
         } catch (Exception e) {
             System.out.println("error in: " + e);
-            System.out.println("täss on virhe jos: "+fileName);
             return null;
         }
         return null;
