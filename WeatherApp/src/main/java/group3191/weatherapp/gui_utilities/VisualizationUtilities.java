@@ -47,34 +47,46 @@ import javafx.scene.transform.Rotate;
 public class VisualizationUtilities {
 
     private static final String TEXT_FONT_STYLE = "-fx-font-size: 18px;";
+    private static final String METRIC_DEGREES = " °C";
+    private static final String METRIC_SPEED = " m/s";
+    
+     private static final String IMPERIAL_DEGREES = " °F";
+    private static final String IMPERIAL_SPEED = " mph";
 
     
-    public static void generateCurrentWeatherDisplay(WeatherDTO weather, ScrollPane scrollPane) {
-        //String pathToIcons = VisualizationUtilities.class.getResource("/weather_icons/").toString();
-        String degreesMetric = " °C";
-        String speedMetric = " m/s";
+    public static void generateCurrentWeatherDisplay(WeatherDTO weather, 
+            ScrollPane scrollPane, String unitSystem) {
+        
+        String degEnd = METRIC_DEGREES;
+        String speedEnd = METRIC_SPEED;
+        if(unitSystem.equals("Imperial"))
+        {
+            degEnd = IMPERIAL_DEGREES;
+            speedEnd = IMPERIAL_SPEED;
+        }
 
-        //grid.getChildren().clear();
+        
         VBox content = new VBox();
         content.setStyle("-fx-background-color: WHITE;");
         
         content.setSpacing(10);
         content.setAlignment(Pos.CENTER);
         
-        WeatherIconHandler handler = new WeatherIconHandler("src\\main\\resources\\weather_icons");
+        WeatherIconHandler handler =
+                new WeatherIconHandler("src\\main\\resources\\weather_icons");
         List<Weather> weatherList = weather.getWeather();
         if (weatherList.size() > 0) {
             Weather first = weatherList.get(0);
             String iconCode = getIconCodeByWeather(weather);
             WeatherIcon iconToShow = handler.getIconById(iconCode);
 
-            String temperature = "" + weather.getMain().getTemp() + " °C";
+            String temperature = "" + weather.getMain().getTemp() + degEnd;
             HBox row1 = generateMainviewFirstRow(weather, temperature);
             
             content.getChildren().add(row1);
 
             
-            String feelsText = "" + weather.getMain().getFeels_like();
+            String feelsText = "" + weather.getMain().getFeels_like() + degEnd;
             Text feelsTextToAdd = getFeelsText(feelsText);
             
             content.getChildren().add(feelsTextToAdd);
@@ -84,7 +96,8 @@ public class VisualizationUtilities {
             content.getChildren().add(row2);
             
             //HBox hbox, int windDirection, double windSpeed
-            HBox row3 = generateWindInfoRow(weather.getWind().getDeg(), weather.getWind().getSpeed());
+            HBox row3 = generateWindInfoRow(weather.getWind().getDeg(), 
+                    weather.getWind().getSpeed(), speedEnd);
             
             content.getChildren().add(row3);
 
@@ -95,7 +108,8 @@ public class VisualizationUtilities {
 
     
 
-    public static void generateDayForecastDisplay(List<DailyWeatherDTO> forecast, ScrollPane scrollPane) {
+    public static void generateDayForecastDisplay(
+            List<DailyWeatherDTO> forecast, ScrollPane scrollPane) {
         HBox content = new HBox();
         content.setStyle("-fx-background-color: WHITE;");
         content.setSpacing(10);
@@ -111,7 +125,8 @@ public class VisualizationUtilities {
         }
         scrollPane.setContent(content);
     }
-    public static void generateHourForecastDisplay(List<WeatherDTO> forecast, ScrollPane scrollPane, boolean useOneHour) {
+    public static void generateHourForecastDisplay(List<WeatherDTO> forecast, 
+            ScrollPane scrollPane, boolean useOneHour) {
         HBox content = new HBox();
         content.setStyle("-fx-background-color: WHITE;");
         content.setAlignment(Pos.CENTER);
@@ -138,7 +153,8 @@ public class VisualizationUtilities {
     private static ImageView getWeatherIconImageView(WeatherDTO weather)
     {
         String iconCode = getIconCodeByWeather(weather);
-        WeatherIconHandler handler = new WeatherIconHandler("src\\main\\resources\\weather_icons");
+        WeatherIconHandler handler = 
+                new WeatherIconHandler("src\\main\\resources\\weather_icons");
         WeatherIcon iconToShow = handler.getIconById(iconCode);
         return getImageView(iconToShow.getPath());
     }
@@ -185,7 +201,8 @@ public class VisualizationUtilities {
         day.setSpacing(20);
         Text title = new Text(date);
         day.getChildren().add(title);
-        WeatherIconHandler handler = new WeatherIconHandler("src\\main\\resources\\weather_icons");
+        WeatherIconHandler handler = 
+                new WeatherIconHandler("src\\main\\resources\\weather_icons");
     
         Weather first = weather.getWeather().get(0);
         String idCode = first.getId() + "";
@@ -211,14 +228,14 @@ public class VisualizationUtilities {
     }
 
     private static Text getFeelsText(String feels) {
-        String feelsText = "Feels like: " + feels + " °C";
+        String feelsText = "Feels like: " + feels;
         Text text = new Text(feelsText);
         text.setStyle(TEXT_FONT_STYLE);
-        //text.setStyle("-fx-font-size: 40px; -fx-min-height: 64px; -fx-min-width: 64px;");
         return text;
     }
 
-    private static HBox generateMainviewFirstRow(WeatherDTO weather, String temperature) {
+    private static HBox generateMainviewFirstRow(WeatherDTO weather, 
+            String temperature) {
         HBox row = new HBox();
         row.setAlignment(Pos.CENTER);
         ImageView iconToDisplay = getWeatherIconImageView(weather);
@@ -252,7 +269,8 @@ public class VisualizationUtilities {
 
     }
 
-    private static HBox generateWindInfoRow(int windDirection, double windSpeed) {
+    private static HBox generateWindInfoRow(int windDirection, double windSpeed,
+            String speedEnd) {
         // Create an arrow using a Polygon
         HBox row = new HBox();
         row.setAlignment(Pos.CENTER);
@@ -261,7 +279,7 @@ public class VisualizationUtilities {
         ImageView arrow = new ImageView("/icons/arrow.png");
 
         arrow.getTransforms().add(new Rotate(windDirection, 13, 16));
-        String winds = "" + windSpeed + " m/s";
+        String winds = "" + windSpeed + speedEnd;
         Text windText = new Text(winds);
         windText.setStyle("-fx-font-size: 24px;");
         row.getChildren().addAll(arrow, windText);
