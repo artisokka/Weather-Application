@@ -8,7 +8,7 @@ package group3191.utils.formatters;
  * This class is used to format a URI for the OpenWeatherMap API.
  */
 public class OpenWeatherFormatter extends Formatter {
-    
+
     public OpenWeatherFormatter(String URI, String endpoint, String key) {
         super(URI, endpoint, key);
     }
@@ -30,5 +30,9 @@ public class OpenWeatherFormatter extends Formatter {
         }
         return sb.toString();
     }
-    
+
+    @Override
+    public String GetBaseURI() {
+        return URI;
+    }
 }

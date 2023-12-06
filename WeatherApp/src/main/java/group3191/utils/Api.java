@@ -9,20 +9,18 @@ import group3191.utils.requests.RequestParameters;
 public class Api implements iAPI {
 
     public Api() {}
-    
+
     @Override
     public String lookUpLocation(String loc) {
-        // TODO Auto-generated method stub
-        //throw new UnsupportedOperationException("Unimplemented method 'lookUpLocation'");
         String endpoint = "find";
         RequestParameters requestParameters = new RequestParameters();
         requestParameters.Add("q", loc);
-        requestParameters.Add("limit", "10");
-        OpenWeatherRequest request = new OpenWeatherRequest(Settings.OPENWEATHER_URI, requestParameters, endpoint);
+        OpenWeatherRequest request = new OpenWeatherRequest(
+                Settings.OPENWEATHER_URI, requestParameters, endpoint);
         RestClient restClient = new RestClient(request);
         HttpResponse<String> response = restClient.getResponse();
         return response.body();
-        
+
     }
 
     @Override
@@ -51,10 +49,10 @@ public class Api implements iAPI {
         OpenWeatherRequest request = new OpenWeatherRequest(baseUrl, requestParameters, endpoint);
         RestClient restClient = new RestClient(request);
         HttpResponse<String> response = restClient.getResponse();
-        
+
         return response.body();
     }
-    
+
     @Override
     public String getAirPollution(double lat, double lon) {
         String endpoint = "air_pollution";
@@ -65,7 +63,7 @@ public class Api implements iAPI {
         OpenWeatherRequest request = new OpenWeatherRequest(Settings.OPENWEATHER_URI, requestParameters, endpoint);
         RestClient restClient = new RestClient(request);
         HttpResponse<String> response = restClient.getResponse();
-        
+
         return response.body();
     }
 
@@ -79,7 +77,7 @@ public class Api implements iAPI {
         OpenWeatherRequest request = new OpenWeatherRequest(Settings.OPENWEATHER_URI, requestParameters, endpoint);
         RestClient restClient = new RestClient(request);
         HttpResponse<String> response = restClient.getResponse();
-        
+
         return response.body();
     }
 }
