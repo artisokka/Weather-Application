@@ -20,16 +20,6 @@
               <MenuItem fx:id="menuItemClose" mnemonicParsing="false" text="Close" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
         </menus>
       </MenuBar>
       <TabPane layoutX="22.0" layoutY="32.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
@@ -38,17 +28,17 @@
             <content>
               <AnchorPane fx:id="weatherAllPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <AnchorPane fx:id="weatherTop" layoutY="46.0" AnchorPane.bottomAnchor="400.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
+                        <AnchorPane fx:id="weatherBottom" layoutX="95.0" layoutY="440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="500.0">
+                           <children>
+                              <ScrollPane fx:id="weatherHourScrollPane" layoutX="79.0" layoutY="14.0" prefHeight="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                           </children></AnchorPane>
+                        <AnchorPane fx:id="weatherTop" layoutY="46.0" prefHeight="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
                            <children>
                               <ScrollPane fx:id="weatherTopScrollPane" fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children></AnchorPane>
-                        <AnchorPane fx:id="weatherMiddle" layoutY="246.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="245.0">
+                        <AnchorPane fx:id="weatherMiddle" layoutY="246.0" prefHeight="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="245.0">
                            <children>
                               <ScrollPane fx:id="weatherDayScrolllPane" layoutX="65.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children></AnchorPane>
-                        <AnchorPane fx:id="weatherBottom" layoutX="95.0" layoutY="440.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                           <children>
-                              <ScrollPane fx:id="weatherHourScrollPane" layoutX="79.0" layoutY="14.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children></AnchorPane>
                         <Button fx:id="searchButton" layoutX="360.0" layoutY="14.0" mnemonicParsing="false" onAction="#searchAndFauvoritesOnAction" text="Search &amp; Fauvorites" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="15.0" />
                         <Label fx:id="locationLabel" layoutX="212.0" layoutY="19.0" text="Location" />
@@ -62,7 +52,8 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Label fx:id="unitSystemLabel" layoutX="33.0" layoutY="22.0" text="Unit system" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
-                        <ComboBox fx:id="unitSystemComboBox" layoutX="20.0" layoutY="45.0" onAction="#unitChanged" prefWidth="150.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="40.0" />
+                        <ComboBox fx:id="unitSystemComboBox" layoutX="20.0" layoutY="45.0" onAction="#unitChanged" prefWidth="150.0" promptText="Default is Metric" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="40.0" />
+                        <Label layoutX="20.0" layoutY="78.0" text="Snow and rain ammount is only available in millimeters" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="70.0" />
                      </children></AnchorPane>
             </content>
           </Tab>
