@@ -15,7 +15,6 @@ public class Api implements iAPI {
         String endpoint = "find";
         RequestParameters requestParameters = new RequestParameters();
         requestParameters.Add("q", loc);
-        requestParameters.Add("limit", "1");
         OpenWeatherRequest request = new OpenWeatherRequest(
                 Settings.OPENWEATHER_URI, requestParameters, endpoint);
         RestClient restClient = new RestClient(request);

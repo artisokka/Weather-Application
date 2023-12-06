@@ -22,10 +22,20 @@ public class WeatherModel {
     }
 
     public WeatherDTO lookUpLocation(String loc) {
+        List<WeatherDTO> weatherDTOList = new ArrayList<>();
         Gson gson = new Gson();
         String responseBody = api.lookUpLocation(loc);
-        System.out.println(responseBody);
-        List<WeatherDTO> weatherDTOList = getWeatherList(responseBody);
+        JsonObject jsonObject = JsonParser.parseString(responseBody).
+                getAsJsonObject();
+        JsonArray jsonArray = jsonObject.getAsJsonArray("list");
+
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JsonObject weatherObject = jsonArray.get(i).getAsJsonObject();
+            WeatherDTO weatherDTO = gson.fromJson(weatherObject,
+                    WeatherDTO.class);
+            weatherDTOList.add(weatherDTO);
+        }
+
         return weatherDTOList.get(0);
     }
 
@@ -100,9 +110,9 @@ public class WeatherModel {
         if (precipitationObject != null) {
             JsonElement hourAmount = precipitationObject.get("1h");
             JsonElement threeHourAmount = precipitationObject.get("3h");
-            
+
             double amount = (hourAmount != null) ? hourAmount.getAsDouble() : (threeHourAmount != null) ? threeHourAmount.getAsDouble() : 0.0;
-    
+
             if ("snow".equals(precipitationType)) {
                 weatherDTO.setSnowAmount(amount);
             } else if ("rain".equals(precipitationType)) {
