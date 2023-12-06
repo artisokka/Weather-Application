@@ -2,22 +2,22 @@ package junit.Test;
 
 import group3191.models.weather.*;
 import group3191.controllers.*;
-import group3191.models.WeatherModel;
-import group3191.utils.Settings.*;
-
+import group3191.utils.Settings;
 import java.util.List;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class APITest {
 
+    @BeforeAll
+    public static void initSettings() {
+        Settings.Init();
+    }
+
     @Test
     public void testGetCurrentWeather() {
+
         WeatherController weatherController = new WeatherController();
         WeatherDTO weatherDTO = weatherController.getCurrentWeather(61.49911,
                 23.78712);
@@ -31,7 +31,6 @@ public class APITest {
         List<WeatherDTO> weatherDTOlist = weatherController.
                 getForecast(61.4991,
                         23.7871);
-        WeatherDTO weatherDTO = weatherDTOlist.get(0);
         assertNotNull(weatherDTOlist);
     }
 

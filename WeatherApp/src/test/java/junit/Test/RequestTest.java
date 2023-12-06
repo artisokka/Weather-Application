@@ -6,8 +6,14 @@ import group3191.utils.formatters.OpenWeatherFormatter;
 import group3191.utils.requests.OpenWeatherRequest;
 import group3191.utils.requests.RequestParameters;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeAll;
 
 public class RequestTest {
+
+    @BeforeAll
+    public static void initSettings() {
+        Settings.Init();
+    }
 
     @Test
     public void testCreateURIFormatter() {

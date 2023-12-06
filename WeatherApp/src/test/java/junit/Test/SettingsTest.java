@@ -1,14 +1,16 @@
 package junit.Test;
 
 import group3191.utils.Settings;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SettingsTest {
+
+    @BeforeAll
+    public static void initSettings() {
+        Settings.Init();
+    }
 
     @Test
     public void testEnvKey() {
