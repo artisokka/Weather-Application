@@ -8,42 +8,27 @@ package group3191.weatherapp.gui_utilities;
  *
  * @author EeroP
  */
-import group3191.models.geo.GeoName;
+
+
 import group3191.models.weather.DailyWeatherDTO;
 import group3191.models.weather.WeatherDTO;
 import group3191.models.weather.Weather;
 import static group3191.weatherapp.gui_utilities.WeatherIconMapping.getIconCodeByWeather;
 import java.util.List;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.shape.SVGPath;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.net.URI;
-import java.net.URL;
+import javafx.scene.image.ImageView;
 import java.time.LocalDateTime;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-
-import javafx.scene.image.Image;
-import javafx.scene.image.WritableImage;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javax.imageio.ImageIO;
 
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Rotate;
 
+/**
+ * Utility class for generating visualizations related to weather data.
+ */
 public class VisualizationUtilities {
 
     private static final String TEXT_FONT_STYLE = "-fx-font-size: 18px;";
@@ -54,6 +39,13 @@ public class VisualizationUtilities {
     private static final String IMPERIAL_SPEED = " mph";
 
     
+    /**
+     * Generates the current weather display based on the provided weather data.
+     * 
+     * @param weather The WeatherDTO object containing the weather data.
+     * @param scrollPane The ScrollPane object to display the weather content.
+     * @param unitSystem The unit system to use for displaying temperature and wind speed.
+     */
     public static void generateCurrentWeatherDisplay(WeatherDTO weather, 
             ScrollPane scrollPane, String unitSystem) {
         
@@ -72,13 +64,8 @@ public class VisualizationUtilities {
         content.setSpacing(10);
         content.setAlignment(Pos.CENTER);
         
-        WeatherIconHandler handler =
-                new WeatherIconHandler("src\\main\\resources\\weather_icons");
         List<Weather> weatherList = weather.getWeather();
         if (weatherList.size() > 0) {
-            Weather first = weatherList.get(0);
-            String iconCode = getIconCodeByWeather(weather);
-            WeatherIcon iconToShow = handler.getIconById(iconCode);
 
             String temperature = 
                     String.format("%.1f" + degEnd, weather.getMain().getTemp());
@@ -110,6 +97,13 @@ public class VisualizationUtilities {
 
     
 
+    /**
+     * Generates the display for the day forecast based on the provided list of DailyWeatherDTO objects.
+     * The generated display is added to the specified ScrollPane.
+     *
+     * @param forecast   the list of DailyWeatherDTO objects representing the forecast for multiple days
+     * @param scrollPane the ScrollPane to which the generated display will be added
+     */
     public static void generateDayForecastDisplay(
             List<DailyWeatherDTO> forecast, ScrollPane scrollPane) {
         HBox content = new HBox();
@@ -127,6 +121,13 @@ public class VisualizationUtilities {
         }
         scrollPane.setContent(content);
     }
+    /**
+     * Generates the hour forecast display based on the given forecast data.
+     * 
+     * @param forecast the list of weather data for the forecast
+     * @param scrollPane the scroll pane to display the forecast
+     * @param useOneHour flag indicating whether to display forecast for every hour or every three hours
+     */
     public static void generateHourForecastDisplay(List<WeatherDTO> forecast, 
             ScrollPane scrollPane, boolean useOneHour) {
         HBox content = new HBox();
@@ -152,6 +153,12 @@ public class VisualizationUtilities {
         scrollPane.setContent(content);
     }
     
+    /**
+     * Returns an ImageView object representing the weather icon for the given WeatherDTO object.
+     *
+     * @param weather The WeatherDTO object containing weather information.
+     * @return The ImageView object representing the weather icon.
+     */
     private static ImageView getWeatherIconImageView(WeatherDTO weather)
     {
         String iconCode = getIconCodeByWeather(weather);
@@ -161,6 +168,13 @@ public class VisualizationUtilities {
         return getImageView(iconToShow.getPath());
     }
     
+    /**
+     * Generates a VBox container for displaying weather information for a specific hour.
+     * 
+     * @param weather   the WeatherDTO object containing weather information
+     * @param hourTime  the hour time to be displayed as the title
+     * @return          the generated VBox container
+     */
     private static VBox generateHourWeather(WeatherDTO weather, String hourTime) {
         VBox hour = new VBox();
         hour.setSpacing(10);
@@ -197,6 +211,13 @@ public class VisualizationUtilities {
         return hour;
     }
 
+    /**
+     * Generates a VBox container for displaying the weather information of a specific day.
+     * 
+     * @param weather the DailyWeatherDTO object containing the weather information for the day
+     * @param date the date of the day in string format
+     * @return the VBox container with the weather information
+     */
     private static VBox generateDayWeather(DailyWeatherDTO weather, String date) {
         VBox day = new VBox();
         day.setAlignment(Pos.CENTER);
@@ -205,9 +226,7 @@ public class VisualizationUtilities {
         day.getChildren().add(title);
         WeatherIconHandler handler = 
                 new WeatherIconHandler("src\\main\\resources\\weather_icons");
-    
-        Weather first = weather.getWeather().get(0);
-        String idCode = first.getId() + "";
+
         String iconCode = getIconCodeByWeather(weather);
         
         WeatherIcon iconToShow = handler.getIconById(iconCode);
@@ -229,6 +248,12 @@ public class VisualizationUtilities {
         return day;
     }
 
+    /**
+     * Creates a Text object with the specified feels value.
+     *
+     * @param feels the feels value to be displayed
+     * @return a Text object representing the feels value
+     */
     private static Text getFeelsText(String feels) {
         String feelsText = "Feels like: " + feels;
         Text text = new Text(feelsText);
@@ -236,6 +261,13 @@ public class VisualizationUtilities {
         return text;
     }
 
+    /**
+     * Generates the first row of the main view.
+     * 
+     * @param weather the WeatherDTO object containing weather information
+     * @param temperature the temperature to be displayed
+     * @return the HBox representing the first row of the main view
+     */
     private static HBox generateMainviewFirstRow(WeatherDTO weather, 
             String temperature) {
         HBox row = new HBox();
@@ -249,6 +281,12 @@ public class VisualizationUtilities {
 
     }
 
+    /**
+     * Generates a row containing air quality, rain amount, and snow amount information in an HBox.
+     *
+     * @param weather the WeatherDTO object containing weather information
+     * @return the HBox containing the generated row
+     */
     private static HBox generateMainviewAirRow(WeatherDTO weather) {
         HBox row = new HBox();
         row.setAlignment(Pos.CENTER);
@@ -271,6 +309,14 @@ public class VisualizationUtilities {
 
     }
 
+    /**
+     * Generates a row containing wind information.
+     * 
+     * @param windDirection the direction of the wind in degrees
+     * @param windSpeed the speed of the wind
+     * @param speedEnd the unit of the wind speed
+     * @return the generated HBox containing the wind information
+     */
     private static HBox generateWindInfoRow(int windDirection, double windSpeed,
             String speedEnd) {
         // Create an arrow using a Polygon
@@ -288,6 +334,12 @@ public class VisualizationUtilities {
         return row;
     }
     
+    /**
+     * Creates an ImageView object with the specified wind direction arrow image.
+     *
+     * @param windDirection the direction of the wind in degrees
+     * @return the ImageView object with the wind direction arrow image
+     */
     private static ImageView getSmallArrow(int windDirection)
     {
         ImageView arrow = new ImageView("/icons/arrow.png");
@@ -299,6 +351,12 @@ public class VisualizationUtilities {
     }
 
    
+    /**
+     * Creates an ImageView object with the specified image file.
+     *
+     * @param fileName the name of the image file
+     * @return the created ImageView object, or null if an error occurs
+     */
     private static ImageView getImageView(String fileName) {
         try {
             ImageView toShow = new ImageView(fileName);
