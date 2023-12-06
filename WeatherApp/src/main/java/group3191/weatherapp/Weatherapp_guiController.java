@@ -36,6 +36,10 @@ import group3191.weatherapp.gui_utilities.VisualizationUtilities;
 import static group3191.weatherapp.gui_utilities.VisualizationUtilities.generateCurrentWeatherDisplay;
 import static group3191.weatherapp.gui_utilities.VisualizationUtilities.generateDayForecastDisplay;
 import static group3191.weatherapp.gui_utilities.VisualizationUtilities.generateHourForecastDisplay;
+import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 
 /**
@@ -92,9 +96,13 @@ public class Weatherapp_guiController implements Initializable {
 
     @FXML
     private AnchorPane weatherTop;
+    
+    @FXML
+    private ComboBox<String> unitSystemComboBox;
+    
+    @FXML
+    private Label unitSystemLabel;
 
-//    @FXML
-//    private GridPane weatherTopGrid;
 
     @FXML
     private ScrollPane weatherDayScrolllPane;
@@ -149,14 +157,19 @@ public class Weatherapp_guiController implements Initializable {
         System.out.println("weatherDTO: " + weatherDTO);
         this.currentLocation = location;
         this.currentWeather = weatherDTO;
-        //System.out.println("forecast is: "+ weatherController.getForecast(location.getLat(), location.getLng())); 
+         
         List<WeatherDTO> forecastHourly = weatherController.getForecast(location.getLat(), location.getLng());
-        // TEST_DAILY
+        
         List<DailyWeatherDTO> forecastDaily = weatherController.getDailyForecast(location.getLat(), location.getLng());
-        //System.out.println(dailyForecastOfSomething.get(0).getFeelsLike().getNight());
-        //this.currentForecast = forecastOfSomething;
+        
         this.hourlyForecast = forecastHourly;
         this.dailyForecast = forecastDaily;
+
+    }
+    
+    @FXML
+    void unitChanged(ActionEvent event) {
+        this.showWeather();
 
     }
 
@@ -171,26 +184,6 @@ public class Weatherapp_guiController implements Initializable {
 
         this.locationLabel.setText(locationText);
 
-//        int visibility = this.currentWeather.getVisibility();
-//        group3191.models.weather.Main main = this.currentWeather.getMain();
-//        double temperature = main.getTemp();
-//        group3191.models.weather.Wind wind = this.currentWeather.getWind();
-//        
-//        Label visibilityLabel = new Label("Visibility: " + visibility + " m");
-//        Label temperatureLabel = new Label("Temperature: " + temperature + " °C");
-//        Label windSpeedLabel = new Label("Wind Speed: " + wind.getSpeed() + " m/s");
-//        Label windDegreeLabel = new Label("Wind Degree: " + wind.getDeg() + "°");
-//        Label windGustLabel = new Label("Wind Gust: " + wind.getGust() + " m/s");
-//        
-//        //this.weatherTop.getChildren().clear();
-//        VBox vbox = new VBox(10);
-//        
-//        
-//        vbox.getChildren().addAll(visibilityLabel, temperatureLabel,
-//                                         windSpeedLabel, windDegreeLabel,
-//                                         windGustLabel);
-        //this.weatherTop.getChildren().add(vbox);
-        //generateCurrentWeatherDisplay(this.currentWeather, this.weatherTopGrid);
         generateCurrentWeatherDisplay(this.currentWeather, this.weatherTopScrollPane);
         generateDayForecastDisplay(this.dailyForecast, this.weatherDayScrolllPane);
         boolean useOneHour = false;
@@ -204,9 +197,11 @@ public class Weatherapp_guiController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.showLast();
-        // TODO
-        //this.currentWeather = this.testWeatherAPI();
-        //testGetForecast();
+        ArrayList<String> allUnits = new ArrayList();
+        allUnits.add("Metric");
+        allUnits.add("Imperial");
+        ObservableList<String> units = FXCollections.observableArrayList(allUnits);
+        this.unitSystemComboBox.setItems(units);
     }
 
     private void showLast() {
