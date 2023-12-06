@@ -116,6 +116,11 @@ public class Weatherapp_guiController implements Initializable {
     private ScrollPane weatherTopScrollPane;
 
     private GeoName defaultWeather = new GeoName("Tampere", "Finland", 61.4991, 23.7871);
+    
+    @FXML
+    void closeApplication(ActionEvent event) {
+        Platform.exit();
+    }
 
     @FXML
     void onAction(ActionEvent event) {
@@ -124,6 +129,7 @@ public class Weatherapp_guiController implements Initializable {
 
     @FXML
     void refreshOnAction(ActionEvent event) {
+        this.showWeather();
 
     }
 
