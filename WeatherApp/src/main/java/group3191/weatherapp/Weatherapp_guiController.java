@@ -48,6 +48,8 @@ import javafx.scene.control.ScrollPane;
  * @author EeroP
  */
 public class Weatherapp_guiController implements Initializable {
+    
+    private String currentUnitSystem;
 
     private WeatherDTO currentWeather;
     private GeoName currentLocation;
@@ -169,6 +171,7 @@ public class Weatherapp_guiController implements Initializable {
     
     @FXML
     void unitChanged(ActionEvent event) {
+        this.currentUnitSystem = this.unitSystemComboBox.getSelectionModel().getSelectedItem();
         this.showWeather();
 
     }
@@ -184,9 +187,9 @@ public class Weatherapp_guiController implements Initializable {
 
         this.locationLabel.setText(locationText);
 
-        generateCurrentWeatherDisplay(this.currentWeather, this.weatherTopScrollPane);
+        generateCurrentWeatherDisplay(this.currentWeather, this.weatherTopScrollPane, this.currentUnitSystem);
         generateDayForecastDisplay(this.dailyForecast, this.weatherDayScrolllPane);
-        boolean useOneHour = false;
+        boolean useOneHour = true; //to match the env file
         generateHourForecastDisplay(this.hourlyForecast, this.weatherHourScrollPane, useOneHour);
 
     }
@@ -202,6 +205,7 @@ public class Weatherapp_guiController implements Initializable {
         allUnits.add("Imperial");
         ObservableList<String> units = FXCollections.observableArrayList(allUnits);
         this.unitSystemComboBox.setItems(units);
+        this.currentUnitSystem = "Metric";
     }
 
     private void showLast() {
