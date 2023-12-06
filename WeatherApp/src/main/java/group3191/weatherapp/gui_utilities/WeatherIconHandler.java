@@ -56,7 +56,7 @@ public class WeatherIconHandler {
             }
         }
         // If icon with the specified ID is not found, return a default not-found icon
-        return new WeatherIcon("none", "Icon Not Found", "notfound.png");
+        return new WeatherIcon("none", "Icon Not Found", "icons\\not_found.png");
     }
 
     public WeatherIcon getIconByDescription(String description) {
@@ -66,7 +66,7 @@ public class WeatherIconHandler {
             }
         }
         // If icon with the specified description is not found, return a default not-found icon
-        return new WeatherIcon("none", "Icon Not Found", "notfound.png");
+        return new WeatherIcon("none", "Icon Not Found", "icons\\not_found.png");
     }
     
 }

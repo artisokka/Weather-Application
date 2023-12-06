@@ -12,6 +12,7 @@ import group3191.models.geo.GeoName;
 import group3191.models.weather.DailyWeatherDTO;
 import group3191.models.weather.WeatherDTO;
 import group3191.models.weather.Weather;
+import static group3191.weatherapp.gui_utilities.WeatherIconMapping.getIconCodeByWeather;
 import java.util.List;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -45,7 +46,7 @@ import javafx.scene.transform.Rotate;
 
 public class VisualizationUtilities {
 
-    private static final String TEXT_FONT_STYLE = "\"-fx-font-size: 24px;\"";
+    private static final String TEXT_FONT_STYLE = "-fx-font-size: 18px;";
 
     
     public static void generateCurrentWeatherDisplay(WeatherDTO weather, ScrollPane scrollPane) {
@@ -64,14 +65,11 @@ public class VisualizationUtilities {
         List<Weather> weatherList = weather.getWeather();
         if (weatherList.size() > 0) {
             Weather first = weatherList.get(0);
-            String idCode = first.getId() + "";
-            String iconCode = WeatherIconMapping.getLocalWeatherIconCode(idCode, first.getMain(), first.getDescription(), first.getIcon());
-            //System.out.println("iconCode: "+iconCode);
+            String iconCode = getIconCodeByWeather(weather);
             WeatherIcon iconToShow = handler.getIconById(iconCode);
-            //addIconToGrid(iconToShow.getPath(), grid);
 
             String temperature = "" + weather.getMain().getTemp() + " °C";
-            HBox row1 = generateMainviewFirstRow(first, temperature);
+            HBox row1 = generateMainviewFirstRow(weather, temperature);
             
             content.getChildren().add(row1);
 
@@ -137,7 +135,13 @@ public class VisualizationUtilities {
         scrollPane.setContent(content);
     }
     
-    
+    private static ImageView getWeatherIconImageView(WeatherDTO weather)
+    {
+        String iconCode = getIconCodeByWeather(weather);
+        WeatherIconHandler handler = new WeatherIconHandler("src\\main\\resources\\weather_icons");
+        WeatherIcon iconToShow = handler.getIconById(iconCode);
+        return getImageView(iconToShow.getPath());
+    }
     
     private static VBox generateHourWeather(WeatherDTO weather, String hourTime) {
         VBox hour = new VBox();
@@ -146,18 +150,8 @@ public class VisualizationUtilities {
 
         Text title = new Text(hourTime);
         hour.getChildren().add(title);
-        //title.setTextAlignment(TextAlignment.CENTER);
-
-        WeatherIconHandler handler = new WeatherIconHandler("src\\main\\resources\\weather_icons");
-        //String idCode = weather.getId() + "";
-        Weather first = weather.getWeather().get(0);
-        String idCode = first.getId() + "";
-        String iconCode = WeatherIconMapping.getLocalWeatherIconCode(idCode, first.getMain(), first.getDescription(), first.getIcon());
-        //System.out.println("iconCode: "+iconCode);
-        WeatherIcon iconToShow = handler.getIconById(iconCode);
-
         
-        ImageView iconToDisplay = getImageView(iconToShow.getPath());
+        ImageView iconToDisplay = getWeatherIconImageView(weather);
         if (iconToDisplay != null) {
             iconToDisplay.setFitHeight(25);
             iconToDisplay.setFitWidth(25);
@@ -189,21 +183,17 @@ public class VisualizationUtilities {
         VBox day = new VBox();
         day.setAlignment(Pos.CENTER);
         day.setSpacing(20);
-
         Text title = new Text(date);
-        //title.setTextAlignment(TextAlignment.CENTER);
         day.getChildren().add(title);
-
         WeatherIconHandler handler = new WeatherIconHandler("src\\main\\resources\\weather_icons");
-        //String idCode = weather.getId() + "";
+    
         Weather first = weather.getWeather().get(0);
         String idCode = first.getId() + "";
-        String iconCode = WeatherIconMapping.getLocalWeatherIconCode(idCode, first.getMain(), first.getDescription(), first.getIcon());
-        //System.out.println("iconCode: "+iconCode);
+        String iconCode = getIconCodeByWeather(weather);
+        
         WeatherIcon iconToShow = handler.getIconById(iconCode);
-
-        //WeatherIcon iconToShow = handler.getIconById(iconCode);
         ImageView iconToDisplay = getImageView(iconToShow.getPath());
+        
         if (iconToDisplay != null) {
             day.getChildren().add(iconToDisplay);
         }
@@ -223,18 +213,16 @@ public class VisualizationUtilities {
     private static Text getFeelsText(String feels) {
         String feelsText = "Feels like: " + feels + " °C";
         Text text = new Text(feelsText);
+        text.setStyle(TEXT_FONT_STYLE);
         //text.setStyle("-fx-font-size: 40px; -fx-min-height: 64px; -fx-min-width: 64px;");
         return text;
     }
 
-    private static HBox generateMainviewFirstRow(Weather weather, String temperature) {
+    private static HBox generateMainviewFirstRow(WeatherDTO weather, String temperature) {
         HBox row = new HBox();
         row.setAlignment(Pos.CENTER);
-        WeatherIconHandler handler = new WeatherIconHandler("src\\main\\resources\\weather_icons");
-        String idCode = weather.getId() + "";
-        String iconCode = WeatherIconMapping.getLocalWeatherIconCode(idCode, weather.getMain(), weather.getDescription(), weather.getIcon());
-        WeatherIcon iconToShow = handler.getIconById(iconCode);
-        addIconToHBox(row, iconToShow.getPath());
+        ImageView iconToDisplay = getWeatherIconImageView(weather);
+        row.getChildren().add(iconToDisplay);
         Text text = new Text(temperature);
         text.setStyle("-fx-font-size: 40px; -fx-min-height: 64px; -fx-min-width: 64px;");
         row.getChildren().add(text);
@@ -251,10 +239,11 @@ public class VisualizationUtilities {
         airText += weather.getAirQuality().getDescription();
         //weather.
         Text airQuality = new Text(airText);
-        Text rainAmmount = new Text("rain: " + weather.getRainAmount());
-        Text snowAmmount = new Text("snow: " + weather.getSnowAmount());
+        Text rainAmmount = new Text("Rain: " + weather.getRainAmount());
+        Text snowAmmount = new Text("Snow: " + weather.getSnowAmount());
         airQuality.setStyle(TEXT_FONT_STYLE);
         rainAmmount.setStyle(TEXT_FONT_STYLE);
+        snowAmmount.setStyle(TEXT_FONT_STYLE);
         row.getChildren().add(airQuality);
         row.getChildren().add(rainAmmount);
         row.getChildren().add(snowAmmount);
@@ -266,20 +255,15 @@ public class VisualizationUtilities {
     private static HBox generateWindInfoRow(int windDirection, double windSpeed) {
         // Create an arrow using a Polygon
         HBox row = new HBox();
+        row.setAlignment(Pos.CENTER);
+        row.setSpacing(20);
 
         ImageView arrow = new ImageView("/icons/arrow.png");
 
         arrow.getTransforms().add(new Rotate(windDirection, 13, 16));
-        //Polygon arrow = new Polygon();
-        //arrow.getPoints().addAll(0.0, 0.0, 10.0, 20.0, -10.0, 20.0);
-//        arrow.setRotate(windDirection); // Set the rotation based on wind direction
-
-        // Create a label for displaying wind speed
-        String winds = "" + windSpeed + "m/s";
+        String winds = "" + windSpeed + " m/s";
         Text windText = new Text(winds);
-        windText.setStyle("\"-fx-font-size: 24px;\"");
-
-        // Add arrow and speedLabel to the HBox
+        windText.setStyle("-fx-font-size: 24px;");
         row.getChildren().addAll(arrow, windText);
         return row;
     }
@@ -294,21 +278,7 @@ public class VisualizationUtilities {
         return arrow;
     }
 
-    private static void addIconToHBox(HBox hbox, String fileName) {
-        try {
-            ImageView toShow = new ImageView(fileName);
-            if (toShow != null) {
-                toShow.setFitHeight(64);
-                toShow.setFitWidth(64);
-                hbox.getChildren().add(toShow);
-            }
-
-        } catch (Exception e) {
-            System.out.println("error in: " + e);
-
-        }
-    }
-
+   
     private static ImageView getImageView(String fileName) {
         try {
             ImageView toShow = new ImageView(fileName);
@@ -326,23 +296,6 @@ public class VisualizationUtilities {
         return null;
     }
 
-    private static void addIconToGrid(String fileName, GridPane grid) {
-        // Create an Image from the given path
-        try {
-            ImageView toShow = getImageView(fileName);
-            if (toShow != null) {
-                grid.add(toShow, 0, 0);
-            }
-
-        } catch (Exception e) {
-            System.out.println("error in: " + e);
-
-        }
-
-        System.out.println("pathToIcon: " + fileName);
-
-        // Modify the column and row indices as needed
-        // You might need to set some properties of the ImageView or handle exceptions based on your requirements
-    }
+   
 
 }
