@@ -23,47 +23,52 @@ import java.util.List;
  *
  * @author EeroP
  */
+/**
+ * This class handles API requests to GeoNames service for location suggestions.
+ */
 public class ApiHandlerGeoNames {
-    private static String RESULTS_MAX_ROWS ="10"; // tämän voisi siirtää asetuksiin, joissa käyttäjä valitsee montako tulosta näytetään
+    private static String RESULTS_MAX_ROWS ="10"; // This could be moved to settings where the user selects how many results to display
     
+    /**
+     * Retrieves location suggestions based on the partial input.
+     * 
+     * @param partialInput The partial input for location search.
+     * @return The GeoNamesResponse object containing the location suggestions.
+     */
     public static GeoNamesResponse getLocationSuggestions(String partialInput) {
-      
+        String username = Settings.GetValue("GEONAMES_USERNAME");
 
-    String username = Settings.GetValue("GEONAMES_USERNAME");
+        try {
+            String urlString = "http://api.geonames.org/searchJSON?name_startsWith=" +
+                    partialInput +
+                    "&maxRows="+RESULTS_MAX_ROWS+"&username=" +
+                    username;
 
-    try {
-        String urlString = "http://api.geonames.org/searchJSON?name_startsWith=" +
-        //String urlString = "http://api.geonames.org/searchJSON?q=" +
-                partialInput +
-                "&maxRows="+RESULTS_MAX_ROWS+"&username=" +
-                username;
+            URL url = new URL(urlString);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
 
-        URL url = new URL(urlString);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8));
 
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8));
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+            reader.close();
 
-        StringBuilder response = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            response.append(line);
+            Gson gson = new Gson();
+            GeoNamesResponse geoNamesResponse = gson.fromJson(response.toString(), GeoNamesResponse.class);
+            connection.disconnect();
+            return geoNamesResponse;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        reader.close();
 
-        Gson gson = new Gson();
-        //System.out.println("response string: " + response.toString());
-        GeoNamesResponse geoNamesResponse = gson.fromJson(response.toString(), GeoNamesResponse.class);
-        connection.disconnect();
-        return geoNamesResponse;
-    } catch (IOException e) {
-        e.printStackTrace();
+        return null;
     }
-
-    return null;
-}
     
-
+    // Add doc-strings for other functions here
     
 }
