@@ -2,14 +2,12 @@ package testfx.test;
 
 import group3191.weatherapp.WeatherApp;
 import java.io.IOException;
-import javafx.geometry.HorizontalDirection;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxRobot;
@@ -68,7 +66,7 @@ public class GUITest extends ApplicationTest {
     }
 
     @Test
-    public void testWeatherScrollPaneInteractions() {
+    public void testWeatherScrollPane() {
         FxRobot robot = new FxRobot();
         String name = "#weatherDayScrolllPane";
         ScrollPane scrollpane = robot.lookup(name).queryAs(ScrollPane.class);
@@ -76,7 +74,7 @@ public class GUITest extends ApplicationTest {
     }
 
     @Test
-    public void testSearchAndFavoritesButtonInteraction() {
+    public void testSearchFunction() {
         clickOn("#searchButton");
         var resultView = lookup("#resultsGridPane");
         clickOn("#locationSearchTextField").write("Helsinki").
@@ -85,14 +83,5 @@ public class GUITest extends ApplicationTest {
         var newResultView = lookup("#resultsGridPane");
 
         assert !resultView.equals(newResultView);
-    }
-
-    public void testWeatherIconUpdate() {
-        ImageView weatherIcon = lookup("#weatherIcon").query();
-        ImageView expectedImage = new ImageView(
-                "/path/to/expected_weather_icon.png");
-
-        // Verify that the actual image is the same as the expected image
-        assertEquals(weatherIcon, expectedImage);
     }
 }
