@@ -11,12 +11,18 @@ public class Settings
     public static final String OPENWEATHER_URI= "https://api.openweathermap.org/data/2.5/";
     public static final String URI_OW_LOCATION = "http://api.openweathermap.org/geo/1.0";
     public static final String PRO_OPENWEATHER_URI = "https://pro.openweathermap.org/data/2.5/";
+    public static String DB_FILE_NAME = "db.json";
 
     /**
      * Only initialized once at the start of the application
      */
     public static void Init() {
         dotenv = Dotenv.configure().load();
+    }
+
+    public static void InitTest() {
+        DB_FILE_NAME = "test_db.json";
+        Init();
     }
 
     /**

@@ -12,7 +12,7 @@ public class RequestTest {
 
     @BeforeAll
     public static void initSettings() {
-        Settings.Init();
+        Settings.InitTest();
     }
 
     @Test

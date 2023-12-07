@@ -37,6 +37,15 @@ public class WeatherApp extends Application {
         stage.show();
     }
 
+    public void startTest(Stage stage) throws IOException {
+        Settings.InitTest();
+        DatabaseHandler.Init();
+        scene = new Scene(loadFXML("weatherapp_gui"), 500, 700);
+        stage.setScene(scene);
+        stage.setTitle("Weather Application");
+        stage.show();
+    }
+
     /**
      * Sets the root of the scene to the specified FXML file.
      *

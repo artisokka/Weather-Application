@@ -9,7 +9,7 @@ public class SettingsTest {
 
     @BeforeAll
     public static void initSettings() {
-        Settings.Init();
+        Settings.InitTest();
     }
 
     @Test

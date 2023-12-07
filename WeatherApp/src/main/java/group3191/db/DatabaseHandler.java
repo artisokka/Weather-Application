@@ -6,6 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,16 +20,16 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import group3191.models.geo.GeoName;
+import group3191.utils.Settings;
 
 
 public class DatabaseHandler {
 
-    private static final String fileName = "db.json";
     private static File dbFile;
     private static List<GeoName> favorites = new ArrayList<GeoName>();
     private static List<GeoName> locationHistory = new ArrayList<GeoName>();
-    private static GeoName lastSearch;
-    private static String unitValue;
+    private static GeoName lastSearch = null;
+    private static String unitValue = "Metric";
 
     private static Gson gson = new Gson();
     
@@ -34,11 +37,31 @@ public class DatabaseHandler {
     * COnly initialized once at the start of the application
     */ 
     public static void Init() {
-        dbFile = new File(fileName);
+        initFile();
         try {
             readFromDb();
         } catch (IOException e) {
             System.out.println("FATAL ERROR: reading database file failed!");
+        }
+    }
+
+    private static void initFile() {
+        // Check if the file exists
+        String fileName = Settings.DB_FILE_NAME;
+        dbFile = new File(fileName);
+
+        if (!dbFile.exists()) {
+            try {
+                Path filePath = Paths.get(fileName);
+                // Create the file
+                Files.createFile(filePath);
+
+                System.out.println("Db file created: " + fileName);
+            } catch (IOException e) {
+                System.err.println("Error creating file: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Db file already exists: " + fileName);
         }
     }
 
@@ -49,7 +72,11 @@ public class DatabaseHandler {
      */
     private static void readFromDb() throws IOException {
         try (Reader reader = new FileReader(dbFile)) {
-            JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
+            JsonElement jsonElement = JsonParser.parseReader(reader);
+            if (jsonElement == null || jsonElement.isJsonNull()) {
+                return;
+            }
+            JsonObject jsonObject = jsonElement.getAsJsonObject();
             JsonArray favoritesArr = jsonObject.getAsJsonArray("favorites");
             // get favorites
             if (favoritesArr != null) {

@@ -12,7 +12,7 @@ public class APITest {
 
     @BeforeAll
     public static void initSettings() {
-        Settings.Init();
+        Settings.InitTest();
     }
 
     @Test

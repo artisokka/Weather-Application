@@ -2,10 +2,16 @@ package testfx.Test;
 
 import group3191.weatherapp.WeatherApp;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxRobot;
@@ -20,7 +26,7 @@ public class GUITest extends ApplicationTest {
     @Override
     public void start(Stage stage) {
         try {
-            new WeatherApp().start(stage);
+            new WeatherApp().startTest(stage);
         } catch (IOException e) {
             System.out.println("Test failed!");
         }
@@ -42,6 +48,7 @@ public class GUITest extends ApplicationTest {
     public void testUnitSystemComboBox() {
         String boxID = "#unitSystemComboBox";
 
+        
         clickOn("#settingsTab");
         
         String initialValue = lookup(boxID).queryAs(
@@ -80,5 +87,19 @@ public class GUITest extends ApplicationTest {
         var newResultView = lookup("#resultsGridPane");
 
         assert !resultView.equals(newResultView);
+    }
+
+    @AfterAll
+    public static void close() {
+        try {
+            String fileName = "test_db.json";
+            Path path = Paths.get(fileName);
+
+            Files.delete(path);
+
+            System.out.println("File removed: " + fileName);
+        } catch (IOException e) {
+            System.err.println("Error deleting file: " + e.getMessage());
+        }
     }
 }
