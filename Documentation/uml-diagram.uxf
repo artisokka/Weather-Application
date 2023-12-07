@@ -1,0 +1,1365 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <help_text/>
+  <zoom_level>2</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>352</x>
+      <y>664</y>
+      <w>60</w>
+      <h>178</h>
+    </coordinates>
+    <panel_attributes>group3191.models.weather::WeatherDTO
+--
+-coord: Coord
+-weather: List&lt;Weather&gt;
+-base: String
+-main: Main
+-visibility: int
+-wind: Wind
+-clouds: Clouds
+-dt: long
+-sys: Sys
+-timezone: int
+-id: int
+-name: String
+-cod: int
+-airQuality: AirQuality
+-rainAmount: double
+-snowAmount: double
+--
++getCoord(): Coord
++setCoord(Coord coord): void
++getWeather(): List&lt;Weather&gt;
++setWeather(List&lt;Weather&gt; weather): void
++getBase(): String
++setBase(String base): void
++getMain(): Main
++setMain(Main main): void
++getVisibility(): int
++setVisibility(int visibility): void
++getWind(): Wind
++setWind(Wind wind): void
++getClouds(): Clouds
++setClouds(Clouds clouds): void
++getDt(): long
++setDt(long dt): void
++getSys(): Sys
++setSys(Sys sys): void
++getTimezone(): int
++setTimezone(int timezone): void
++getId(): int
++setId(int id): void
++getName(): String
++setName(String name): void
++getCod(): int
++setCod(int cod): void
++getAirQuality(): AirQuality
++setAirQuality(AirQuality airQuality): void
++getRainAmount(): double
++setRainAmount(double rainAmount): void
++getSnowAmount(): double
++setSnowAmount(double snowAmount): void
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>436</x>
+      <y>664</y>
+      <w>62</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>group3191.models.weather::DailyWeatherDTO
+--
+-dt: long
+-sunrise: long
+-sunset: long
+-temp: Temperature
+-feelsLike: FeelsLike
+-pressure: int
+-humidity: int
+-weather: List&lt;Weather&gt;
+-speed: double
+-deg: int
+-gust: double
+-clouds: int
+-pop: double
+-rain: double
+--
++getDt(): long
++setDt(long dt): void
++getSunrise(): long
++setSunrise(long sunrise): void
++getSunset(): long
++setSunset(long sunset): void
++getTemp(): Temperature
++setTemp(Temperature temp): void
++getFeelsLike(): FeelsLike
++setFeelsLike(FeelsLike feelsLike): void
++getPressure(): int
++setPressure(int pressure): void
++getHumidity(): int
++setHumidity(int humidity): void
++getWeather(): List&lt;Weather&gt;
++setWeather(List&lt;Weather&gt; weather): void
++getSpeed(): double
++setSpeed(double speed): void
++getDeg(): int
++setDeg(int deg): void
++getGust(): double
++setGust(double gust): void
++getClouds(): int
++setClouds(int clouds): void
++getPop(): double
++setPop(double pop): void
++getRain(): double
++setRain(double rain): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>898</x>
+      <y>428</y>
+      <w>82</w>
+      <h>138</h>
+    </coordinates>
+    <panel_attributes>group3191.weatherapp::Search_guiController
+--
+-favorites: ArrayList&lt;GeoName&gt;
+-locationHistory: ArrayList&lt;GeoName&gt;
+-mainController: MainController
+-databaseHandler: DatabaseHandler
+-locationLabel: Label
+-locationSearchTextField: TextField
+-resultsLabel: Label
+-searchTab: Tab
+-favoritesLabel: Label
+-historyLabel: Label
+-favoritesTab: Tab
+-historyTab: Tab
+-resultsScrollPane: ScrollPane
+-resultsGridPane: GridPane
+-favoriteGridPaneLabel: Label
+-locationGridPaneLabel: Label
+-favoriteLocationLabel: Label
+-historyLocationLabel: Label
+-favoriteRemoveLabel: Label
+-favoritesScrollPane: ScrollPane
+-favoritesGridPane: GridPane
+-historyScrollPane: ScrollPane
+-historyGridPane: GridPane
+--
++setMainController(MainController mainController): void
+~searchTextFieldOnAction(ActionEvent event): void
+~updateSearchResults(): void
+~resetGrid(GridPane grid, String secondLabel): void
+-getFavoriteIcon(boolean isFavorite): ImageView
+~isGeoNameLocationValid(GeoName location): boolean
+~addResultToGrid(GeoNamesResponse results): void
+~adjustButtonWidths(GridPane gridPane): void
+~updateFavorites(): void
+~updateHistory(): void
+~removeFavorite(GeoName location): void
++isFavorite(GeoName location): boolean
++toggleFavorite(GeoName location, Button favoriteButton): void
+~setWeatherLocation(GeoName location): void
+~favoritesClicked(MouseEvent event): void
+-testLocationApi(String location): void
++initialize(URL url, ResourceBundle rb): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>748</x>
+      <y>428</y>
+      <w>110</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>group3191.weatherapp::Weatherapp_guiController
+--
+-currentUnitSystem: String
+-currentWeather: WeatherDTO
+-currentLocation: GeoName
+-hourlyForecast: List&lt;WeatherDTO&gt;
+-dailyForecast: List&lt;DailyWeatherDTO&gt;
+-MainPane: AnchorPane
+-fileMenu: Menu
+-locationLabel: Label
+-favoritesLabel: Label
+-menuBar: MenuBar
+-menuItemClose: MenuItem
+-refreshButton: Button
+-searchButton: Button
+-settingsTab: Tab
+-weatherAllPane: AnchorPane
+-weatherBottom: AnchorPane
+-weatherMiddle: AnchorPane
+-weatherTab: Tab
+-weatherTop: AnchorPane
+-unitSystemComboBox: ComboBox&lt;String&gt;
+-unitSystemLabel: Label
+-weatherDayScrolllPane: ScrollPane
+-weatherHourScrollPane: ScrollPane
+-weatherTopScrollPane: ScrollPane
+-defaultWeather = new GeoName("Tampere", "Finland", 61.4991, 23.7871): GeoName
+--
+~closeApplication(ActionEvent event): void
+~onAction(ActionEvent event): void
+~refreshOnAction(ActionEvent event): void
+~searchAndFauvoritesOnAction(ActionEvent event): void
+~setWeather(GeoName location): void
+~unitChanged(ActionEvent event): void
+~showWeather(): void
++initialize(URL url, ResourceBundle rb): void
+-initUnitSystem(): void
+-showLast(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>818</x>
+      <y>630</y>
+      <w>82</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>group3191.db::DatabaseHandler
+--
+-fileName = "db.json": String
+-dbFile: File
+-favorites = new ArrayList&lt;GeoName&gt;(): List&lt;GeoName&gt;
+-locationHistory = new ArrayList&lt;GeoName&gt;(): List&lt;GeoName&gt;
+-lastSearch: GeoName
+-unitValue: String
+-gson = new Gson(): Gson
+--
++Init(): void
+-readFromDb(): void
+-saveToDb(): boolean
++getLastSearch(): GeoName
++setLastSearch(GeoName lastSearch): void
++getFavorites(): List&lt;GeoName&gt;
++addFavorite(GeoName search): void
++getLocationHistory(): List&lt;GeoName&gt;
++addLocationHistory(GeoName search): void
++getUnitValue(): String
++setUnitValue(String unitValue): void
++removeFavorite(GeoName search): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>456</x>
+      <y>962</y>
+      <w>54</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>group3191.models.weather::Main
+--
+-temp: double
+-feels_like: double
+-temp_min: double
+-temp_max: double
+-pressure: int
+-humidity: int
+--
++getTemp(): double
++setTemp(double temp): void
++getFeels_like(): double
++setFeels_like(double feels_like): void
++getTemp_min(): double
++setTemp_min(double temp_min): void
++getTemp_max(): double
++setTemp_max(double temp_max): void
++getPressure(): int
++setPressure(int pressure): void
++getHumidity(): int
++setHumidity(int humidity): void
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>654</x>
+      <y>624</y>
+      <w>144</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>group3191.weatherapp.gui_utilities::VisualizationUtilities
+--
+-TEXT_FONT_STYLE = "-fx-font-size: 18px;": String
+-METRIC_DEGREES = " Â°C": String
+-METRIC_SPEED = " m/s": String
+-IMPERIAL_DEGREES = " Â°F": String
+-IMPERIAL_SPEED = " mph": String
+--
++generateCurrentWeatherDisplay(WeatherDTO weather, ScrollPane scrollPane, String unitSystem): void
++generateDayForecastDisplay(List&lt;DailyWeatherDTO&gt; forecast, ScrollPane scrollPane): void
++generateHourForecastDisplay(List&lt;WeatherDTO&gt; forecast, ScrollPane scrollPane, boolean useOneHour): void
+-getWeatherIconImageView(WeatherDTO weather): ImageView
+-generateHourWeather(WeatherDTO weather, String hourTime): VBox
+-generateDayWeather(DailyWeatherDTO weather, String date): VBox
+-getFeelsText(String feels): Text
+-generateMainviewFirstRow(WeatherDTO weather, String temperature): HBox
+-generateMainviewAirRow(WeatherDTO weather): HBox
+-generateWindInfoRow(int windDirection, double windSpeed, String speedEnd): HBox
+-getSmallArrow(int windDirection): ImageView
+-getImageView(String fileName): ImageView
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>240</x>
+      <y>960</y>
+      <w>44</w>
+      <h>62</h>
+    </coordinates>
+    <panel_attributes>group3191.models.weather::Sys
+--
+-type: int
+-id: int
+-country: String
+-sunrise: long
+-sunset: long
+--
++getType(): int
++setType(int type): void
++getId(): int
++setId(int id): void
++getCountry(): String
++setCountry(String country): void
++getSunrise(): long
++setSunrise(long sunrise): void
++getSunset(): long
++setSunset(long sunset): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>354</x>
+      <y>864</y>
+      <w>54</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>group3191.models.weather::Weather
+--
+-id: int
+-main: String
+-description: String
+-icon: String
+--
++getId(): int
++setId(int id): void
++getMain(): String
++setMain(String main): void
++getDescription(): String
++setDescription(String description): void
++getIcon(): String
++setIcon(String icon): void
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1090</x>
+      <y>596</y>
+      <w>96</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>group3191.models.geo::GeoName
+--
+-name: String
+-countryName: String
+-lat: double
+-lng: double
+--
++GeoName(String name, String countryName, double lat, double lng): ctor
++getCityName(): String
++getCountryName(): String
++getLat(): double
++getLng(): double
++toString(): String
++equals(Object obj): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>850</x>
+      <y>738</y>
+      <w>78</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>group3191.weatherapp.gui_utilities::WeatherIcon
+--
+-ID: String
+-description: String
+-path: String
+--
++WeatherIcon(String ID, String description, String path): ctor
++getID(): String
++setID(String ID): void
++getDescription(): String
++setDescription(String description): void
++getPath(): String
++setPath(String path): void
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>724</x>
+      <y>774</y>
+      <w>118</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>group3191.weatherapp.gui_utilities::WeatherIconMapping
+--
+--
++getIconCodeByWeather(WeatherDTO weatherDTO): String
++getIconCodeByWeather(DailyWeatherDTO dailyWeatherDTO): String
++handleClearClouds(Clouds clouds): String
++handleClearClouds(int cloudAmmount): String
++handleSnow(Weather weather, Clouds clouds): String
++handleSnow(Weather weather, int cloudAmmount): String
++handleRain(Weather weather, int cloudAmmount): String
++handleRain(Weather weather, Clouds clouds): String
++getLocalWeatherIconCode(String code, String main, String description, String icon): String
+-handleDescriptionRain(String description): String
+-handleDescriptionSnow(String description): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>400</x>
+      <y>962</y>
+      <w>46</w>
+      <h>46</h>
+    </coordinates>
+    <panel_attributes>group3191.models.weather::Wind
+--
+-speed: double
+-deg: int
+-gust: double
+--
++getSpeed(): double
++setSpeed(double speed): void
++getDeg(): int
++setDeg(int deg): void
++getGust(): double
++setGust(double gust): void
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>422</x>
+      <y>490</y>
+      <w>128</w>
+      <h>46</h>
+    </coordinates>
+    <panel_attributes>group3191.models::WeatherModel
+--
+-api: Api
+--
++WeatherModel(): ctor
++lookUpLocation(String loc): WeatherDTO
++getCurrentWeather(double latitude, double longitude): WeatherDTO
++getForecast(double latitude, double longitude): List&lt;WeatherDTO&gt;
++getDailyForecast(double latitude, double longitude): List&lt;DailyWeatherDTO&gt;
+-getWeatherList(String responseBody): List&lt;WeatherDTO&gt;
+-getDailyWeatherList(String responseBody): List&lt;DailyWeatherDTO&gt;
+-setAirPollution(WeatherDTO weatherDTO): void
+-setPrecipitationAmount(WeatherDTO weatherDTO, JsonObject weatherObject, String precipitationType): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>30</x>
+      <y>408</y>
+      <w>152</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>/group3191.utils.requests::Request/
+--
+#uriFormat: URIFormatter
+#hFormat: HeaderFormatter
+#endpoint: String
+#uri: String
+--
++Request(String uri, RequestParameters URIParameters, RequestParameters HeaderParameters, String endpoint): ctor
++CreateURIFormatter(RequestParameters URIParameter): void
++CreateHeaderFormatter(RequestParameters headerParameters): void
++GetURI(): String
++GetHeaders(): TreeMap&lt;String, String&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>286</x>
+      <y>328</y>
+      <w>72</w>
+      <h>38</h>
+    </coordinates>
+    <panel_attributes>/group3191.utils.formatters::Formatter/
+--
+#URI: String
+#key: String
+#endpoint: String
+#keyValues: TreeMap&lt;String, String&gt;
+--
++Formatter(String URI, String endpoint, String key): ctor
++AddParameter(String key, String value): void
++GetURI(): String
++GetBaseURI(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>578</x>
+      <y>376</y>
+      <w>106</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>group3191.utils::Settings
+--
+-dotenv: Dotenv
++OPENWEATHER_URI = "https://api.openweathermap.org/data/2.5/": String
++URI_OW_LOCATION = "http://api.openweathermap.org/geo/1.0": String
++PRO_OPENWEATHER_URI = "https://pro.openweathermap.org/data/2.5/": String
+--
++Init(): void
++GetValue(String key): String
++GetValue(String key, String defaultValue): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>394</x>
+      <y>574</y>
+      <w>100</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>group3191.controllers::WeatherController
+--
+-weatherModel: WeatherModel
+--
++WeatherController(): ctor
++lookUpLocation(String location): WeatherDTO
++getCurrentWeather(double latitude, double longitude): WeatherDTO
++getForecast(double latitude, double longitude): List&lt;WeatherDTO&gt;
++getDailyForecast(double latitude, double longitude): List&lt;DailyWeatherDTO&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>342</x>
+      <y>960</y>
+      <w>46</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>group3191.models.weather::Coord
+--
+-lon: double
+-lat: double
+--
++getLon(): double
++setLon(double lon): void
++getLat(): double
++setLat(double lat): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>324</x>
+      <y>488</y>
+      <w>66</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>group3191.utils::Api
+--
+--
++Api(): ctor
++lookUpLocation(String loc): String
++getCurrentWeather(double lat, double lon): String
++getForecast(double lat, double lon): String
++getAirPollution(double lat, double lon): String
++getDailyForecast(double lat, double lon): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>324</x>
+      <y>438</y>
+      <w>66</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+group3191.utils::iAPI
+--
+--
++lookUpLocation(String loc): String
++getCurrentWeather(double lat, double lon): String
++getForecast(double lat, double lon): String
++getDailyForecast(double lat, double lon): String
++getAirPollution(double lat, double lon): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1090</x>
+      <y>558</y>
+      <w>60</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>group3191.models.geo::GeoNamesResponse
+--
+-geoNames: List&lt;GeoName&gt;
+--
++getGeoNames(): List&lt;GeoName&gt;
++getSize(): int
++getIndex(int index): GeoName
++getList(): List&lt;GeoName&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>220</x>
+      <y>492</y>
+      <w>60</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>group3191.utils.requests::RequestParameters
+--
+~parameters: TreeMap&lt;String, String&gt;
+--
++RequestParameters(): ctor
++Add(String key, String value): void
++Get(String key): String
++GetParameters(): TreeMap&lt;String, String&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>724</x>
+      <y>726</y>
+      <w>74</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>group3191.weatherapp.gui_utilities::WeatherIconHandler
+--
+-weatherIcons: List&lt;WeatherIcon&gt;
+--
++WeatherIconHandler(String pathForIcons): ctor
+-loadIconsFromFolder(String pathForIcons): void
++getIconById(String id): WeatherIcon
++getIconByDescription(String description): WeatherIcon
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>744</x>
+      <y>386</y>
+      <w>50</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>group3191.weatherapp::WeatherApp
+--
+-scene: Scene
+--
++start(Stage stage): void
+~setRoot(String fxml): void
+-loadFXML(String fxml): Parent
++main(String[] args): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>288</x>
+      <y>960</y>
+      <w>48</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>group3191.models.weather::Clouds
+--
+-all: int
+--
++getAll(): int
++setAll(int all): void
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>280</x>
+      <y>382</y>
+      <w>90</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>group3191.utils.formatters::OpenWeatherFormatter
+--
+--
++OpenWeatherFormatter(String URI, String endpoint, String key): ctor
++AddParameter(String key, String value): void
++GetURI(): String
++GetBaseURI(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>200</x>
+      <y>314</y>
+      <w>60</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+group3191.utils.formatters::URIFormatter
+--
+--
++AddParameter(String key, String value): void
++GetURI(): String
++GetBaseURI(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>92</x>
+      <y>372</y>
+      <w>68</w>
+      <h>22</h>
+    </coordinates>
+    <panel_attributes>group3191.utils.formatters::DefaultHeaderFormatter
+--
+--
++DefaultHeaderFormatter(): ctor
++GetHeaders(): TreeMap&lt;String, String&gt;
++AddHeader(String key, String value): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>114</x>
+      <y>330</y>
+      <w>60</w>
+      <h>22</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+group3191.utils.formatters::HeaderFormatter
+--
+--
++GetHeaders(): TreeMap&lt;String, String&gt;
++AddHeader(String key, String value): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>160</x>
+      <y>460</y>
+      <w>120</w>
+      <h>22</h>
+    </coordinates>
+    <panel_attributes>group3191.utils.requests::OpenWeatherRequest
+--
+--
++OpenWeatherRequest(String uri, RequestParameters URIParameters, String endpoint): ctor
++CreateURIFormatter(RequestParameters params): void
++CreateHeaderFormatter(RequestParameters headerParameters): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>224</x>
+      <y>426</y>
+      <w>54</w>
+      <h>22</h>
+    </coordinates>
+    <panel_attributes>group3191.utils::RestClient
+--
+~request: Request
+--
++RestClient(Request request): ctor
++getResponse(): HttpResponse&lt;String&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>824</x>
+      <y>388</y>
+      <w>86</w>
+      <h>22</h>
+    </coordinates>
+    <panel_attributes>group3191.weatherapp::MainController
+--
+-weatherController: Weatherapp_guiController
+--
++setWeatherController(Weatherapp_guiController controller): void
++getWeatherController(): Weatherapp_guiController
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1166</x>
+      <y>558</y>
+      <w>88</w>
+      <h>22</h>
+    </coordinates>
+    <panel_attributes>group3191.utils::ApiHandlerGeoNames
+--
+-RESULTS_MAX_ROWS = "10": String
+--
++getLocationSuggestions(String partialInput): GeoNamesResponse
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>406</x>
+      <y>930</y>
+      <w>6</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>462</x>
+      <y>930</y>
+      <w>6</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>394</x>
+      <y>918</y>
+      <w>74</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;10.0;70.0;350.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>258</x>
+      <y>928</y>
+      <w>142</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;160.0;10.0;20.0;690.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>312</x>
+      <y>930</y>
+      <w>6</w>
+      <h>34</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>360</x>
+      <y>930</y>
+      <w>6</w>
+      <h>34</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>406</x>
+      <y>816</y>
+      <w>64</w>
+      <h>62</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>300.0;10.0;300.0;290.0;10.0;290.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>376</x>
+      <y>840</y>
+      <w>6</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>468</x>
+      <y>604</y>
+      <w>6</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;10.0;300.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>400</x>
+      <y>604</y>
+      <w>6</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;10.0;300.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>470</x>
+      <y>534</y>
+      <w>6</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;10.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>856</x>
+      <y>428</y>
+      <w>46</w>
+      <h>8</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;20.0;210.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>864</x>
+      <y>564</y>
+      <w>76</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>360.0;10.0;10.0;330.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>810</x>
+      <y>556</y>
+      <w>34</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;150.0;370.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>360</x>
+      <y>468</y>
+      <w>6</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>388</x>
+      <y>506</y>
+      <w>38</w>
+      <h>8</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;20.0;170.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1148</x>
+      <y>558</y>
+      <w>22</w>
+      <h>8</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;20.0;90.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1116</x>
+      <y>584</y>
+      <w>6</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>978</x>
+      <y>522</y>
+      <w>116</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;560.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>978</x>
+      <y>542</y>
+      <w>116</w>
+      <h>68</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;560.0;320.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>846</x>
+      <y>556</y>
+      <w>248</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;1220.0;360.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>896</x>
+      <y>408</y>
+      <w>20</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;80.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>830</x>
+      <y>408</y>
+      <w>18</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>70.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>770</x>
+      <y>412</y>
+      <w>6</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>492</x>
+      <y>556</y>
+      <w>410</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>2030.0;10.0;10.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>484</x>
+      <y>484</y>
+      <w>268</w>
+      <h>184</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;900.0;1320.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>406</x>
+      <y>470</y>
+      <w>350</w>
+      <h>198</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;970.0;1730.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>772</x>
+      <y>556</y>
+      <w>6</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;340.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>760</x>
+      <y>692</y>
+      <w>6</w>
+      <h>38</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>796</x>
+      <y>736</y>
+      <w>58</w>
+      <h>8</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;20.0;270.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>744</x>
+      <y>752</y>
+      <w>6</w>
+      <h>26</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>682</x>
+      <y>398</y>
+      <w>70</w>
+      <h>34</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;330.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>278</x>
+      <y>470</y>
+      <w>50</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;230.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>278</x>
+      <y>500</y>
+      <w>50</w>
+      <h>8</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;20.0;230.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>276</x>
+      <y>438</y>
+      <w>52</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;240.0;260.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>158</x>
+      <y>448</y>
+      <w>6</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>140</x>
+      <y>350</y>
+      <w>6</w>
+      <h>26</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>258</x>
+      <y>328</y>
+      <w>32</w>
+      <h>6</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;140.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>286</x>
+      <y>364</y>
+      <w>6</w>
+      <h>22</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>164</x>
+      <y>350</y>
+      <w>14</w>
+      <h>62</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;50.0;290.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>178</x>
+      <y>336</y>
+      <w>26</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>110.0;10.0;10.0;360.0</additional_attributes>
+  </element>
+</diagram>
