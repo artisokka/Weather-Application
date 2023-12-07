@@ -31,10 +31,9 @@ import javafx.scene.control.TextField;
 
 import com.google.gson.Gson;
 
-
 /**
- * FXML Controller class for the Search GUI.
- * Handles user interactions and displays search results, favorites, and location history.
+ * FXML Controller class for the Search GUI. Handles user interactions and
+ * displays search results, favorites, and location history.
  */
 public class Search_guiController implements Initializable {
 
@@ -43,11 +42,12 @@ public class Search_guiController implements Initializable {
     private ArrayList<GeoName> locationHistory;
 
     private MainController mainController;
-    
+
     private DatabaseHandler databaseHandler;
 
     /**
      * Sets the main controller.
+     *
      * @param mainController The main controller.
      */
     public void setMainController(MainController mainController) {
@@ -112,8 +112,9 @@ public class Search_guiController implements Initializable {
     private GridPane historyGridPane;
 
     /**
-     * Handles the action when the search text field is activated.
-     * Updates the search results based on the entered text.
+     * Handles the action when the search text field is activated. Updates the
+     * search results based on the entered text.
+     *
      * @param event The action event.
      */
     @FXML
@@ -137,6 +138,7 @@ public class Search_guiController implements Initializable {
 
     /**
      * Resets the grid with the specified secondary label.
+     *
      * @param grid The grid pane.
      * @param secondLabel The secondary label.
      */
@@ -153,28 +155,74 @@ public class Search_guiController implements Initializable {
     }
 
     /**
+     * Gets an icon to represent a favorite
+     * @param isFavorite boolean if location was in favorites
+     * @return ImageView
+     */
+    private ImageView getFavoriteIcon(boolean isFavorite) {
+        int size = 18;
+        if (isFavorite) {
+            ImageView icon = new ImageView("/icons/fav_icon_full.png");
+            icon.setFitHeight(size);
+            icon.setFitHeight(size);
+            return icon;
+        } else {
+            ImageView icon = new ImageView("/icons/fav_icon_empty.png");
+            icon.setFitHeight(size);
+            icon.setFitHeight(size);
+            return icon;
+        }
+    }
+
+    /**
+     * Checks if GeoName doesn't contain null values in Strings
+     * @param location GeoName
+     * @return boolean, true if valid else false
+     */
+    boolean isGeoNameLocationValid(GeoName location) {
+        if (location == null) {
+            return false;
+        }
+        if (location.getCityName() == null) {
+            return false;
+        }
+        if (location.getCountryName() == null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Adds the search results to the grid.
+     *
      * @param results The search results.
      */
     void addResultToGrid(GeoNamesResponse results) {
         if (results.getSize() > 0) {
             for (int row = 0; row < results.getSize(); row++) {
                 GeoName currentLocation = results.getIndex(row);
+                if (isGeoNameLocationValid(currentLocation)) {
 
-                Button location = new Button();
-                location.setText(currentLocation.toString());
-                Button favoriteButton = new Button();
-                if (this.isFavorite(currentLocation)) {
-                    favoriteButton.setGraphic(new ImageView("/icons/fav_icon_full.png"));
-                } else {
-                    favoriteButton.setGraphic(new ImageView("/icons/fav_icon_empty.png"));
+                    Button location = new Button();
+                    location.setText(currentLocation.toString());
+                    Button favoriteButton = new Button();
+                    if (this.isFavorite(currentLocation)) {
+
+                        favoriteButton.setGraphic(getFavoriteIcon(true));
+                    } else {
+                        //favoriteButton.setGraphic(new ImageView("/icons/fav_icon_empty.png"));
+                        favoriteButton.setGraphic(getFavoriteIcon(false));
+                    }
+
+                    this.resultsGridPane.setFillWidth(location, true);
+                    location.setOnAction(event -> this.setWeatherLocation(currentLocation));
+
+                    favoriteButton.setOnAction(event -> this.toggleFavorite(currentLocation, favoriteButton));
+
+                    this.resultsGridPane.addRow(row + 1, location, favoriteButton);
                 }
-                this.resultsGridPane.setFillWidth(location, true);
-                location.setOnAction(event -> this.setWeatherLocation(currentLocation));
 
-                favoriteButton.setOnAction(event -> this.toggleFavorite(currentLocation, favoriteButton));
-
-                this.resultsGridPane.addRow(row + 1, location, favoriteButton);
             }
             this.adjustButtonWidths(resultsGridPane);
         }
@@ -182,23 +230,60 @@ public class Search_guiController implements Initializable {
 
     /**
      * Adjusts the widths of the buttons in the grid pane.
+     *
      * @param gridPane The grid pane.
      */
     void adjustButtonWidths(GridPane gridPane) {
         Platform.runLater(() -> {
-            double maxWidth = 0.0;
-            for (int i = 1; i < gridPane.getRowCount(); i++) {
-                Button button = (Button) gridPane.getChildren().get(i * gridPane.getColumnCount());
-                double buttonWidth = button.getWidth();
+            if (gridPane.getColumnCount() > 1) {
 
-                if (buttonWidth > maxWidth) {
-                    maxWidth = buttonWidth;
+                if (gridPane.getRowCount() > 1) {
+                    double maxWidth = 0.0;
+                    for (int i = 1; i < gridPane.getRowCount(); i++) {
+                        if (i * gridPane.getColumnCount() < gridPane.getChildren().size()) {
+                            Button button = (Button) gridPane.getChildren().get(i * gridPane.getColumnCount());
+                            if (button != null) {
+                                double buttonWidth = button.getWidth();
+
+                                if (buttonWidth > maxWidth) {
+                                    maxWidth = buttonWidth;
+                                }
+                            }
+                        }
+                    }
+
+                    for (int i = 1; i < gridPane.getRowCount(); i++) {
+                        if (i * gridPane.getColumnCount() < gridPane.getChildren().size()) {
+                            if (maxWidth > 50) {
+                                Button button = (Button) gridPane.getChildren().get(i * gridPane.getColumnCount());
+                                button.setPrefWidth(maxWidth);
+                            }
+                        }
+                    }
                 }
-            }
+            } else {
+                double maxWidth = 0.0;
+                for (int i = 1; i < gridPane.getRowCount(); i++) {
+                    if (i < gridPane.getChildren().size()) {
+                        Button button = (Button) gridPane.getChildren().get(i);
+                        if (button != null) {
+                            double buttonWidth = button.getWidth();
 
-            for (int i = 1; i < gridPane.getRowCount(); i++) {
-                Button button = (Button) gridPane.getChildren().get(i * gridPane.getColumnCount());
-                button.setPrefWidth(maxWidth);
+                            if (buttonWidth > maxWidth) {
+                                maxWidth = buttonWidth;
+                            }
+                        }
+                    }
+                }
+
+                for (int i = 1; i < gridPane.getRowCount(); i++) {
+                    if (i < gridPane.getChildren().size()) {
+                        if (maxWidth > 50) {
+                            Button button = (Button) gridPane.getChildren().get(i);
+                            button.setPrefWidth(maxWidth);
+                        }
+                    }
+                }
             }
         });
     }
@@ -215,6 +300,7 @@ public class Search_guiController implements Initializable {
                 Button location = new Button();
                 location.setText(currentLocation.toString());
                 Button removeButton = new Button();
+                removeButton.setText("Remove");
 
                 location.setOnAction(event -> this.setWeatherLocation(currentLocation));
 
@@ -222,7 +308,9 @@ public class Search_guiController implements Initializable {
 
                 this.favoritesGridPane.addRow(row + 1, location, removeButton);
             }
+            this.adjustButtonWidths(this.favoritesGridPane);
         }
+
     }
 
     /**
@@ -241,11 +329,13 @@ public class Search_guiController implements Initializable {
 
                 this.historyGridPane.addRow(row + 1, location);
             }
+            this.adjustButtonWidths(this.historyGridPane);
         }
     }
 
     /**
      * Removes a favorite location.
+     *
      * @param location The location to remove.
      */
     void removeFavorite(GeoName location) {
@@ -257,6 +347,7 @@ public class Search_guiController implements Initializable {
 
     /**
      * Checks if a location is a favorite.
+     *
      * @param location The location to check.
      * @return true if the location is a favorite, false otherwise.
      */
@@ -266,15 +357,18 @@ public class Search_guiController implements Initializable {
 
     /**
      * Toggles the favorite status of a location.
+     *
      * @param location The location to toggle.
      * @param favoriteButton The favorite button associated with the location.
      */
     public void toggleFavorite(GeoName location, Button favoriteButton) {
         if (isFavorite(location)) {
             this.favorites.remove(location);
-            favoriteButton.setGraphic(new ImageView("/icons/fav_icon_empty.png"));
+            favoriteButton.setGraphic(getFavoriteIcon(false));
+            //favoriteButton.setGraphic(new ImageView("/icons/fav_icon_empty.png"));
         } else {
-            favoriteButton.setGraphic(new ImageView("/icons/fav_icon_full.png"));
+            //favoriteButton.setGraphic(new ImageView("/icons/fav_icon_full.png"));
+            favoriteButton.setGraphic(getFavoriteIcon(true));
             this.favorites.add(location);
             DatabaseHandler.addFavorite(location);
         }
@@ -283,6 +377,7 @@ public class Search_guiController implements Initializable {
 
     /**
      * Sets the weather location and updates the weather display.
+     *
      * @param location The location to set.
      */
     void setWeatherLocation(GeoName location) {
@@ -318,5 +413,7 @@ public class Search_guiController implements Initializable {
         this.locationHistory = new ArrayList<>(DatabaseHandler.getLocationHistory());
         this.updateFavorites();
         this.updateHistory();
+
+        //this.adjustButtonWidths(this.historyGridPane);
     }
 }
