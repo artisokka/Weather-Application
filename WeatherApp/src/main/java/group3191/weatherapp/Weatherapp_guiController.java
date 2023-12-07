@@ -48,7 +48,7 @@ import javafx.scene.control.ScrollPane;
  * Handles the user interactions and displays the weather information.
  */
 public class Weatherapp_guiController implements Initializable {
-    
+
     private String currentUnitSystem;
 
     private WeatherDTO currentWeather;
@@ -98,10 +98,10 @@ public class Weatherapp_guiController implements Initializable {
 
     @FXML
     private AnchorPane weatherTop;
-    
+
     @FXML
     private ComboBox<String> unitSystemComboBox;
-    
+
     @FXML
     private Label unitSystemLabel;
 
@@ -111,12 +111,12 @@ public class Weatherapp_guiController implements Initializable {
 
     @FXML
     private ScrollPane weatherHourScrollPane;
-    
+
     @FXML
     private ScrollPane weatherTopScrollPane;
 
     private GeoName defaultWeather = new GeoName("Tampere", "Finland", 61.4991, 23.7871);
-    
+
     /**
      * Closes the application.
      * @param event The action event.
@@ -182,19 +182,18 @@ public class Weatherapp_guiController implements Initializable {
         WeatherController weatherController = new WeatherController();
         WeatherDTO weatherDTO = weatherController.getCurrentWeather(location.getLat(), location.getLng());
 
-        System.out.println("weatherDTO: " + weatherDTO);
         this.currentLocation = location;
         this.currentWeather = weatherDTO;
-         
+
         List<WeatherDTO> forecastHourly = weatherController.getForecast(location.getLat(), location.getLng());
-        
+
         List<DailyWeatherDTO> forecastDaily = weatherController.getDailyForecast(location.getLat(), location.getLng());
-        
+
         this.hourlyForecast = forecastHourly;
         this.dailyForecast = forecastDaily;
 
     }
-    
+
     /**
      * Handles the unit system change event.
      * @param event The action event.
@@ -213,9 +212,6 @@ public class Weatherapp_guiController implements Initializable {
      * Displays the weather information on the GUI.
      */
     void showWeather() {
-        System.out.println("City: " + this.currentWeather.getName());
-        System.out.println("Temperature: " + this.currentWeather.getMain().getTemp());
-
         String locationText
                 = String.format("%s (%s)",
                         this.currentLocation.getCityName(),
@@ -236,7 +232,7 @@ public class Weatherapp_guiController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.showLast();
-        
+
         initUnitSystem();
     }
 
@@ -257,7 +253,6 @@ public class Weatherapp_guiController implements Initializable {
         Platform.runLater(() -> {
             GeoName last = DatabaseHandler.getLastSearch();
             this.currentLocation = last != null ? last : defaultWeather;
-            System.out.println("currentLocation: " + currentLocation);
             this.setWeather(this.currentLocation);
             this.showWeather();
         });
