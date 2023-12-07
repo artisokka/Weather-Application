@@ -26,14 +26,8 @@ public class SettingsTest {
 
     @Test
     public void testEnvOpenWeather() {
-        String openweather = Settings.GetValue("OPENWEATHER_URI");
+        String openweather = Settings.OPENWEATHER_URI;
         assertNotNull(openweather);
-    }
-
-    @Test
-    public void testEnvDebug() {
-        String debug = Settings.GetValue("DEBUG");
-        assertNotNull(debug);
     }
 
     @Test

@@ -4,10 +4,8 @@
  */
 package group3191.weatherapp;
 
-import com.google.gson.Gson;
 import group3191.controllers.WeatherController;
 import group3191.db.DatabaseHandler;
-import group3191.utils.Api;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -17,7 +15,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -30,10 +27,7 @@ import group3191.models.geo.GeoName;
 import group3191.models.weather.DailyWeatherDTO;
 import group3191.models.weather.WeatherDTO;
 import javafx.application.Platform;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 
-import group3191.weatherapp.gui_utilities.VisualizationUtilities;
 import static group3191.weatherapp.gui_utilities.VisualizationUtilities.generateCurrentWeatherDisplay;
 import static group3191.weatherapp.gui_utilities.VisualizationUtilities.generateDayForecastDisplay;
 import static group3191.weatherapp.gui_utilities.VisualizationUtilities.generateHourForecastDisplay;

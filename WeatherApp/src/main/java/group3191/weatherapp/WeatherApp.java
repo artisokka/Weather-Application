@@ -11,9 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import group3191.controllers.WeatherController;
 import group3191.db.DatabaseHandler;
-import group3191.models.weather.WeatherDTO;
 import group3191.utils.Settings;
 
 /**

@@ -4,8 +4,6 @@
  */
 package group3191.models.geo;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
  *
  * @author EeroP

@@ -1,13 +1,11 @@
-package testfx.test;
+package testfx.Test;
 
 import group3191.weatherapp.WeatherApp;
 import java.io.IOException;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxRobot;
@@ -45,8 +43,7 @@ public class GUITest extends ApplicationTest {
         String boxID = "#unitSystemComboBox";
 
         clickOn("#settingsTab");
-        ComboBox<?> comboBox = lookup(boxID).query();
-
+        
         String initialValue = lookup(boxID).queryAs(
                 ComboBox.class).
                 getSelectionModel().getSelectedItem().toString();

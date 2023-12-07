@@ -1,8 +1,6 @@
 package group3191;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.testfx.api.FxAssert.verifyThat;
-import static org.testfx.matcher.control.LabeledMatchers.hasText;
 
 import java.io.IOException;
 

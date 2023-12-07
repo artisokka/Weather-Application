@@ -6,7 +6,6 @@ package group3191.weatherapp;
 
 import group3191.models.geo.GeoName;
 import group3191.models.geo.GeoNamesResponse;
-import group3191.utils.Api;
 import group3191.utils.ApiHandlerGeoNames;
 import group3191.db.DatabaseHandler;
 
@@ -22,28 +21,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
-import com.google.gson.Gson;
-
 /**
  * FXML Controller class for the Search GUI. Handles user interactions and
  * displays search results, favorites, and location history.
  */
 public class Search_guiController implements Initializable {
 
-    private ArrayList<GeoName> favorites;
-
-    private ArrayList<GeoName> locationHistory;
+    private List<GeoName> favorites;
 
     private MainController mainController;
 
-    private DatabaseHandler databaseHandler;
 
     /**
      * Sets the main controller.
@@ -395,25 +387,10 @@ public class Search_guiController implements Initializable {
         }
     }
 
-    @FXML
-    void favoritesClicked(MouseEvent event) {
-
-    }
-
-    private void testLocationApi(String location) {
-        Api api = new Api();
-        Gson gson = new Gson();
-        String responseBody = api.lookUpLocation(location);
-        System.out.println(responseBody);
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.favorites = new ArrayList<>(DatabaseHandler.getFavorites());
-        this.locationHistory = new ArrayList<>(DatabaseHandler.getLocationHistory());
         this.updateFavorites();
         this.updateHistory();
-
-        //this.adjustButtonWidths(this.historyGridPane);
     }
 }
