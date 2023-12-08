@@ -1,17 +1,21 @@
-# Ohjelmointi 3 projektin tietovarasto
+# Weather application
 
-Tämä on ryhmäsi yhteinen tietovarasto projektin tekemistä varten. Huomaa, että nyt
-projektissa on useita jäseniä ja tekemisesi vaikuttaa muiden työhön. Liitä harjoitustyön
-materiaalien etätietovarasto (https://course-gitlab.tuni.fi/compcs140-fall2023/group_template_project)
-paikalliseen tietovarastoosi remoteksi, jotta voit ladata kurssin tarjoamaa materiaalia.
+This is our group work for the course "Programming 3". We are aiming at grade 5.
+The application is described in the "Documentation" section. There you can find
+a uml-diagram and the documentation for the application. 
 
-Tätä tiedostoa saa (ja on hyväkin) muuttaa projektin aloittamisen jälkeen.
+How to run the application:
 
-# Programming 3 project repository
+Run application
+1. git clone git@course-gitlab.tuni.fi:compcs140-fall2023/group3191.git
+2. cd group3191/WeatherApp
+3. touch .env
+4. Add following to .env file
+- API_KEY=<secret>
+- GEONAMES_USERNAME=group3191
+- USE_PRO_API=true # Add this if you have pro license to OpenWeatherMap API.
+5. Mvn clean javafx:run
 
-This is the repository for implementing the course project for your group. Note that
-your project now has several members and what you do impacts other's work. Add the remote
-repository for the project material (https://course-gitlab.tuni.fi/compcs140-fall2023/group_template_project)
-as a remote to your local repository to fetch the code provided by the course.
-
-You are allowed (and probably should) make changes to this file after you have started your project.
+Run tests
+1. Ensure you are in group3191/WeatherApp directory
+2. mvn clean test
