@@ -11,7 +11,7 @@ Run application
 2. cd group3191/WeatherApp
 3. touch .env
 4. Add following to .env file
-- API_KEY=<secret>
+- API_KEY=secret #replace with your api-key that has pro license
 - GEONAMES_USERNAME=group3191
 - USE_PRO_API=true # Add this if you have pro license to OpenWeatherMap API.
 5. Mvn clean javafx:run
